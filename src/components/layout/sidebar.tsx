@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { fetchTrainerData } from "@/app/lib/actions/trainer.actions";
+import { fetchTrainerData } from "@/lib/actions/trainer.actions";
 import LogoutButton from "./logout-button";
 import Link from 'next/link';
 import { 

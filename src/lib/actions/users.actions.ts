@@ -1,9 +1,9 @@
 'use server';
 
-import { auth } from '@/app/lib/auth';
+import { auth } from '@/lib/auth';
 import { z } from 'zod';
-import { getServerSession } from '@/app/lib/getSession';
-import { prisma } from '@/app/lib/prisma'
+import { getServerSession } from '@/lib/getSession';
+import { prisma } from '@/lib/prisma'
 
 
 const CreateUser = z.object({

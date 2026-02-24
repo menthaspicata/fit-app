@@ -1,8 +1,8 @@
 'use server';
 
 import { z } from 'zod';
-import { prisma } from '@/app/lib/prisma'
-import { getServerSession } from '@/app/lib/getSession';
+import { prisma } from '@/lib/prisma'
+import { getServerSession } from '@/lib/getSession';
 
 export type State = {
   errors?: {

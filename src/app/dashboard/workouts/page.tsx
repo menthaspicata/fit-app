@@ -1,8 +1,7 @@
-import { BackButton } from '@/app/ui/back-button';
-import Button from '@/app/ui/button';
+import { BackButton } from '@/components/ui/back-button';
 import Link from 'next/link';
 import { Metadata } from 'next';
-import { getAllWorkouts } from '@/app/lib/actions/workouts.actions';
+import { getAllWorkouts } from '@/lib/actions/workouts.actions';
 
 export const metadata: Metadata = {
   title: 'Workouts',

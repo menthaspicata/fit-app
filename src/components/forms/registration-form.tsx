@@ -1,11 +1,11 @@
 'use client'
 
-import Button from '@/app/ui/button';
+import Button from '@/components/ui/button';
 import Image from "next/image";
-import { State } from '@/app/lib/actions';
-import { signUpAction } from '@/app/lib/actions/registration';
+import { State } from '@/lib/actions';
+import { signUpAction } from '@/lib/actions/registration';
 import { useActionState } from 'react';
-import { zalandoSansExpanded } from "@/app/lib/fonts";
+import { zalandoSansExpanded } from "@/lib/fonts";
 
 
 export default function RegistrationForm() {

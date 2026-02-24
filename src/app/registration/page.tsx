@@ -1,4 +1,4 @@
-import RegistrationForm from '@/app/ui/registration-form';
+import RegistrationForm from '@/components/forms/registration-form';
 import { Suspense } from 'react';
 import { Metadata } from 'next';
 

@@ -1,7 +1,7 @@
 import { clsx } from 'clsx';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faXmark, faTrash } from '@fortawesome/free-solid-svg-icons'
-import { useTrainingStore  } from '@/app/store/store';
+import { useTrainingStore  } from '@/store/store';
 
 
 export function ExerciseCard({ item }: { item: any }) {  

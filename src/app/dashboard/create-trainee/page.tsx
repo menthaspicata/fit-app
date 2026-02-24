@@ -1,5 +1,5 @@
-import { BackButton } from '@/app/ui/back-button';
-import { CreateTraineeForm } from '@/app/ui/create-trainee-form';
+import { BackButton } from '@/components/ui/back-button';
+import { CreateTraineeForm } from '@/components/forms/create-trainee-form';
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {

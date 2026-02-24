@@ -8,7 +8,7 @@ import {
 import Button from '../ui/button';
 import { useSearchParams } from 'next/navigation';
 import { useActionState, useState } from 'react';
-import { authClient } from '@/app/lib/auth-client';
+import { authClient } from '@/lib/auth-client';
 import { email } from 'zod';
 
 

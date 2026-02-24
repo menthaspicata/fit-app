@@ -1,9 +1,9 @@
 'use client'
 
-import { createWorkout, State } from '@/app/lib/actions/workouts.actions';
+import { createWorkout, State } from '@/lib/actions/workouts.actions';
 import { useActionState, useEffect,  } from 'react';
-import { useTrainingStore  } from '@/app/store/store';
-import Button from '@/app/ui/button';
+import { useTrainingStore  } from '@/store/store';
+import Button from '@/components/ui/button';
 import { useRouter } from 'next/navigation';
 
 

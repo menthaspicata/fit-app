@@ -1,9 +1,9 @@
 'use client';
 
-import { fetchTrainingsByDate } from "@/app/lib/actions/workouts.actions";
+import { fetchTrainingsByDate } from "@/lib/actions/workouts.actions";
 import { useState, useEffect } from "react";
-import  Button  from "@/app/ui/button";
-import { Calendar } from "@/app/ui/calendar";
+import Button from '@/components/ui/button';
+import { Calendar } from "@/components/ui/calendar";
 import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/24/solid";
 import Link from 'next/link';
 

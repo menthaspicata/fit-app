@@ -1,7 +1,7 @@
 'use client'
 
 
-import { createInvite, State } from '@/app/lib/actions/users.actions';
+import { createInvite, State } from '@/lib/actions/users.actions';
 import { useActionState } from 'react';
 
 

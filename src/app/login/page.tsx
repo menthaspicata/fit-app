@@ -1,8 +1,8 @@
-import LoginForm from '@/app/ui/login-form';
+import LoginForm from '@/components/forms/login-form';
 import { Suspense } from 'react';
 import { Metadata } from 'next';
 import Image from 'next/image';
-import { zalandoSansExpanded } from "@/app/lib/fonts";
+import { zalandoSansExpanded } from "@/lib/fonts";
 
 export const metadata: Metadata = {
   title: 'Login',

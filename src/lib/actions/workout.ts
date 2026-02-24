@@ -2,7 +2,7 @@
 
 import { z } from 'zod';
 import { Exercise } from '@prisma/client';
-import { prisma } from '@/app/lib/prisma'
+import { prisma } from '@/lib/prisma'
 
 
 

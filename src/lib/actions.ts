@@ -4,7 +4,7 @@ import { z } from 'zod';
 import { revalidatePath } from 'next/cache';
 import { redirect } from 'next/navigation';
 //import { PrismaClient, Prisma } from '../../../generated/prisma/client'
-import { prisma } from '@/app/lib/prisma'
+import { prisma } from '@/lib/prisma'
 import bcrypt from 'bcryptjs';
 
 

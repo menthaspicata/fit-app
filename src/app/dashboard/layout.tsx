@@ -1,10 +1,10 @@
 import { Bars3Icon } from '@heroicons/react/24/solid';
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
-import { auth } from "@/app/lib/auth";
-import Sidebar from '@/app/ui/sidebar';
-import BottomBar from '@/app/ui/bottom-bar';
-import { getServerSession } from '@/app/lib/getSession';
+import { auth } from "@/lib/auth";
+import Sidebar from '@/components/layout/sidebar';
+import BottomBar from '@/components/layout/bottom-bar';
+import { getServerSession } from '@/lib/getSession';
 import Image from "next/image";
 
  

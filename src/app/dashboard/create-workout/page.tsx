@@ -1,9 +1,9 @@
-import { CreateWorkoutForm } from '@/app/ui/create-workout-form';
+import { CreateWorkoutForm } from '@/components/forms/create-workout-form';
 import { Metadata } from 'next';
-import { BackButton } from '@/app/ui/back-button';
-import { Search } from '@/app/ui/search';
-import { ExerciseList } from '@/app/ui/exercises-list';
-import { getAllExercises } from '@/app/lib/actions/exercise';
+import { BackButton } from '@/components/ui/back-button';
+import { Search } from '@/components/ui/search';
+import { ExerciseList } from '@/features/exercises/exercises-list';
+import { getAllExercises } from '@/lib/actions/exercise';
 
 
 export const metadata: Metadata = {

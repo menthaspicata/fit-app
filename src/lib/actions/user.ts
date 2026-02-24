@@ -2,7 +2,7 @@
 
 import { z } from 'zod';
 import bcrypt from 'bcryptjs';
-import { prisma } from '@/app/lib/prisma'
+import { prisma } from '@/lib/prisma'
 
 
 const FormSchema = z.object({

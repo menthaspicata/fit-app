@@ -1,10 +1,10 @@
 "use client";
 
-import { useTrainingStore  } from '@/app/store/store';
+import { useTrainingStore  } from '@/store/store';
 import { useEffect, useState } from 'react';
-import type { ExerciseDTO } from '@/app/types/types';
-import { useSearchStore } from '@/app/store/store';
-import { ExerciseCard } from '@/app/ui/exercise-card';
+import type { ExerciseDTO } from '@/types/types';
+import { useSearchStore } from '@/store/store';
+import { ExerciseCard } from '@/features/exercises/exercise-card';
 
 
 type Props = {

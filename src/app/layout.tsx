@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import { zalandoSans } from "@/app/lib/fonts";
+import { zalandoSans } from "@/lib/fonts";
 
 export const metadata: Metadata = {
   title: "Athlance - Your Ideal Trainer Hub",

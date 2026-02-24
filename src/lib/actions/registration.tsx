@@ -1,9 +1,9 @@
 'use server'
 
 
-import { auth } from '@/app/lib/auth';
+import { auth } from '@/lib/auth';
 import { redirect } from "next/navigation";
-import { RegisterUser } from '@/app/lib/validation';
+import { RegisterUser } from '@/lib/validation';
 import { headers } from "next/headers";
 import { cookies } from "next/headers";
 

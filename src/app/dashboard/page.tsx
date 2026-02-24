@@ -1,11 +1,10 @@
 
-import Button from '@/app/ui/button';
+import Button from '@/components/ui/button';
 import { Suspense } from 'react';
-//import { RevenueChartSkeleton, LatestInvoicesSkeleton, CardsSkeleton } from '@/app/ui/skeletons';
 import { Metadata } from 'next';
 import Link from 'next/link';
-import { fetchUserData } from '@/app/lib/actions/users.actions';
-import Schedule from '@/app/ui/schedule';
+import { fetchUserData } from '@/lib/actions/users.actions';
+import Schedule from '@/features/schedule/schedule';
 
 export const metadata: Metadata = {
   title: 'Dashboard',

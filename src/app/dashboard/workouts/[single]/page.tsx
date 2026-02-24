@@ -1,6 +1,6 @@
-import { getWorkoutById, getWorkoutExercises } from '@/app/lib/actions';
-import { BackButton } from '@/app/ui/back-button';
-import Button from '@/app/ui/button';
+import { getWorkoutById, getWorkoutExercises } from '@/lib/actions';
+import { BackButton } from '@//components/ui/back-button';
+import Button from '@/components/ui/button';
 import Link from 'next/link';
 import { Metadata } from 'next';
 
