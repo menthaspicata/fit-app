@@ -1,20 +1,18 @@
 import Image from "next/image";
 import styles from "./page.module.css";
 import Link from "next/link";
+import { zalandoSansExpanded } from "@/lib/fonts";
 
 export default function Home() {
   return (
     <div className={styles.page}>
       <main className=" dark:text-dark-text p-4">
         <header className="flex justify-between items-center">
-          <Image
-            className={styles.logo}
-            src="logo.svg"
-            alt="TrainerHub logo"
-            width={200}
-            height={50}
-            priority
-          />
+        <div className={`flex items-center mb-5 text-2xl ${zalandoSansExpanded.className}`}>
+            <Image src='/Athlance-logo.png' width={50} height={50} alt='Athlance logo' 
+            className='mr-5'/>
+            Athlance
+        </div>
           <button className="ml-auto mr-1 border-2 border-sky-700 text-sky-700 rounded-sm px-4 py-2 cursor-pointer w-max"><Link href="/login">Login</Link></button>
           <button className=" gradient-button border-2 border-blue-500 rounded-sm px-4 py-2 cursor-pointer w-max"><Link href="/signup">Get Started Free</Link></button>
         </header>

@@ -1,11 +1,9 @@
 import { Bars3Icon } from '@heroicons/react/24/solid';
-import { headers } from "next/headers";
 import { redirect } from "next/navigation";
-import { auth } from "@/lib/auth";
-import Sidebar from '@/components/layout/sidebar';
 import BottomBar from '@/components/layout/bottom-bar';
 import { getServerSession } from '@/lib/getSession';
 import Image from "next/image";
+import { zalandoSansExpanded } from "@/lib/fonts";
 
  
 export default async function DashboardLayout({
@@ -24,14 +22,12 @@ export default async function DashboardLayout({
   return (
     
     <div className="">
-      <nav className="grid gap-2 grid-flow-col items-center mb-10">
-          <Image
-            src="/logo.svg"
-            alt="TrainerHub logo"
-            width={200}
-            height={50}
-            priority
-          />
+      <nav className="grid gap-2 grid-flow-col items-center mb-3">
+        <div className={`flex items-center text-xl ${zalandoSansExpanded.className}`}>
+            <Image src='/Athlance-logo.png' width={30} height={30} alt='Athlance logo' 
+            className='mr-5'/>
+            Athlance
+        </div>
   
         <button className='relative cursor-pointer w-max justify-self-end'>              
           <Bars3Icon className="pointer-events-none left-3 top-1/2 h-[30px] w-[30px] text-gray-500 peer-focus:text-gray-900" />

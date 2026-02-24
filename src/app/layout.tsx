@@ -14,7 +14,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={'p-8 '+`${zalandoSans.className} `}> 
+      <body className={'p-8 h-screen '+`${zalandoSans.className} `}> 
         {children}
       </body>
     </html>
