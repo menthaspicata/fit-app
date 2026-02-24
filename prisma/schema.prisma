@@ -1,0 +1,256 @@
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id            String  @id
+  email         String? @db.VarChar(100) @unique
+  name          String
+  passwordHash String? @map("password_hash") @db.VarChar(100)
+  role          String? @db.VarChar(50)
+  trainerId     String?
+
+  // Relations
+  trainer          User?                @relation("TrainerToTrainees", fields: [trainerId], references: [id])
+  trainees         User[]               @relation("TrainerToTrainees")
+  workouts         Workout[]
+  measurements     Measurement[]
+  userWorkouts     UserWorkout[]
+  accounts         Account[]
+  workoutSession   UserWorkoutSession[]
+  sessions         Session[]
+  tokens           RefreshToken[]
+  Authenticator    Authenticator[]
+  invites          Invite[]             @relation("TrainerInvites")
+  assignedWorkouts UserWorkout[]        @relation("AssignedByTrainer")
+
+  emailVerified Boolean  @default(false)
+  image         String?
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  @@map("users")
+}
+
+model Account {
+  id                    String    @id
+  accountId             String
+  providerId            String
+  userId                String
+  user                  User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  accessToken           String?
+  refreshToken          String?
+  idToken               String?
+  accessTokenExpiresAt  DateTime?
+  refreshTokenExpiresAt DateTime?
+  scope                 String?
+  password              String?
+  createdAt             DateTime
+  updatedAt             DateTime
+
+  @@map("account")
+}
+
+model Session {
+  id        String   @id
+  expiresAt DateTime
+  token     String
+  createdAt DateTime
+  updatedAt DateTime
+  ipAddress String?
+  userAgent String?
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([token])
+  @@map("session")
+}
+
+model VerificationToken {
+  identifier String
+  token      String
+  expires    DateTime
+
+  @@id([identifier, token])
+}
+// Optional for WebAuthn support
+
+model Authenticator {
+  credentialID         String  @unique
+  userId               String
+  providerAccountId    String
+  credentialPublicKey  String
+  counter              Int
+  credentialDeviceType String
+  credentialBackedUp   Boolean
+  transports           String?
+  user                 User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@id([userId, credentialID])
+}
+
+model Measurement {
+  id       String    @id @default(cuid())
+  userId   String?
+  weight   Int?
+  chest_cm Int?
+  waist_cm Int?
+  hips_cm  Int?
+  notes    String?
+  date     DateTime? @db.Timestamptz
+
+  user User? @relation(fields: [userId], references: [id])
+
+  @@map("measurements")
+}
+
+model Workout {
+  id        String    @id @default(cuid())
+  userId    String?
+  date      DateTime? @db.Timestamptz
+  name      String    @db.VarChar(100)
+  notes     String?
+  createdAt DateTime? @db.Timestamptz
+
+  user             User?                @relation(fields: [userId], references: [id])
+  workoutExercises WorkoutExercise[]
+  userWorkouts     UserWorkout[]
+  sessions         UserWorkoutSession[]
+
+  @@map("workouts")
+}
+
+model Exercise {
+  id          String  @id @default(cuid())
+  name        String? @db.VarChar(100)
+  description String?
+  muscleGroup String?
+  imageUrl    String?
+
+  workoutExercises WorkoutExercise[]
+  userSets         UserSet[]
+
+  @@map("exercises")
+}
+
+model WorkoutExercise {
+  id         String @id @default(cuid())
+  workoutId  String
+  exerciseId String
+
+  workout  Workout?     @relation(fields: [workoutId], references: [id])
+  exercise Exercise?    @relation(fields: [exerciseId], references: [id])
+  sets     WorkoutSet[]
+
+  @@map("workout_exercises")
+}
+
+model WorkoutSet {
+  id                String @id @default(cuid())
+  workoutExerciseId String
+  set_number        Int
+  reps              Int
+  weight            Int
+  order_number      Int
+
+  workoutExercise WorkoutExercise @relation(fields: [workoutExerciseId], references: [id])
+
+  @@map("workout_sets")
+}
+
+model UserWorkout {
+  id         String    @id @default(cuid())
+  userId     String?
+  workoutId  String?
+  assignedBy String?
+  startDate  DateTime? @db.Timestamptz
+  status     String?   @db.VarChar(100)
+  notes      String?
+
+  user     User?                @relation(fields: [userId], references: [id])
+  workout  Workout?             @relation(fields: [workoutId], references: [id])
+  trainer  User?                @relation("AssignedByTrainer", fields: [assignedBy], references: [id])
+  sessions UserWorkoutSession[]
+
+  @@map("user_workouts")
+}
+
+model UserWorkoutSession {
+  id               String    @id @default(cuid())
+  userId           String?
+  workoutId        String?
+  userWorkoutId    String?
+  startedAt        DateTime? @db.Timestamptz
+  finishedAt       DateTime? @db.Timestamptz
+  duration_minutes Int?
+  notes            String?
+
+  user        User?        @relation(fields: [userId], references: [id])
+  workout     Workout?     @relation(fields: [workoutId], references: [id])
+  userWorkout UserWorkout? @relation(fields: [userWorkoutId], references: [id])
+  userSets    UserSet[]
+
+  @@map("user_workout_sessions")
+}
+
+model UserSet {
+  id         String   @id @default(cuid())
+  sessionId  String?
+  exerciseId String?
+  setNumber  Int?
+  weight     Int?
+  reps       Int?
+  completed  Boolean?
+  notes      String?
+
+  session  UserWorkoutSession? @relation(fields: [sessionId], references: [id])
+  exercise Exercise?           @relation(fields: [exerciseId], references: [id])
+
+  @@map("user_sets")
+}
+
+model RefreshToken {
+  id        String    @id @default(cuid())
+  userId    String?
+  token     String?
+  createdAt DateTime? @db.Timestamptz
+  expiresAt DateTime? @db.Timestamptz
+  revoked   Boolean?
+  userAgent String?
+  ipAddress String?
+  user      User?     @relation(fields: [userId], references: [id])
+
+  @@map("refresh_tokens")
+}
+
+model Invite {
+  id        String    @id @default(cuid())
+  trainerId String
+  email     String?   @db.VarChar(100)
+  name      String?   @db.VarChar(100)
+  token     String   @db.VarChar(100)
+  status    String   @db.VarChar(100)
+  createdAt DateTime @db.Timestamptz
+  expiresAt DateTime @db.Timestamptz
+
+  trainer User? @relation("TrainerInvites", fields: [trainerId], references: [id])
+
+  @@map("invites")
+}
+
+model Verification {
+  id         String    @id
+  identifier String
+  value      String
+  expiresAt  DateTime
+  createdAt  DateTime?
+  updatedAt  DateTime?
+
+  @@map("verification")
+}

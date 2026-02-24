@@ -1,5 +1,5 @@
 .page {
-  --background: #fafafa;
+  --background: radial-gradient(circle,rgba(17, 24, 39, 1) 0%, rgba(11, 14, 20, 1) 50%);;
   --foreground: #fff;
 
   --text-primary: #000;
@@ -124,7 +124,7 @@ a.secondary {
 
 @media (prefers-color-scheme: dark) {
   .logo {
-    filter: invert();
+    /* filter: invert(); */
   }
 
   .page {

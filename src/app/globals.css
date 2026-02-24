@@ -1,4 +1,6 @@
-:root {
+@import "tailwindcss";
+
+/* :root {
   --background: #ffffff;
   --foreground: #171717;
 }
@@ -8,7 +10,7 @@
     --background: #0a0a0a;
     --foreground: #ededed;
   }
-}
+} */
 
 html,
 body {
@@ -26,8 +28,6 @@ body {
 
 * {
   box-sizing: border-box;
-  padding: 0;
-  margin: 0;
 }
 
 a {
@@ -39,4 +39,35 @@ a {
   html {
     color-scheme: dark;
   }
+}
+
+input, textarea {
+  border: 1px solid #424347;
+  border-radius: 5px;
+   background-color: var(--color-dark-card);
+}
+
+
+@theme {
+  --color-dark-primary: #212226;
+  --color-dark-text: #EAEBEF;
+  --color-dark-primary-button: #3B82F6;
+  --color-dark-card: #2C2D31;
+  --color-dark-secondary-button: #374151;
+  --color-dark-danger: #EF4444;
+  --color-dark-secondary-text: #8C9395;
+}
+
+.card, .exercise-card {
+  background-color: var(--color-dark-card);
+  color: var(--color-dark-text);
+  padding: 1rem;
+  border-radius: 0.5rem;
+  border: 1px solid #424347;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.gradient-button {
+  background: #2075DF;
+  background: linear-gradient(90deg, rgba(32, 117, 223, 1) 0%, rgba(49, 156, 217, 1) 90%);
 }
