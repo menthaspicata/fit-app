@@ -9,7 +9,7 @@ export const metadata: Metadata = {
 export default function Page() {
   return (
     <>
-      <div className='grid grid-cols-3 justify-between items-center text-center mb-6'>
+      <div className='grid grid-cols-3 justify-between items-center text-center mb-4'>
         <BackButton />
         <h1>Create Trainee</h1>
       </div>

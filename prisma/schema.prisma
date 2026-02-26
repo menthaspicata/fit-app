@@ -232,9 +232,10 @@ model RefreshToken {
 model Invite {
   id        String    @id @default(cuid())
   trainerId String
+  traineeId String?
   email     String?   @db.VarChar(100)
   name      String?   @db.VarChar(100)
-  token     String   @db.VarChar(100)
+  token     String   @db.VarChar(100) @unique
   status    String   @db.VarChar(100)
   createdAt DateTime @db.Timestamptz
   expiresAt DateTime @db.Timestamptz

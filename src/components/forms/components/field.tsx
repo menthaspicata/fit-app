@@ -17,7 +17,7 @@ export function Field({
 }) {
   const hasError = !!errors?.length;
   return (
-    <div className="mb-4 flex flex-col">
+    <div className="flex flex-col">
       <label htmlFor={id} className="text-sm mb-2">
         {label}
       </label>
