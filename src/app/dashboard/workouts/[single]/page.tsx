@@ -1,4 +1,4 @@
-import { getWorkoutById, getWorkoutExercises } from '@/lib/actions';
+import { getWorkoutById, getWorkoutExercises } from '@/lib/actions/workout';
 import { BackButton } from '@//components/ui/back-button';
 import Button from '@/components/ui/button';
 import Link from 'next/link';

@@ -7,6 +7,7 @@ import {
  } from '@heroicons/react/24/solid';
 
 export default function Sidebar(props: {id: string}) {
+    //TODO: change it to action from users.action file
     const trainerData = fetchTrainerData(props.id);
 
     console.log('Trainer Data in Sidebar:', trainerData);

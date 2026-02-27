@@ -1,39 +1,175 @@
 'use server';
 
 import { z } from 'zod';
-import { Exercise } from '@prisma/client';
 import { prisma } from '@/lib/prisma'
+import { getServerSession } from '@/lib/getSession';
 
+export type State = {
+  errors?: {
+    email?: string[];
+    name?: string[];
+  };
+  message?: string | null;
+  success?: boolean;
+};
 
-
-const createWorkoutData = z.object({
+const createWorkoutDataForm = z.object({
+  userId: z.string(),
   name: z.string(),
-  notes: z.string().optional(),
-  date: z.string(),
-})
+  notes: z.string().optional().nullable(),
+  date: z.date(),
+  created_at: z.date(),
+  exercises: z.array(z.any()),
+});
 
+const createWorkoutData = createWorkoutDataForm;
 
-export async function createWorkout(formData: FormData, exercises: Exercise[]) {
-  console.log('createWorkout', formData)
-  const workoutName = formData.get('workout-name') as string;
-  const validatedFields = createWorkoutData.safeParse({
-    name: workoutName,
-    notes: formData.get('notes'),
-    date: new Date().toISOString().split('T')[0],
+export async function createWorkout(prevState: State, formData: FormData): Promise<State> {
+  const session = await getServerSession()
+  const userId = session?.user.id
+  const workoutFields = createWorkoutData.safeParse({
+    userId: userId,
+    name: formData.get('workout-name'),
+    notes: formData.get('workout-notes'),
+    created_at: new Date(),
+    date: new Date(formData.get('workout-date') as string),
+    exercises: JSON.parse(formData.get('exercises') as string),
   });
+  
+  console.log('createWorkout workoutFields', workoutFields);
+
+  if (!workoutFields.success) {
+    return {
+      errors: workoutFields.error.flatten().fieldErrors, // TODO: map Zod errors to State errors
+      message: 'Missing Fields. Failed to Create Workout.',
+    };
+  }
 
   try {
-    // await prisma.workoutExercise.create({ data: validatedFields.data });
-    await prisma.workout.create({ data: validatedFields.data });
+    //console.log('createWorkout try', workoutFields.data);
+    await prisma.$transaction(async (tx) => {
+      const workout = await tx.workout.create({
+        data: {
+          userId: workoutFields.data.userId,
+          name: workoutFields.data.name,
+          notes: workoutFields.data.notes,
+          date: workoutFields.data.date,
+          createdAt: workoutFields.data.created_at,
+        },
+      });
+
+      const workoutExercises = await Promise.all(
+        workoutFields.data.exercises.map((ex) =>
+          tx.workoutExercise.create({
+            data: {
+              workoutId: workout.id,
+              exerciseId: ex.exerciseId,
+            },
+          })
+        )
+      );
+
+      
+
+      await tx.workoutSet.createMany({
+        data: workoutExercises.flatMap((we, exIndex) =>
+          workoutFields.data.exercises[exIndex].sets.map((set, setIndex) => ({
+        workoutExerciseId: we.id,
+        set_number: setIndex + 1,
+        reps: set.reps,
+        weight: set.weight,
+        order_number: setIndex,
+          }))
+        ),
+      });
+    });
+
+
+
+
+
+    
     return {
       errors: {},
-      message: 'Trainee created successfully.',
+      message: 'Workout created successfully.',
+        success: true,
     };
   } catch (error) {
     console.error(error);
     return {
       errors: {},
-      message: 'Database Error: Failed to Create Trainee.',
+      message: 'Database Error: Failed to Create Workout.',
     };
   }
+}
+
+export async function fetchTrainingsByDate(day: string) {
+  const session = await getServerSession()
+  const userId = session?.user.id
+  const start = new Date(`${day}T00:00:00.000Z`);
+  const end = new Date(start);
+  end.setUTCDate(end.getUTCDate() + 1);
+
+  return await prisma.workout.findMany({
+    where: {
+      userId: userId,
+      date: {
+        gte: start,
+        lt: end,
+      },
+    },
+  });
+}
+
+// Query All Workouts
+export async function getAllWorkouts() {    
+  return await prisma.workout.findMany({
+    // where: {
+    //   role: 'TRAINEE',
+    // },
+  });
+}
+
+// Query Workout by ID
+export async function getWorkoutById(workoutId: string) {
+  return await prisma.workout.findUnique({
+    where: {
+      id: workoutId,
+    },
+  });
+}
+
+// Query Workout Exercises by Workout ID
+
+export async function getWorkoutExercises(workoutId: string) {
+  const workoutExercises = await prisma.workoutExercise.findMany({
+    where: {
+      workoutId: workoutId,
+    },
+  });
+
+  return await Promise.all(
+    workoutExercises.map(async (we) => {
+      const exercise = await prisma.exercise.findUnique({
+        where: {
+          id: we.exerciseId,
+        },
+      });
+
+      const sets = await prisma.workoutSet.findMany({
+        where: {
+          workoutExerciseId: we.id,
+        },
+        orderBy: {
+          set_number: 'asc',
+        },
+      });
+
+      return {
+        ...we,
+        exercise,
+        sets,
+      };
+    })
+  );
 }

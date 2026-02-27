@@ -1,6 +1,6 @@
 'use client';
 
-import { createInvite, State } from '@/lib/actions/users.actions';
+import { createInvite, State } from '@/lib/actions/user';
 import { useActionState } from 'react';
 import { useState } from 'react';
 import Button from '@/components/ui/button';

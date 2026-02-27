@@ -1,6 +1,6 @@
 'use client';
 
-import { acceptInvite, State } from '@/lib/actions/users.actions';
+import { acceptInvite, State } from '@/lib/actions/user';
 import { useActionState } from 'react';
 import { Field } from '@/components/forms/components/field';
 import Button from '@/components/ui/button';

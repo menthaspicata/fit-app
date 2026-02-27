@@ -3,7 +3,7 @@ import Button from '@/components/ui/button';
 import { Suspense } from 'react';
 import { Metadata } from 'next';
 import Link from 'next/link';
-import { fetchUserData } from '@/lib/actions/users.actions';
+import { fetchUserData } from '@/lib/actions/user';
 import Schedule from '@/features/schedule/schedule';
 
 export const metadata: Metadata = {

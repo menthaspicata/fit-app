@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faHouse, faDumbbell, faPersonRunning, faUser } from '@fortawesome/free-solid-svg-icons'
-import { fetchUserData } from '@/lib/actions/users.actions';
+import { fetchUserData } from '@/lib/actions/user';
 
 export default async function BottomBar() {
     const userData = await fetchUserData();

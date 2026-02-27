@@ -2,7 +2,6 @@
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons'
-import { filterExercises } from '@/lib/actions';
 import { useState } from "react";
 import { useSearchStore } from '@/store/store';
 

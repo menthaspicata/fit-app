@@ -1,6 +1,6 @@
 'use client'
 
-import { createWorkout, State } from '@/lib/actions/workouts.actions';
+import { createWorkout, State } from '@/lib/actions/workout';
 import { useActionState, useEffect,  } from 'react';
 import { useTrainingStore  } from '@/store/store';
 import Button from '@/components/ui/button';

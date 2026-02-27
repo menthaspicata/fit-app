@@ -1,6 +1,6 @@
 import LogoutButton from '@/components/layout/logout-button';
 import Image from "next/image";
-import { fetchUserData } from '@/lib/actions/users.actions';
+import { fetchUserData } from '@/lib/actions/user';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCircleUser, faPen } from '@fortawesome/free-solid-svg-icons';
 import { Metadata } from 'next';

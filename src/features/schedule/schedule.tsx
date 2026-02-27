@@ -1,6 +1,6 @@
 'use client';
 
-import { fetchTrainingsByDate } from "@/lib/actions/workouts.actions";
+import { fetchTrainingsByDate } from "@/lib/actions/workout";
 import { useState, useEffect, useRef } from "react";
 import Button from '@/components/ui/button';
 import { Calendar } from "@/components/ui/calendar";
