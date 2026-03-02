@@ -73,7 +73,7 @@ export async function createWorkout(prevState: State, formData: FormData): Promi
 
       await tx.workoutSet.createMany({
         data: workoutExercises.flatMap((we, exIndex) =>
-          workoutFields.data.exercises[exIndex].sets.map((set, setIndex) => ({
+          workoutFields.data.exercises[exIndex].sets.map((set: { reps: number; weight: number }, setIndex: number) => ({
         workoutExerciseId: we.id,
         set_number: setIndex + 1,
         reps: set.reps,
