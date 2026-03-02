@@ -17,7 +17,9 @@ export function Search({ placeholder }: { placeholder?: string }) {
     return (
         <>
             <label htmlFor="searchExercise" className="mt-6 mb-4 flex relative">
-                <FontAwesomeIcon icon={faMagnifyingGlass} className="absolute left-3 top-4" />
+                <span className="cursor-pointer absolute left-3 top-3">
+                    <FontAwesomeIcon icon={faMagnifyingGlass} className="" />
+                </span>
                 <input className="outline-none px-6 py-3 pl-9" type="search"
                     onChange={(e) => {
                         onSearch(e.target.value);

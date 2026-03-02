@@ -90,3 +90,10 @@ a {
   background: #2075DF;
   background: linear-gradient(90deg, rgba(32, 117, 223, 1) 0%, rgba(49, 156, 217, 1) 90%);
 }
+
+button > a {
+  display: flex;
+  align-items: center;
+  height: inherit;
+  width: inherit;
+}

@@ -21,7 +21,7 @@ export default async function DashboardLayout({
 
   return (
     
-    <div className="">
+    <div className="pb-6">
       <nav className="grid gap-2 grid-flow-col items-center mb-7">
         <div className={`flex items-center text-xl ${zalandoSansExpanded.className}`}>
             <Image src='/Athlance-logo.png' width={30} height={30} alt='Athlance logo' 

@@ -23,7 +23,7 @@ export default async function ProfilePage() {
       {userData.image ? (
         <Image src={userData.image} alt="User image" width={100} height={100} />
       ) : (
-        <FontAwesomeIcon icon={faCircleUser} className='h-20 w-20' />
+        <FontAwesomeIcon icon={faCircleUser} className='h-25 w-25' />
       )}
       <h3>{userData.name}</h3>
       <ul>

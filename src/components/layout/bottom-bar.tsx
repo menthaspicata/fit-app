@@ -6,8 +6,8 @@ import { fetchUserData } from '@/lib/actions/user';
 export default async function BottomBar() {
     const userData = await fetchUserData();
     return (
-        <nav className='fixed bottom-0 left-0 right-0 dark:bg-neutral-900'>
-            <ul className='grid grid-flow-col justify-items-center justify-between p-2'>
+        <nav className='fixed bottom-0 left-0 right-0 bg-white dark:bg-neutral-900'>
+            <ul className='grid grid-flow-col justify-items-center justify-between py-2 px-8'>
                 <li>
                     <Link href="/dashboard" className='flex flex-col items-center'>
                         <FontAwesomeIcon icon={faHouse} className='h-5 w-5'/>
