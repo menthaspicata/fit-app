@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { fetchTrainerData } from "@/lib/actions/trainer.actions";
+//import { fetchTrainerData } from "@/lib/actions/trainer.actions";
 import LogoutButton from "./logout-button";
 import Link from 'next/link';
 import { 
@@ -8,9 +8,9 @@ import {
 
 export default function Sidebar(props: {id: string}) {
     //TODO: change it to action from users.action file
-    const trainerData = fetchTrainerData(props.id);
+    //const trainerData = fetchTrainerData(props.id);
 
-    console.log('Trainer Data in Sidebar:', trainerData);
+   // console.log('Trainer Data in Sidebar:', trainerData);
   return (
     <div className="w-64 h-full border-r p-4 fixed right-0 top-0 bg-gray-800">  
         <h2 className="text-lg font-semibold mb-4">Sidebar</h2>
