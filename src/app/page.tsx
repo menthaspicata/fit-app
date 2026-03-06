@@ -6,61 +6,70 @@ import { zalandoSansExpanded } from "@/lib/fonts";
 export default function Home() {
   return (
     <div className={styles.page}>
-      <main className=" dark:text-dark-text p-4">
-        <header className="flex justify-between items-center">
+      <main className="bg-white rounded-2xl shadow-lg border-light-border border-2 dark:text-dark-text ">
+        <header className="p-4 px-8 flex justify-between items-center border-light-border border-b-2">
         <div className={`flex items-center mb-5 text-2xl ${zalandoSansExpanded.className}`}>
-            <Image src='/Athlance-logo.png' width={50} height={50} alt='Athlance logo' 
+            <Image src='/ConnectFit-logo.png' width={50} height={50} alt='ConnectFit logo' 
             className='mr-5'/>
-            Athlance
+            ConnectFit
         </div>
-          <button className="ml-auto mr-1 border-2 border-sky-700 text-sky-700 rounded-sm px-4 py-2 cursor-pointer w-max"><Link href="/login">Login</Link></button>
-          <button className=" gradient-button border-2 border-blue-500 rounded-sm px-4 py-2 cursor-pointer w-max"><Link href="/signup">Get Started Free</Link></button>
+          <button className="ml-auto mr-1 px-4 py-2 cursor-pointer w-max"><Link href="/login">Login</Link></button>
+          <button className=" bg-light-primary-button text-white  rounded-md px-4 py-2 cursor-pointer w-max"><Link href="/signup">Get Started Free</Link></button>
         </header>
-        <section className="flex justify-between flex-col md:flex-row mt-15 relative pt-5 pb-15 mb-10">
+        <section className="flex justify-between items-start flex-col md:flex-row relative p-4 px-8 pb-15 mt-10">
           <div>
             <h1 className="text-4xl font-bold mb-5 relative z-2">
-              Your Ideal Trainer Hub
+              Connect. Track. Transform. Your Ecosystem.
             </h1>
-            <p className="mt-4 mb-5 max-w-xl text-gray-400 relative z-2">
-              Create workouts, track progress, and inspire your clients - all in one app.
+            <p className="mt-4 mb-5 max-w-xl relative z-2">
+              Effortlessly bridge the gap between clients and trainers for uitimate accountability and results.
             </p>
-            <button className="gradient-button rounded-sm border-2 border-blue-500 px-4 py-2 cursor-pointer mb-5 w-max"><Link href="/signup">Get Started Free</Link></button>
+            <button className="bg-light-primary-button text-white  rounded-md px-4 py-2 cursor-pointer mb-5 w-max"><Link href="/signup">Get Started Free</Link></button>
           </div>
-         
           <Image
-            className="opacity-75 
+            className="
+            align-self-center
+           
+            rounded-2xl
+            sm:w-1/2 md:w-1/2 lg:w-1/4"
+            src="/man-and-woman1.png"
+            alt="Trainer and Client"
+            width={500}
+            height={500}
+          />
+          <Image
+            className="
             align-self-center
             sm:align-self-end
-            sm:w-1/2 md:w-1/2 lg:w-1/3"
-            src="/phone1.png"
+            pointer-events-none
+            -ml-20 -mt-30
+            sm:w-1/2 md:w-1/2 lg:w-1/4"
+          
+            src="/iphone.png"
             alt="Dashboard Mockup"
-            width={800}
-            height={1000}
+            width={150}
+            height={300}
           />
         </section>
-        <section>
-          <ul className="flex gap-10 items-center mb-20 flex-col sm:flex-row justify-center">
-            <li className="flex flex-col items-center w-2/3 md:w-1/4 text-center">
-              <Image src="/icons/dumbbell.png" alt="dumbbell" width={50} height={50} />
-              <h3>Flexible Workouts</h3>
-              <p className="text-gray-600">Create workouts tailored for every client and training goal.</p>
+        <section className="text-center px-8">
+          <h2 className="text-3xl font-bold">Features</h2>
+          <p>Connect between clients and trainers for for <br/> ultimate accountability and results.</p>
+          <ul className="flex flex-row justify-between">
+            <li className="p-5 rounded-2xl border border-neutral-200 card-light-gradient">
+              <h3>Workout Scheduling</h3>
             </li>
-            <li className="flex flex-col items-center w-2/3 md:w-1/4 text-center">
-              <Image src="/icons/growing-up.png" alt="Progress Tracking" width={50} height={50} />
-              <h3>Progress Tracking</h3>
-              <p className="text-gray-600">Visualize results and celebrate achievements for maximum motivation.</p>
+             <li className="p-5 rounded-2xl border border-neutral-200 card-light-gradient">
+              <h3>Real-Time Tracking</h3>
             </li>
-            <li className="flex flex-col items-center w-2/3 md:w-1/4 text-center">
-              <Image src="/icons/gays=).png" alt="Client Management" width={50} height={50} />
-              <h3>Client Management</h3>
-              <p className="text-gray-600">Efficiently manage client profiles, schedules, and communication.</p>
+             <li className="p-5 rounded-2xl border border-neutral-200 card-light-gradient">
+              <h3>Progress Sync</h3>
             </li>
           </ul>
         </section>
 
         <footer>
-          <p className="mt-20 text-sm text-gray-500 text-center">
-            © {new Date().getFullYear()} TrainerHub
+          <p className="mt-20 p-4 px-8 text-sm text-gray-500 text-center">
+            © {new Date().getFullYear()} ConnectFit
           </p>
         </footer>
       </main>
