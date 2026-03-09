@@ -3,7 +3,7 @@ import "./globals.css";
 import { zalandoSans } from "@/lib/fonts";
 
 export const metadata: Metadata = {
-  title: "Athlance - Your Ideal Trainer Hub",
+  title: "ConnectFit - Your Ideal Trainer Hub",
   description: "Your Ideal Trainer Hub - Create workouts, track progress, and inspire your clients - all in one app.",
 };
 
