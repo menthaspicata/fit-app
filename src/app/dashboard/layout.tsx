@@ -1,11 +1,8 @@
-import { Bars3Icon } from '@heroicons/react/24/solid';
 import { redirect } from "next/navigation";
 import BottomBar from '@/components/layout/bottom-bar';
+import Sidebar from '@/components/layout/sidebar';
 import { getServerSession } from '@/lib/getSession';
-import Image from "next/image";
-import { zalandoSansExpanded } from "@/lib/fonts";
 
- 
 export default async function DashboardLayout({
   children,
 }: {
@@ -21,20 +18,9 @@ export default async function DashboardLayout({
 
   return (
     
-    <div className="pb-6">
-      <nav className="grid gap-2 grid-flow-col items-center mb-7">
-        <div className={`flex items-center text-xl ${zalandoSansExpanded.className}`}>
-            <Image src='/Athlance-logo.png' width={30} height={30} alt='Athlance logo' 
-            className='mr-5'/>
-            Athlance
-        </div>
-  
-        <button className='relative cursor-pointer w-max justify-self-end'>              
-          <Bars3Icon className="pointer-events-none left-3 top-1/2 h-[30px] w-[30px] text-gray-500 peer-focus:text-gray-900" />
-        </button>
-      </nav>
+    <div className="pb-6 md:width-[calc(100vw-16rem)] md:ml-[16rem]">
       {children} 
-      {/* <Sidebar id={session?.user?.id} /> */}
+      <Sidebar />
       <BottomBar />
     </div>
   )

@@ -72,8 +72,8 @@ export default function Schedule() {
     });
 
   return (
-    <div className="w-full">
-      <h2 className="mt-4 mb-4 text-xl md:text-2xl">Today's Schedule</h2>
+    <div className="w-full bg-white  rounded-lg p-6 shadow">
+      <h2 className="mb-4 text-xl md:text-2xl">Today's Schedule</h2>
       <div className="flex items-center justify-between gap-2 mb-8">
         <Button
           onClick={() => changeDay(-1)}

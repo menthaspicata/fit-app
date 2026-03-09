@@ -1,39 +1,36 @@
+'use client'
+
 import Link from 'next/link';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faHouse, faDumbbell, faPersonRunning, faUser } from '@fortawesome/free-solid-svg-icons'
-import { fetchUserData } from '@/lib/actions/user';
+import { usePathname } from 'next/navigation'
+import { navItems } from '@/components/layout/nav-items';
 
-export default async function BottomBar() {
-    const userData = await fetchUserData();
+
+export default function BottomBarClient() {
+    const pathname = usePathname()
+
     return (
-        <nav className='fixed bottom-0 left-0 right-0 bg-white dark:bg-neutral-900'>
-            <ul className='grid grid-flow-col justify-items-center justify-between py-2 px-8'>
-                <li>
-                    <Link href="/dashboard" className='flex flex-col items-center'>
-                        <FontAwesomeIcon icon={faHouse} className='h-5 w-5'/>
-                        Home
-                    </Link>
-                </li>
-                <li>
-                    <Link href="/dashboard/workouts" className='flex flex-col items-center'>
-                        <FontAwesomeIcon icon={faDumbbell} className='h-5 w-5' />
-                        Workouts
-                    </Link>
-                </li>
-                {userData?.role === 'trainer' ? 
-                <li>
-                    <Link href="/dashboard/trainees" className='flex flex-col items-center'>
-                        <FontAwesomeIcon icon={faPersonRunning} className='h-5 w-5'/>
-                        Trainees
-                    </Link>
-                </li>
-                : null}
-                <li>
-                    <Link href="/dashboard/profile" className='flex flex-col items-center'>
-                        <FontAwesomeIcon icon={faUser} className='h-5 w-5'/>
-                        Profile
-                    </Link>
-                </li>
+        <nav className='fixed bottom-0 left-0 right-0 bg-white dark:bg-neutral-900  md:hidden'>
+            <ul className='grid grid-flow-col justify-items-center justify-between py-2 px-4 md:px-8'>
+                {navItems.map(({ href, label, icon }) => {
+                    const isActive = pathname === href || 
+                        (href !== '/dashboard' && pathname.startsWith(href))
+
+                    return (
+                        <li key={href}>
+                            <Link href={href}
+                                className={`flex flex-col items-center
+                                ${isActive
+                                    ? 'text-violet-800'
+                                    : 'text-gray-800 hover:text-gray-600'
+                                }`}
+                            >
+                                <FontAwesomeIcon icon={icon} className='h-5 w-5' />
+                                {label}
+                            </Link>
+                        </li>
+                    )
+                })}
             </ul>
         </nav>
     )

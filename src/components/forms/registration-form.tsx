@@ -1,10 +1,10 @@
 'use client'
 
 import Button from '@/components/ui/button';
-import Image from "next/image";
+
 import { State, signUpAction } from '@/lib/actions/registration';
 import { useActionState } from 'react';
-import { zalandoSansExpanded } from "@/lib/fonts";
+
 import { FormErrorBanner } from '@/components/forms/components/form-error-banner';
 import { Field } from '@/components/forms/components/field';
 
@@ -19,23 +19,12 @@ export default function RegistrationForm() {
   return (
     <form action={formAction} className="space-y-3" noValidate>
       <div className="flex-1">
-        <div className={`flex items-center mb-5 text-2xl ${zalandoSansExpanded.className}`}>
-          <Image
-            src="/Athlance-logo.png"
-            width={50}
-            height={50}
-            alt="Athlance logo"
-            className="mr-5"
-          />
-          Athlance
-        </div>
 
-        <h1 className="mb-3 text-2xl">Create an account</h1>
 
         {/* Top-level error banner (e.g. email already taken) */}
         <FormErrorBanner message={state.message} />
 
-        <div className="w-full mt-4">
+        <div className="min-w-xs mt-4">
           <Field
             id="name"
             label="Name"

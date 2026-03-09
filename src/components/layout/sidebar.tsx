@@ -1,35 +1,45 @@
+'use client'
+
 import Image from "next/image";
-//import { fetchTrainerData } from "@/lib/actions/trainer.actions";
-import LogoutButton from "./logout-button";
 import Link from 'next/link';
-import { 
-    UserIcon
- } from '@heroicons/react/24/solid';
+import { navItems } from '@/components/layout/nav-items';
+import { usePathname } from 'next/navigation';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { zalandoSansExpanded } from "@/lib/fonts";
 
-export default function Sidebar(props: {id: string}) {
-    //TODO: change it to action from users.action file
-    //const trainerData = fetchTrainerData(props.id);
+export default function Sidebar() {
+    const pathname = usePathname();
 
-   // console.log('Trainer Data in Sidebar:', trainerData);
-  return (
-    <div className="w-64 h-full border-r p-4 fixed right-0 top-0 bg-gray-800">  
-        <h2 className="text-lg font-semibold mb-4">Sidebar</h2>
-        {/* <Image src={trainerData.image} alt="Coach image" width={100} height={100} />
-        <h3>{trainerData.name}</h3> */}
-        {/* <p>{trainerData.bio}</p> */}
+    return (
+    <div className="w-64 h-full p-4 fixed left-0 top-0 bg-white shadow hidden md:block">  
+
         <nav>
-            <ul>
-                <li><Link href="/dashboard">Dashboard</Link></li>
-                <li><Link href="/dashboard/workouts">Workouts</Link></li>
-                <li><Link href="/trainees">Trainees</Link></li>
-                <li><Link href="/analytics">Analytics</Link></li>
-                <li><Link href="/profile">          
-                    <UserIcon className="pointer-events-none left-3 top-1/2 h-[30px] w-[30px] text-gray-500 peer-focus:text-gray-900" />
-                    My Profile</Link></li>
-                <li><Link href="/settings">Settings</Link></li>
-                <li>Invite Clients</li>
-                <li><LogoutButton /></li>
+            <div className={`flex mb-5 items-center text-xl ${zalandoSansExpanded.className}`}>
+                <Image src='/Athlance-logo.png' width={30} height={30} alt='ConnectFit logo' 
+                className='mr-5'/>
+                ConnectFit
+            </div>
+            <ul className="grid gap-2">
+                {navItems.map(({ href, label, icon }) => {
+                    const isActive = pathname === href || 
+                        (href !== '/dashboard' && pathname.startsWith(href))
+
+                    return (
+                        <li key={href}>
+                            <Link href={href}
+                                className={`flex items-center text-base
+                                ${isActive
+                                    ? 'text-violet-800'
+                                    : 'text-gray-800 hover:text-gray-600'
+                                }`}
+                            >
+                                <FontAwesomeIcon icon={icon} className='mr-2 h-6 w-6' />
+                                {label}
+                            </Link>
+                        </li>
+                    )
+                })}
             </ul>
         </nav>
     </div>
-)}
+    )}

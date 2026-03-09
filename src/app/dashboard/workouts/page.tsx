@@ -9,6 +9,8 @@ export const metadata: Metadata = {
 
 export default async function WorkoutPage() {
   const allWorkouts = await getAllWorkouts();
+
+  console.log(allWorkouts);
     
   return (
     <>
@@ -17,10 +19,10 @@ export default async function WorkoutPage() {
         <h1>Workouts</h1>
       </div>  
 
-      <div className="grid gap-4">
+      <div className="grid gap-4 bg-white  rounded-lg p-6 shadow">
            {allWorkouts.map((workout) => (
             <Link key={workout.id} href={`/dashboard/workouts/${workout.id}`}>
-            <div key={workout.id} className="grid pb-4 grid-flow-col-dense justify-between items-center" >
+            <div key={workout.id} className="grid grid-flow-col-dense justify-between items-center" >
               <p>{workout.name}</p>
               
               <p>{workout.date?.toLocaleString()}</p>

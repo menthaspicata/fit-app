@@ -11,13 +11,14 @@ export const metadata: Metadata = {
 export default function LoginPage() {
   return (
     <main className="flex items-center justify-center">
-      <div className="relative flex w-full flex-col items-center">
+      <div className="relative flex w-full flex-col items-center gradient-card rounded-lg border border-neutral-200 py-10 shadow-lg max-w-md">
         <div className={`flex items-center mb-5 text-2xl ${zalandoSansExpanded.className}`}>
-            <Image src='/Athlance-logo.png' width={50} height={50} alt='Athlance logo' 
+            <Image src='/ConnectFit-logo.png' width={50} height={50} alt='ConnectFit logo' 
             className='mr-5'/>
-            Athlance
-        </div>        <h1 className="text-2xl font-bold">Welcome back!</h1>
-        <p className="text-gray-500">Sign in to manage your workouts</p>
+            ConnectFit
+        </div>        
+        <h1 className="text-2xl">Welcome back!</h1>
+        <p className="text-gray-500 mb-5">Sign in to manage your workouts</p>
         <Suspense>
           <LoginForm />
         </Suspense>

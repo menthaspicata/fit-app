@@ -33,7 +33,7 @@ export default function LoginForm() {
     <form action={authenticate} className="space-y-3" noValidate>
       <FormErrorBanner message={error} />
 
-      <div className="w-full">
+      <div className="w-full min-w-xs">
         <Field
           id="email"
           label="Email"
