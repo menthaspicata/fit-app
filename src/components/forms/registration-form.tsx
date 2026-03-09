@@ -1,10 +1,9 @@
 'use client'
 
 import Button from '@/components/ui/button';
-
 import { State, signUpAction } from '@/lib/actions/registration';
 import { useActionState } from 'react';
-
+import { zalandoSansExpanded } from "@/lib/fonts";
 import { FormErrorBanner } from '@/components/forms/components/form-error-banner';
 import { Field } from '@/components/forms/components/field';
 
@@ -19,8 +18,6 @@ export default function RegistrationForm() {
   return (
     <form action={formAction} className="space-y-3" noValidate>
       <div className="flex-1">
-
-
         {/* Top-level error banner (e.g. email already taken) */}
         <FormErrorBanner message={state.message} />
 

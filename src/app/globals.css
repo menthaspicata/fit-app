@@ -76,6 +76,16 @@ a {
   --color-dark-secondary-button: #374151;
   --color-dark-danger: #EF4444;
   --color-dark-secondary-text: #8C9395;
+
+
+  --color-light-border: #FBFBFB;
+  --color-light-body: #EBEFF5;
+  --color-light-text: #EAEBEF;
+  --color-light-primary-button: #40009B;
+  --color-light-card: #2C2D31;
+  --color-light-secondary-button: #374151;
+  --color-light-danger: #EF4444;
+  --color-light-secondary-text: #8C9395;
 }
 
 .card, .exercise-card {
@@ -87,9 +97,9 @@ a {
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
-.gradient-button {
-  background: #2075DF;
-  background: linear-gradient(90deg, rgba(32, 117, 223, 1) 0%, rgba(49, 156, 217, 1) 90%);
+.card-light-gradient {
+  background: #EAE6F9;
+  background: linear-gradient(151deg, rgba(234, 230, 249, 1) 0%, rgba(251, 251, 251, 1) 100%);
 }
 
 button > a {

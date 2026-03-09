@@ -17,11 +17,10 @@ export default async function DashboardLayout({
     }
 
   return (
-    
     <div className="pb-6 md:width-[calc(100vw-16rem)] md:ml-[16rem]">
-      {children} 
-      <Sidebar />
-      <BottomBar />
+        {children} 
+        <Sidebar />
+        <BottomBar />
     </div>
   )
 }
