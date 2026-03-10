@@ -117,6 +117,8 @@ export async function acceptInvite(prevState: State, formData: FormData): Promis
   redirect('/dashboard');
 }
 
+
+
 // ─── Misc ─────────────────────────────────────────────────────────────────────
 
 export async function fetchUserData() {
@@ -127,5 +129,18 @@ export async function fetchUserData() {
 }
 
 export async function getAllTrainees() {
-  return await prisma.user.findMany({ where: { role: 'TRAINEE' } });
+  const session = await getServerSession();
+  const userId = session?.user.id;
+  return await prisma.user.findMany({ where: { trainerId: userId } });
+}
+
+export async function getTraineeById(id: string) {
+  return await prisma.user.findUnique({
+    where: { id },
+    // include: {
+    //   measurements: { orderBy: { date: 'asc' } },
+    //   userWorkouts: true,
+    //   workoutSession: true,
+    // },
+  }); 
 }

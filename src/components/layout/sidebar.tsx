@@ -24,7 +24,9 @@ export default function Sidebar() {
                 </g>
             </g>
             </svg>
-                ConnectFit
+            <p>ConnectFit <br/>
+                <span className="text-slate-500 text-xs block leading-none">Trainer Portal</span></p>
+                
             </div>
             <ul className="grid gap-2">
                 {navItems.map(({ href, label, icon }) => {

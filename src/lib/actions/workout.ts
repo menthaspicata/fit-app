@@ -20,6 +20,7 @@ const createWorkoutDataForm = z.object({
   date: z.date(),
   created_at: z.date(),
   exercises: z.array(z.any()),
+  traineeId: z.string().optional().nullable(), 
 });
 
 const createWorkoutData = createWorkoutDataForm;
@@ -31,12 +32,11 @@ export async function createWorkout(prevState: State, formData: FormData): Promi
     userId: userId,
     name: formData.get('workout-name'),
     notes: formData.get('workout-notes'),
+    traineeId: formData.get('trainee-id') || null,
     created_at: new Date(),
     date: new Date(formData.get('workout-date') as string),
     exercises: JSON.parse(formData.get('exercises') as string),
   });
-  
-  console.log('createWorkout workoutFields', workoutFields);
 
   if (!workoutFields.success) {
     return {
@@ -46,7 +46,6 @@ export async function createWorkout(prevState: State, formData: FormData): Promi
   }
 
   try {
-    //console.log('createWorkout try', workoutFields.data);
     await prisma.$transaction(async (tx) => {
       const workout = await tx.workout.create({
         data: {
@@ -69,8 +68,6 @@ export async function createWorkout(prevState: State, formData: FormData): Promi
         )
       );
 
-      
-
       await tx.workoutSet.createMany({
         data: workoutExercises.flatMap((we, exIndex) =>
           workoutFields.data.exercises[exIndex].sets.map((set: { reps: number; weight: number }, setIndex: number) => ({
@@ -82,13 +79,20 @@ export async function createWorkout(prevState: State, formData: FormData): Promi
           }))
         ),
       });
+
+      if (workoutFields.data.traineeId) {
+        await tx.userWorkout.create({
+          data: {
+            userId: workoutFields.data.traineeId,   // the trainee
+            workoutId: workout.id,
+            assignedBy: workoutFields.data.userId,  // the trainer
+            status: 'assigned',
+            startDate: workoutFields.data.date,
+          },
+        });
+      }
     });
 
-
-
-
-
-    
     return {
       errors: {},
       message: 'Workout created successfully.',
@@ -122,19 +126,32 @@ export async function fetchTrainingsByDate(day: string) {
 }
 
 // Query All Workouts
-export async function getAllWorkouts() {    
+export async function getAllWorkouts() {
   return await prisma.workout.findMany({
-    // where: {
-    //   role: 'TRAINEE',
-    // },
+    include: {
+      userWorkouts: {
+        include: {
+          user: {  // the trainee
+            select: { id: true, name: true },
+          },
+        },
+      },
+    },
   });
 }
 
 // Query Workout by ID
 export async function getWorkoutById(workoutId: string) {
   return await prisma.workout.findUnique({
-    where: {
-      id: workoutId,
+    where: { id: workoutId },
+    include: {
+      userWorkouts: {
+        include: {
+          user: {  // the trainee
+            select: { id: true, name: true },
+          },
+        },
+      },
     },
   });
 }

@@ -5,9 +5,10 @@ import { useActionState, useEffect,  } from 'react';
 import { useTrainingStore  } from '@/store/store';
 import Button from '@/components/ui/button';
 import { useRouter } from 'next/navigation';
+import { UserDTO } from '@/types/types';
 
 
-export function CreateWorkoutForm() {  
+export function CreateWorkoutForm({ trainees }: { trainees: UserDTO[] }) {  
     const initialState: State = {
         message: null,
         errors: {},
@@ -45,18 +46,18 @@ export function CreateWorkoutForm() {
                     Date
                     <input className="outline-none px-4 py-2" type='datetime-local' id='workoutDate' name='workout-date'></input>
                 </label>
-                <label htmlFor="workoutFor" className="flex flex-col">
+                <label htmlFor="traineeId" className="flex flex-col">
                     Trainee
-                    <select name="trainee-name" id="workoutFor" className="outline-none px-4 py-2">
-
+                    <select name="trainee-id" id="traineeId" className="outline-none px-4 py-2">
+                        {trainees.map((trainee) => (
+                            <option key={trainee.id} value={trainee.id}>{trainee.name}</option>
+                        ))}
                     </select>
                 </label>
                 <label htmlFor="workoutNote" className="flex flex-col">
                     Notes
                     <textarea className="outline-none px-4 py-2" name="workout-notes" id="workoutNote" placeholder="Take a note.."></textarea>
                 </label>
-
-                {/* TODO: Add input for select trainee */}
              
                 <Button type="submit" className="createWorkout cursor-pointer items-center">Save</Button>
             </form>

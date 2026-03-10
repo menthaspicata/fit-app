@@ -4,3 +4,7 @@ export type ExerciseDTO = Exercise;
 
 import { UserSet } from '@prisma/client';
 export type SetDTO = UserSet;
+
+
+import { User } from '@prisma/client';
+export type UserDTO = User;
