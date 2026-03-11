@@ -140,6 +140,27 @@ export async function getAllWorkouts() {
   });
 }
 
+export async function getTrainerWorkoutsByDate(trainerId: string, date: string) {
+  const startOfDay = new Date(`${date}T00:00:00.000Z`);
+  const endOfDay = new Date(`${date}T23:59:59.999Z`);
+
+  const userWorkouts = await prisma.userWorkout.findMany({
+    where: {
+      assignedBy: trainerId,
+      startDate: {
+        gte: startOfDay,
+        lte: endOfDay,
+      },
+    },
+    include: {
+      user: true,      // trainee
+      workout: true,   // workout details
+    },
+  });
+
+  return userWorkouts;
+}
+
 // Query Workout by ID
 export async function getWorkoutById(workoutId: string) {
   return await prisma.workout.findUnique({
@@ -189,4 +210,37 @@ export async function getWorkoutExercises(workoutId: string) {
       };
     })
   );
+}
+
+export async function getDashboardStats() {
+  const session = await getServerSession();
+  const userId = session?.user.id;
+  if (!userId) return { totalTrainees: 0, activeWorkouts: 0, workoutsToday: 0 };
+
+  const today = new Date().toISOString().split('T')[0];
+  const startOfDay = new Date(`${today}T00:00:00.000Z`);
+  const endOfDay = new Date(`${today}T23:59:59.999Z`);
+
+  const [totalTrainees, activeWorkouts, workoutsToday] = await Promise.all([
+    // Count trainees linked to this trainer
+    prisma.user.count({
+      where: { trainerId: userId },
+    }),
+    // Active userWorkouts assigned by this trainer
+    prisma.userWorkout.count({
+      where: {
+        assignedBy: userId,
+        status: { in: ['assigned', 'in_progress'] },
+      },
+    }),
+    // Workouts assigned by trainer scheduled for today
+    prisma.userWorkout.count({
+      where: {
+        assignedBy: userId,
+        startDate: { gte: startOfDay, lte: endOfDay },
+      },
+    }),
+  ]);
+
+  return { totalTrainees, activeWorkouts, workoutsToday };
 }
