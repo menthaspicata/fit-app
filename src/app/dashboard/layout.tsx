@@ -17,7 +17,7 @@ export default async function DashboardLayout({
         redirect("/login");
     }
 
-    const user = await fetchUserData(session.user.id);
+    const user = await fetchUserData();
 
   return (
     <div className="pb-6 md:width-[calc(100vw-16rem)] md:ml-[16rem]">
