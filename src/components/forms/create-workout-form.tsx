@@ -1,68 +1,136 @@
-'use client'
+"use client";
 
-import { createWorkout, State } from '@/lib/actions/workout';
-import { useActionState, useEffect,  } from 'react';
-import { useTrainingStore  } from '@/store/store';
-import Button from '@/components/ui/button';
-import { useRouter } from 'next/navigation';
-import { UserDTO } from '@/types/types';
+import { createWorkout, State } from "@/lib/actions/workout";
+import { useActionState, useEffect, useState } from "react";
+import { useTrainingStore } from "@/store/store";
+import { useRouter } from "next/navigation";
+import { UserDTO } from "@/types/types";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faCalendar,
+  faUser,
+  faPenToSquare,
+  faCheck,
+} from "@fortawesome/free-solid-svg-icons";
 
+export function CreateWorkoutForm({ trainees }: { trainees: UserDTO[] }) {
+  const [workoutName, setWorkoutName] = useState("");
+  const [workoutDate, setWorkoutDate] = useState("");
+  const [traineeId, setTraineeId] = useState(trainees[0].id);
+  const [notes, setNotes] = useState("");
 
-export function CreateWorkoutForm({ trainees }: { trainees: UserDTO[] }) {  
-    const initialState: State = {
-        message: null,
-        errors: {},
-        success: false,
-    };
+  const initialState: State = {
+    message: null,
+    errors: {},
+    success: false,
+  };
 
-    const [state, dispatch] = useActionState(
-        async (prevState: State, formData: FormData) => {
-            const exercises = useTrainingStore.getState().exercises;
-            formData.append('exercises', JSON.stringify(exercises));
-            const formValues = Object.fromEntries(formData);
+  const [state, dispatch] = useActionState(
+    async (prevState: State, formData: FormData) => {
+      const exercises = useTrainingStore.getState().exercises;
+      // Append serialized exercises to the form data
+      formData.set("exercises", JSON.stringify(exercises));
 
-            return await createWorkout(prevState, formData);
-        },
-        initialState
-    );
+      return await createWorkout(prevState, formData);
+    },
+    initialState,
+  );
 
-    const router = useRouter();
+  const router = useRouter();
 
-    useEffect(() => {
-        if (state.success) {
-            router.push('/dashboard/workouts');
-        }
-    }, [state.success, router]);
-  
-    return (   
-        <>
-            <form action={dispatch} className="grid gap-2">
-                <label htmlFor="workoutName" className="flex flex-col">
-                    Workout Name
-                    <input className="outline-none px-4 py-2" type="text" name="workout-name" id="workoutName" placeholder="Workout name"/>
+  useEffect(() => {
+    if (state.success) {
+      useTrainingStore.getState().clearExercises?.();
+      router.push("/dashboard/workouts");
+    }
+  }, [state.success, router]);
 
-                </label>
-                <label htmlFor="workoutDate" className="flex flex-col">
-                    Date
-                    <input className="outline-none px-4 py-2" type='datetime-local' id='workoutDate' name='workout-date'></input>
-                </label>
-                <label htmlFor="traineeId" className="flex flex-col">
-                    Trainee
-                    <select name="trainee-id" id="traineeId" className="outline-none px-4 py-2">
-                        {trainees.map((trainee) => (
-                            <option key={trainee.id} value={trainee.id}>{trainee.name}</option>
-                        ))}
-                    </select>
-                </label>
-                <label htmlFor="workoutNote" className="flex flex-col">
-                    Notes
-                    <textarea className="outline-none px-4 py-2" name="workout-notes" id="workoutNote" placeholder="Take a note.."></textarea>
-                </label>
-             
-                <Button type="submit" className="createWorkout cursor-pointer items-center">Save</Button>
-            </form>
+  return (
+    <>
+      <form
+        action={dispatch}
+        className="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden
+            lg:col-start-1 lg:row-start-1"
+      >
+        <div className="px-6 py-4 border-b border-gray-50">
+          <h2 className="text-sm font-bold text-gray-800 uppercase tracking-wide">
+            Workout Details
+          </h2>
+        </div>
+        <div className="px-6 py-5 space-y-4">
+          {/* Name */}
+          <div>
+            <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wide mb-1.5">
+              Workout Name
+            </label>
+            <input
+              type="text"
+              name="workout-name"
+              placeholder="e.g. Upper Body Blast"
+              value={workoutName}
+              onChange={(e) => setWorkoutName(e.target.value)}
+              className="w-full bg-gray-50 border border-gray-200 text-gray-900 placeholder-gray-400 text-sm rounded-xl px-4 py-2.5 focus:outline-none focus:border-violet-400 focus:ring-2 focus:ring-violet-100 transition-all"
+            />
+          </div>
 
-        </> 
+          {/* Date + Trainee row */}
+          <div className="grid grid-cols-2 gap-4">
+            <div>
+              <label className="flex items-center gap-1.5 text-xs font-semibold text-gray-500 uppercase tracking-wide mb-1.5">
+                <FontAwesomeIcon icon={faCalendar} className="w-3 h-3" /> Date
+              </label>
+              <input
+                type="datetime-local"
+                name="workout-date"
+                value={workoutDate}
+                onChange={(e) => setWorkoutDate(e.target.value)}
+                className="w-full bg-gray-50 border border-gray-200 text-gray-700 text-sm rounded-xl px-4 py-2.5 focus:outline-none focus:border-violet-400 focus:ring-2 focus:ring-violet-100 transition-all"
+              />
+            </div>
+            <div>
+              <label className="flex items-center gap-1.5 text-xs font-semibold text-gray-500 uppercase tracking-wide mb-1.5">
+                <FontAwesomeIcon icon={faUser} className="w-3 h-3" /> Date
+                Assign To
+              </label>
+              <select
+                name="trainee-id"
+                value={traineeId}
+                onChange={(e) => setTraineeId(e.target.value)}
+                className="w-full bg-gray-50 border border-gray-200 text-gray-700 text-sm rounded-xl px-4 py-2.5 focus:outline-none focus:border-violet-400 focus:ring-2 focus:ring-violet-100 transition-all appearance-none cursor-pointer"
+              >
+                {trainees.map((trainee) => (
+                  <option key={trainee.id} value={trainee.id}>
+                    {trainee.name}
+                  </option>
+                ))}
+              </select>
+            </div>
+          </div>
 
-    )
+          {/* Notes */}
+          <div>
+            <label className="flex items-center gap-1.5 text-xs font-semibold text-gray-500 uppercase tracking-wide mb-1.5">
+              <FontAwesomeIcon icon={faPenToSquare} className="w-3 h-3" /> Notes
+            </label>
+            <textarea
+              name="workout-notes"
+              placeholder="Add instructions or notes for the trainee…"
+              value={notes}
+              onChange={(e) => setNotes(e.target.value)}
+              rows={3}
+              className="w-full bg-gray-50 border border-gray-200 text-gray-700 placeholder-gray-400 text-sm rounded-xl px-4 py-2.5 focus:outline-none focus:border-violet-400 focus:ring-2 focus:ring-violet-100 transition-all resize-none"
+            />
+          </div>
+
+          {state.message && !state.success && (
+            <p className="text-sm text-red-500">{state.message}</p>
+          )}
+          <button className="w-full cursor-pointer bg-violet-600 hover:bg-violet-700 active:scale-[0.99] text-white font-semibold text-sm py-3.5 rounded-2xl shadow-lg shadow-violet-200 transition-all duration-150 flex items-center justify-center gap-2">
+            <FontAwesomeIcon icon={faCheck} className="w-4 h-4" />
+            Save Workout
+          </button>
+        </div>
+      </form>
+    </>
+  );
 }

@@ -1,35 +1,37 @@
-import { CreateWorkoutForm } from '@/components/forms/create-workout-form';
-import { Metadata } from 'next';
-import { BackButton } from '@/components/ui/back-button';
-import { Search } from '@/components/ui/search';
-import { ExerciseList } from '@/features/exercises/exercises-list';
-import { getAllExercises } from '@/lib/actions/exercise';
-import { getAllTrainees } from '@/lib/actions/user';
-
+import { CreateWorkoutForm } from "@/components/forms/create-workout-form";
+import { Metadata } from "next";
+import { BackButton } from "@/components/ui/back-button";
+import { ExerciseList } from "@/features/exercises/exercises-list";
+import { ExerciseBuilder } from "@/features/exercises/exercises-bilder";
+import { getAllExercises } from "@/lib/actions/exercise";
+import { getAllTrainees } from "@/lib/actions/user";
 
 export const metadata: Metadata = {
-  title: 'Create Workout',
+  title: "Create Workout",
 };
 
 export default async function Page() {
   const exercises = await getAllExercises();
   const trainees = await getAllTrainees();
-  
 
   return (
     <>
-      <div className='grid grid-cols-3 justify-between items-center text-center mb-6'>
+      <div className="flex items-center mb-6">
         <BackButton />
-        <h1>Create Workout</h1>
-      </div>
-      <CreateWorkoutForm trainees={trainees} />
-      <div>
-        <h1 className="mt-8 mb-2 text-xl md:text-2xl">Exercises</h1>
-        <Search placeholder="Search Exercise"/>
-        <ExerciseList list={ exercises }/>
-        <div className="grid gap-4">
+        <div className="flex-1 min-w-0">
+          <h1 className="text-xl sm:text-2xl font-bold text-gray-900 tracking-tight">
+            Create Workout
+          </h1>
+          <p className="text-xs sm:text-sm text-gray-400 mt-0.5 hidden sm:block">
+            Build and assign a workout to a trainee
+          </p>
         </div>
       </div>
+      <div className="grid grid-cols-1 lg:grid-cols-2 lg:grid-rows-2 gap-4 ">
+        <CreateWorkoutForm trainees={trainees} />
+        <ExerciseList allExercises={exercises} />
+        <ExerciseBuilder allExercises={exercises} />
+      </div>
     </>
-  )
+  );
 }
