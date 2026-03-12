@@ -1,8 +1,9 @@
 // Helpers
-export function initials(name) {
+export function initials(name: string) {
   return name.split(" ").map(w => w[0]).join("").toUpperCase().slice(0, 2);
 }
-export function fmtDate(iso) {
+export function fmtDate(iso: Date | string | null | undefined) {
+  if (!iso) return '';
   return new Date(iso).toLocaleDateString("en-GB", { day: "numeric", month: "short", year: "numeric" });
 }
 export function fmtTime(date: Date | null | undefined) {
@@ -12,21 +13,21 @@ export function fmtTime(date: Date | null | undefined) {
     minute: '2-digit',
   });
 }
-export function avgDuration(sessions) {
+export function avgDuration(sessions: { duration_minutes?: number }[]) {
   if (!sessions.length) return 0;
   return Math.round(sessions.reduce((s, x) => s + (x.duration_minutes || 0), 0) / sessions.length);
 }
-export function lastSeen(sessions) {
+export function lastSeen(sessions: { startedAt: string }[]) {
   if (!sessions.length) return "No sessions";
-  const dates = sessions.map(s => new Date(s.startedAt));
+  const dates = sessions.map(s => new Date(s.startedAt).getTime());
   return fmtDate(new Date(Math.max(...dates)).toISOString());
 }
-export function statusColor(status) {
+export function statusColor(status: string) {
   if (status === "completed") return "bg-emerald-500/20 text-emerald-400 border border-emerald-500/30";
   if (status === "in_progress") return "bg-violet-500/20 text-violet-300 border border-violet-500/30";
   return "bg-slate-500/20 text-slate-400 border border-slate-500/30";
 }
-export function avatarGradient(id) {
+export function avatarGradient(id: string) {
     const gradients = [
         "from-violet-500 to-purple-700",
         "from-fuchsia-500 to-violet-700",
@@ -39,7 +40,7 @@ export function avatarGradient(id) {
     return gradients[idx];
 }
 
-export function WeightSparkline({ measurements }) {
+export function WeightSparkline({ measurements }: { measurements: { weight: number }[] }) {
   if (measurements.length < 2) return <span className="text-slate-500 text-xs">No data</span>;
   const weights = measurements.map(m => m.weight);
   const min = Math.min(...weights) - 2;

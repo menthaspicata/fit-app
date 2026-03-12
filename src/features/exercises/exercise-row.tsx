@@ -3,9 +3,14 @@
 import { useTrainingStore } from "@/store/store";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTrashCan } from '@fortawesome/free-solid-svg-icons'
-import type { SetDTO } from "@/types/types";
 
-export function SetRow({ exerciseId, set }: { exerciseId: string; set: SetDTO }) {
+type SetRowProps = {
+  setNumber: number | null;
+  reps: number | null;
+  weight: number | null;
+};
+
+export function SetRow({ exerciseId, set }: { exerciseId: string; set: SetRowProps }) {
   const updateReps   = useTrainingStore((s) => s.updateReps);
   const updateWeight = useTrainingStore((s) => s.updateWeight);
   const removeSet    = useTrainingStore((s) => s.removeSet);
@@ -17,9 +22,9 @@ export function SetRow({ exerciseId, set }: { exerciseId: string; set: SetDTO })
         <div className="relative">
           <input
             type="number" min={0}
-            value={set.reps === 0 ? '' : set.reps}
+            value={set.reps ?? ''}
             placeholder="0"
-            onChange={(e) => updateReps(exerciseId, set.setNumber, Number(e.target.value))}
+            onChange={(e) => updateReps(exerciseId, set.setNumber ?? 0, Number(e.target.value))}
             className="w-full text-sm text-center bg-gray-50 border border-gray-200 rounded-lg py-1.5 pr-8 focus:outline-none focus:border-violet-400 focus:ring-2 focus:ring-violet-100 transition-all"
           />
           <span className="absolute right-2 top-1/2 -translate-y-1/2 text-[10px] text-gray-400 pointer-events-none">reps</span>
@@ -27,16 +32,16 @@ export function SetRow({ exerciseId, set }: { exerciseId: string; set: SetDTO })
         <div className="relative">
           <input
             type="number" min={0}
-            value={set.weight === 0 ? '' : set.weight}
+            value={set.weight ?? ''}
             placeholder="0"
-            onChange={(e) => updateWeight(exerciseId, set.setNumber, Number(e.target.value))}
+            onChange={(e) => updateWeight(exerciseId, set.setNumber ?? 0, Number(e.target.value))}
             className="w-full text-sm text-center bg-gray-50 border border-gray-200 rounded-lg py-1.5 pr-7 focus:outline-none focus:border-violet-400 focus:ring-2 focus:ring-violet-100 transition-all"
           />
           <span className="absolute right-2 top-1/2 -translate-y-1/2 text-[10px] text-gray-400 pointer-events-none">kg</span>
         </div>
       </div>
       <button
-        onClick={() => removeSet(exerciseId, set.setNumber)}
+        onClick={() => removeSet(exerciseId, set.setNumber ?? 0)}
         className="opacity-0 group-hover/set:opacity-100 w-6 h-6 rounded-lg hover:bg-red-50 flex items-center justify-center transition-all flex-shrink-0"
       >
         <FontAwesomeIcon icon={faTrashCan} className="w-3 h-3 cursor-pointer text-red-400" />

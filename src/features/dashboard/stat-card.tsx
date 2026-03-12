@@ -1,4 +1,13 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { IconDefinition } from "@fortawesome/fontawesome-svg-core";
+
+export type Stat = {
+  icon: IconDefinition;
+  color: "violet" | "purple" | "indigo" | "fuchsia";
+  value: string | number;
+  label: string;
+  delta?: string;
+};
 
 export function StatCard({ stat, delay }: { stat: Stat; delay: number }) {
   const colorMap = {

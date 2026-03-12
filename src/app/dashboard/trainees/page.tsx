@@ -32,7 +32,7 @@ export default async function TraineesPage() {
             <div className="flex items-center justify-between mb-4">
               <div>
                 <h1 className="text-2xl font-bold tracking-tight">My Trainees</h1>
-                <p className="text-slate-400 text-sm mt-0.5">Hi, {trainer.name} 👋</p>
+                <p className="text-slate-400 text-sm mt-0.5">Hi, {trainer?.name} 👋</p>
               </div>
               <span className="bg-violet-600/20 text-violet-600 border border-violet-500/30 text-xs font-bold px-3 py-1.5 rounded-full">
                 {filtered.length} active
