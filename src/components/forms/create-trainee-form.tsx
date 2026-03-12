@@ -20,7 +20,7 @@ export function CreateTraineeForm() {
   }
 
   return (
-      <div className="w-full max-w-md">
+      <div className="w-full max-w-md mx-auto">
         {/* Card */}
         <div className="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
 
