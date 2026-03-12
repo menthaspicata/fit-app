@@ -5,6 +5,13 @@ export function initials(name) {
 export function fmtDate(iso) {
   return new Date(iso).toLocaleDateString("en-GB", { day: "numeric", month: "short", year: "numeric" });
 }
+export function fmtTime(date: Date | null | undefined) {
+  if (!date) return '';
+  return new Date(date).toLocaleTimeString('en-GB', {
+    hour: '2-digit',
+    minute: '2-digit',
+  });
+}
 export function avgDuration(sessions) {
   if (!sessions.length) return 0;
   return Math.round(sessions.reduce((s, x) => s + (x.duration_minutes || 0), 0) / sessions.length);
