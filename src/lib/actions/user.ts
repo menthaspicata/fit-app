@@ -117,6 +117,38 @@ export async function acceptInvite(prevState: State, formData: FormData): Promis
   redirect('/dashboard');
 }
 
+// ─── Trainer: Remove Trainee ──────────────────────────────────────────────────
+ 
+export async function removeTrainee(traineeId: string): Promise<{ success: boolean; message: string }> {
+  const session = await getServerSession();
+  const trainerId = session?.user.id;
+ 
+  if (!trainerId) return { success: false, message: 'Not authenticated.' };
+ 
+  // Verify this trainee actually belongs to the requesting trainer
+  const trainee = await prisma.user.findUnique({ where: { id: traineeId } });
+  if (!trainee) return { success: false, message: 'Trainee not found.' };
+  if (trainee.trainerId !== trainerId) return { success: false, message: 'Not authorized.' };
+ 
+  try {
+    // Unlink the trainee from this trainer (keeps their account intact)
+    await prisma.user.update({
+      where: { id: traineeId },
+      data: { trainerId: null },
+    });
+ 
+    // Also mark any related invites as removed
+    await prisma.invite.updateMany({
+      where: { trainerId, traineeId },
+      data: { status: 'REMOVED' },
+    });
+ 
+    return { success: true, message: 'Trainee removed successfully.' };
+  } catch (error) {
+    console.error(error);
+    return { success: false, message: 'Database error: failed to remove trainee.' };
+  }
+}
 
 
 // ─── Misc ─────────────────────────────────────────────────────────────────────
@@ -144,3 +176,4 @@ export async function getTraineeById(id: string) {
     // },
   }); 
 }
+
