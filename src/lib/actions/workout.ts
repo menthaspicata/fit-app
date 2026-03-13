@@ -107,6 +107,26 @@ export async function createWorkout(prevState: State, formData: FormData): Promi
   }
 }
 
+export async function updateWorkoutStatus(
+  workoutId: string,
+  status: 'assigned' | 'in_progress' | 'completed'
+): Promise<{ success: boolean; message: string }> {
+  const session = await getServerSession();
+  const userId = session?.user.id;
+  if (!userId) return { success: false, message: 'Not authenticated.' };
+
+  const workout = await prisma.workout.findUnique({ where: { id: workoutId } });
+  if (!workout) return { success: false, message: 'Workout not found.' };
+  if (workout.userId !== userId) return { success: false, message: 'Not authorized.' };
+
+  await prisma.userWorkout.updateMany({
+    where: { workoutId },
+    data: { status },
+  });
+
+  return { success: true, message: 'Status updated.' };
+}
+
 export async function fetchTrainingsByDate(day: string) {
   const session = await getServerSession()
   const userId = session?.user.id

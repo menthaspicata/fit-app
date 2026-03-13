@@ -4,6 +4,8 @@ import Link from 'next/link';
 import { Metadata } from 'next';
 import { fmtDate, fmtTime, initials } from '@/features/trainees/helpers';
 import { DeleteWorkoutButton } from '@/features/workouts/workout-remove';
+import { WorkoutStatusSelect } from '@/features/workouts/workout-status-select';
+
 
 export const metadata: Metadata = {
   title: 'Workout',
@@ -141,6 +143,11 @@ async function Content({ single }: { single: string }) {
               )}
             </div>
           </div>
+
+          <WorkoutStatusSelect
+            workoutId={single}
+            currentStatus={(assignedTo ? (workout.userWorkouts[0]?.status as any) : 'assigned') ?? 'assigned'}
+          />
 
           {/* Notes — full width if present */}
           {workout.notes && (
