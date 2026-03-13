@@ -16,7 +16,7 @@ import {
 export function CreateWorkoutForm({ trainees }: { trainees: UserDTO[] }) {
   const [workoutName, setWorkoutName] = useState("");
   const [workoutDate, setWorkoutDate] = useState("");
-  const [traineeId, setTraineeId] = useState(trainees[0].id);
+  const [traineeId, setTraineeId] = useState(trainees.length > 0 ? trainees[0].id : null);
   const [notes, setNotes] = useState("");
 
   const initialState: State = {
