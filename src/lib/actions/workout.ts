@@ -212,6 +212,38 @@ export async function getWorkoutExercises(workoutId: string) {
   );
 }
 
+// Delete Workout 
+
+export async function deleteWorkout(workoutId: string): Promise<{ success: boolean; message: string }> {
+  const session = await getServerSession();
+  const userId = session?.user.id;
+ 
+  if (!userId) return { success: false, message: 'Not authenticated.' };
+ 
+  // Verify the workout belongs to the requesting trainer
+  const workout = await prisma.workout.findUnique({ where: { id: workoutId } });
+  if (!workout) return { success: false, message: 'Workout not found.' };
+  if (workout.userId !== userId) return { success: false, message: 'Not authorized.' };
+ 
+  try {
+    await prisma.$transaction(async (tx) => {
+      // Delete sets → exercises → assignments → workout (in dependency order)
+      const workoutExercises = await tx.workoutExercise.findMany({ where: { workoutId } });
+      await tx.workoutSet.deleteMany({
+        where: { workoutExerciseId: { in: workoutExercises.map((we) => we.id) } },
+      });
+      await tx.workoutExercise.deleteMany({ where: { workoutId } });
+      await tx.userWorkout.deleteMany({ where: { workoutId } });
+      await tx.workout.delete({ where: { id: workoutId } });
+    });
+ 
+    return { success: true, message: 'Workout deleted successfully.' };
+  } catch (error) {
+    console.error(error);
+    return { success: false, message: 'Database error: failed to delete workout.' };
+  }
+}
+
 export async function getDashboardStats() {
   const session = await getServerSession();
   const userId = session?.user.id;

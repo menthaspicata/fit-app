@@ -3,6 +3,7 @@ import { BackButton } from '@/components/ui/back-button';
 import Link from 'next/link';
 import { Metadata } from 'next';
 import { fmtDate, fmtTime, initials } from '@/features/trainees/helpers';
+import { DeleteWorkoutButton } from '@/features/workouts/workout-remove';
 
 export const metadata: Metadata = {
   title: 'Workout',
@@ -92,6 +93,7 @@ async function Content({ single }: { single: string }) {
           </svg>
           <span className="hidden sm:inline">Edit</span>
         </Link>
+        <DeleteWorkoutButton workoutId={single} workoutName={workout.name} />
       </div>
 
       {/* ── Info card ── */}
