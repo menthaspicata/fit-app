@@ -11,6 +11,11 @@ export const auth = betterAuth({
     enabled: true, 
   },
   secret: process.env.BETTER_AUTH_SECRET,
+  baseURL: process.env.BETTER_AUTH_URL,
+  trustedOrigins: [
+    "https://fit-app-git-dev-kseniia-pekurs-projects.vercel.app/",
+    "http://localhost:3000",
+  ],
   user: {
     additionalFields: {
       role: {
