@@ -127,6 +127,82 @@ export async function updateWorkoutStatus(
   return { success: true, message: 'Status updated.' };
 }
 
+export async function updateWorkout(workoutId: string, prevState: State, formData: FormData): Promise<State> {
+  const session = await getServerSession();
+  const userId = session?.user.id;
+
+  const workout = await prisma.workout.findUnique({ where: { id: workoutId } });
+  if (!workout) return { errors: {}, message: 'Workout not found.' };
+  if (workout.userId !== userId) return { errors: {}, message: 'Not authorized.' };
+
+  const fields = createWorkoutData.safeParse({
+    userId,
+    name: formData.get('workout-name'),
+    notes: formData.get('workout-notes'),
+    traineeId: formData.get('trainee-id') || null,
+    created_at: new Date(),
+    date: new Date(formData.get('workout-date') as string),
+    exercises: JSON.parse(formData.get('exercises') as string),
+  });
+
+  if (!fields.success) return { errors: fields.error.flatten().fieldErrors, message: 'Missing Fields.' };
+
+  try {
+    await prisma.$transaction(async (tx) => {
+      await tx.workout.update({
+        where: { id: workoutId },
+        data: {
+          name: fields.data.name,
+          notes: fields.data.notes,
+          date: fields.data.date,
+        },
+      });
+
+      // Replace exercises + sets
+      const existing = await tx.workoutExercise.findMany({ where: { workoutId } });
+      await tx.workoutSet.deleteMany({ where: { workoutExerciseId: { in: existing.map((e) => e.id) } } });
+      await tx.workoutExercise.deleteMany({ where: { workoutId } });
+
+      const workoutExercises = await Promise.all(
+        fields.data.exercises.map((ex) =>
+          tx.workoutExercise.create({ data: { workoutId, exerciseId: ex.exerciseId } })
+        )
+      );
+
+      await tx.workoutSet.createMany({
+        data: workoutExercises.flatMap((we, i) =>
+          fields.data.exercises[i].sets.map((set: { reps: number; weight: number }, j: number) => ({
+            workoutExerciseId: we.id,
+            set_number: j + 1,
+            reps: set.reps,
+            weight: set.weight,
+            order_number: j,
+          }))
+        ),
+      });
+
+      if (fields.data.traineeId) {
+        await tx.userWorkout.deleteMany({ where: { workoutId } });
+
+        await tx.userWorkout.create({
+          data: {
+            userId: fields.data.traineeId,
+            workoutId,
+            assignedBy: userId!,
+            status: 'assigned',
+            startDate: fields.data.date,
+          },
+        });
+      }
+    });
+
+    return { errors: {}, message: 'Workout updated successfully.', success: true };
+  } catch (error) {
+    console.error(error);
+    return { errors: {}, message: 'Database Error: Failed to Update Workout.' };
+  }
+}
+
 export async function fetchTrainingsByDate(day: string) {
   const session = await getServerSession()
   const userId = session?.user.id
@@ -157,12 +233,17 @@ export async function getAllWorkouts() {
         },
       },
     },
+    orderBy: [
+      {
+        createdAt: "desc",
+      },
+  ],
   });
 }
 
 export async function getTrainerWorkoutsByDate(trainerId: string, date: string) {
-  const startOfDay = new Date(`${date}T00:00:00.000Z`);
-  const endOfDay = new Date(`${date}T23:59:59.999Z`);
+  const startOfDay = new Date(`${date}T00:00:00`);
+  const endOfDay = new Date(`${date}T23:59:59.999`);
 
   const userWorkouts = await prisma.userWorkout.findMany({
     where: {
@@ -173,8 +254,8 @@ export async function getTrainerWorkoutsByDate(trainerId: string, date: string) 
       },
     },
     include: {
-      user: true,      // trainee
-      workout: true,   // workout details
+      user: true,
+      workout: true,
     },
   });
 

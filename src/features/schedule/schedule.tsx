@@ -170,13 +170,14 @@ export default function Schedule() {
             <div className="w-6 h-6 border-2 border-violet-500 border-t-transparent rounded-full animate-spin" />
           </div>
         ) : workouts.length > 0 ? (
+        
           workouts.map((workout) => (
             <div
               key={workout.id}
               className="flex relative items-center gap-4 px-6 py-3.5 hover:bg-gray-50/50 transition-colors group"
             >
               <Link
-                href={`/dashboard/workouts/${workout.workout.id}`}
+                href={`/dashboard/workouts/${workout.workoutId}`}
                 className="absolute inset-0"
               />
               {/* Time */}
@@ -207,7 +208,7 @@ export default function Schedule() {
                   {workout.user.name}
                 </div>
                 <div className="text-xs text-gray-400">
-                  {workout.workout.name}
+                  {workout.name}
                 </div>
               </div>
               {/* Status badge */}

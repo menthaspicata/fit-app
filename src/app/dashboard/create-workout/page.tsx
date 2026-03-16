@@ -2,7 +2,7 @@ import { CreateWorkoutForm } from "@/components/forms/create-workout-form";
 import { Metadata } from "next";
 import { BackButton } from "@/components/ui/back-button";
 import { ExerciseList } from "@/features/exercises/exercises-list";
-import { ExerciseBuilder } from "@/features/exercises/exercises-bilder";
+import { ExerciseBuilder } from "@/features/exercises/exercises-builder";
 import { getAllExercises } from "@/lib/actions/exercise";
 import { getAllTrainees } from "@/lib/actions/user";
 

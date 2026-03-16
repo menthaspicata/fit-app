@@ -22,6 +22,7 @@ type TrainingState = {
   removeSet: (exerciseId: string, setNumber: number) => void;
   toggleExercise: (exerciseId: string) => void;
   clearExercises: () => void;
+  seedExercise: (exerciseId: string, sets: { reps: number; weight: number }[]) => void;
 };
 
 export const useTrainingStore = create<TrainingState>((set) => ({
@@ -120,5 +121,20 @@ export const useTrainingStore = create<TrainingState>((set) => ({
         ],
       };
     }),
+  seedExercise: (exerciseId, sets) =>
+    set((state) => ({
+      selectedIds: { ...state.selectedIds, [exerciseId]: true },
+      exercises: [
+        ...state.exercises,
+        {
+          exerciseId,
+          sets: sets.map((s, i) => ({
+            setNumber: i + 1,
+            reps: s.reps,
+            weight: s.weight,
+          })),
+        },
+      ],
+  })),
   clearExercises: () => set({ exercises: [], selectedIds: {} }),
 }));

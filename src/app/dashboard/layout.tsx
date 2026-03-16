@@ -11,8 +11,7 @@ export default async function DashboardLayout({
 }) {
 
     const session = await getServerSession();
-
-    console.log('DashboardLayout session:', session);    
+   
     if(!session) {
         redirect("/login");
     }

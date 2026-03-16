@@ -18,7 +18,6 @@ export function StatCard({ stat, delay }: { stat: Stat; delay: number }) {
   } as const;
   const c = colorMap[stat.color as keyof typeof colorMap];
 
-  console.log("stat.icon", stat.icon);
   return (
     <div className="bg-white rounded-2xl p-5 border border-gray-100 shadow-sm hover:shadow-md transition-all duration-200 hover:-translate-y-0.5 cursor-default">
       <div className="flex items-start justify-between mb-4">

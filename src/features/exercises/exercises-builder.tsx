@@ -8,7 +8,7 @@ import type { ExerciseDTO } from "@/types/types";
 
 
 type Props = {
-  allExercises: ExerciseDTO[]; // pass the full list from the page
+  allExercises: ExerciseDTO[];
 };
 
 export function ExerciseBuilder({ allExercises }: Props) {
