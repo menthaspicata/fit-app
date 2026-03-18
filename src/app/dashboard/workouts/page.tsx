@@ -2,6 +2,7 @@ import { BackButton } from "@/components/ui/back-button";
 import Link from "next/link";
 import { Metadata } from "next";
 import { getAllWorkouts } from "@/lib/actions/workout";
+import { fetchUserData } from '@/lib/actions/user';
 import {
   fmtDate,
   fmtTime,
@@ -14,6 +15,7 @@ export const metadata: Metadata = {
 };
 
 export default async function WorkoutPage() {
+  const user = await fetchUserData();
   const allWorkouts = await getAllWorkouts();
 
   return (
@@ -30,25 +32,28 @@ export default async function WorkoutPage() {
             total
           </p>
         </div>
-        <Link
-          href="/dashboard/create-workout"
-          className="flex items-center gap-2 bg-violet-600 hover:bg-violet-700 active:scale-[0.99] text-white text-sm font-semibold px-4 py-2.5 rounded-xl shadow-md shadow-violet-200 transition-all"
-        >
-          <svg
-            className="w-4 h-4"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
+        {user?.role == 'trainer' &&
+          <Link
+            href="/dashboard/create-workout"
+            className="flex items-center gap-2 bg-violet-600 hover:bg-violet-700 active:scale-[0.99] text-white text-sm font-semibold px-4 py-2.5 rounded-xl shadow-md shadow-violet-200 transition-all"
           >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2}
-              d="M12 4v16m8-8H4"
-            />
-          </svg>
-          <span className="hidden sm:inline">New Workout</span>
-        </Link>
+            <svg
+              className="w-4 h-4"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M12 4v16m8-8H4"
+              />
+            </svg>
+            <span className="hidden sm:inline">New Workout</span>
+          </Link>
+        }
+
       </div>
 
       {/* ── Empty state ── */}

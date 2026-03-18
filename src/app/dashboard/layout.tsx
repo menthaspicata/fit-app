@@ -22,7 +22,7 @@ export default async function DashboardLayout({
     <div className="pb-6 md:width-[calc(100vw-16rem)] md:ml-[16rem]">
       <Sidebar user={user} />
       {children} 
-      <BottomBar />
+      <BottomBar user={user}/>
     </div>
   )
 }

@@ -63,3 +63,20 @@ export function WeightSparkline({ measurements }: { measurements: { weight: numb
     </svg>
   );
 }
+
+export function isExpired(expiresAt: Date) {
+  return new Date(expiresAt) < new Date();
+}
+
+type InviteStatus = 'pending' | 'accepted' | 'expired' | string;
+
+export function statusConfig(status: InviteStatus, expiresAt: Date) {
+  const expired = isExpired(expiresAt) && status.toLocaleLowerCase() === 'pending';
+  const s = expired ? 'expired' : status.toLocaleLowerCase();
+  const map: Record<string, { label: string; pill: string; dot: string }> = {
+    pending:  { label: 'pending',  pill: 'bg-amber-50 text-amber-600 border-amber-200',   dot: 'bg-amber-400 animate-pulse' },
+    accepted: { label: 'accepted', pill: 'bg-emerald-50 text-emerald-600 border-emerald-200', dot: 'bg-emerald-400' },
+    expired:  { label: 'expired',  pill: 'bg-gray-100 text-gray-500 border-gray-200',     dot: 'bg-gray-300' },
+  };
+  return map[s] ?? map['expired'];
+}

@@ -18,23 +18,32 @@ export default function Sidebar({ user }: { user: any }) {
         {/* Nav */}
         <nav className="flex-1 space-y-1">
         <Logo />
-          {navItems .map(({ href, label, icon }) => (
-            <Link href={href}
-              key={href}
-              onClick={() => setActiveNav(href)}
-              className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-base font-medium transition-all duration-150
-                ${activeNav === href
-                  ? "bg-violet-50 text-violet-700"
-                  : "text-gray-500 hover:bg-gray-50 hover:text-gray-800"
-                }`}
-            >
-              <FontAwesomeIcon icon={icon} className={`mr-2 h-6 w-6 ${activeNav === href ? "text-violet-600" : "text-gray-400"}`} />
-              {label}
-              {href === "/trainees" && (
-                <span className="ml-auto bg-violet-100 text-violet-600 text-[10px] font-bold px-1.5 py-0.5 rounded-full">12</span>
-              )}
-            </Link>
-          ))}
+          {navItems.map(({ href, label, icon, for_trainer }) => {
+            if (for_trainer && user.role !== 'trainer') {
+              return null;
+            }
+
+            return (
+              <Link href={href} key={href} onClick={() => setActiveNav(href)} className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-base font-medium transition-all duration-150
+                  ${
+                    activeNav === href
+                      ? "bg-violet-50 text-violet-700"
+                      : "text-gray-500 hover:bg-gray-50 hover:text-gray-800"
+                  }`}
+              >
+                <FontAwesomeIcon icon={icon} className={`mr-2 h-6 w-6 ${
+                    activeNav === href ? "text-violet-600" : "text-gray-400"
+                  }`}
+                />
+                {label}
+                {href === "/trainees" && (
+                  <span className="ml-auto bg-violet-100 text-violet-600 text-[10px] font-bold px-1.5 py-0.5 rounded-full">
+                    12
+                  </span>
+                )}
+              </Link>
+            );
+          })}
         </nav>
 
         {/* Avatar */}
