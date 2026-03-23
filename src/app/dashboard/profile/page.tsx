@@ -7,7 +7,7 @@ import { faPen, faEnvelope, faShield } from '@fortawesome/free-solid-svg-icons';
 import { Metadata } from 'next';
 import Link from 'next/link';
 import { redirect } from 'next/navigation';
-import { initials } from '@/features/trainees/helpers';
+import { initials } from '@/features/helpers';
 
 export const metadata: Metadata = {
   title: 'Profile',

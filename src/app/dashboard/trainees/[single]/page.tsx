@@ -1,6 +1,6 @@
 import { Metadata } from 'next';
 import { getTraineeById } from '@/lib/actions/user';
-import { initials, fmtDate, avgDuration, lastSeen, statusColor, avatarGradient } from '@/features/trainees/helpers';
+import { initials, fmtDate, avgDuration, lastSeen, statusColor, avatarGradient } from '@/features/helpers';
 import { RemoveTraineeButton } from '@/features/trainees/trainee-remove';
 
 export const metadata: Metadata = {

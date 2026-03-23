@@ -10,7 +10,7 @@ import {
   faChevronRight,
   faCalendar,
 } from "@fortawesome/free-solid-svg-icons";
-import { avatarGradient, initials } from "@/features/trainees/helpers";
+import { avatarGradient, initials } from "@/features/helpers";
 import { authClient } from "@/lib/auth-client";
 
 export default function Schedule() {

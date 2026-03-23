@@ -1,6 +1,6 @@
 import { getAllInvites } from '@/lib/actions/invites';
 import { DeleteInviteButton } from '@/features/invites/invite-remove';
-import { fmtDate, avatarGradient, initials, statusConfig, isExpired } from '@/features/trainees/helpers';
+import { fmtDate, avatarGradient, initials, statusConfig, isExpired } from '@/features/helpers';
 import { Metadata } from 'next';
 import Link from 'next/link';
 

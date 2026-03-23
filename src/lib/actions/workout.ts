@@ -223,7 +223,13 @@ export async function fetchTrainingsByDate(day: string) {
 
 // Query All Workouts
 export async function getAllWorkouts() {
+  const session = await getServerSession();
+  const userId = session?.user.id;
+
   return await prisma.workout.findMany({
+    where: {
+      userId: userId,
+    },
     include: {
       userWorkouts: {
         include: {
@@ -376,4 +382,26 @@ export async function getDashboardStats() {
   ]);
 
   return { totalTrainees, activeWorkouts, workoutsToday };
+}
+
+// Workout in progress
+export async function completeWorkout(
+  workoutId: string,
+  userId: string
+): Promise<{ success: boolean; message: string }> {
+  const assignment = await prisma.userWorkout.findFirst({
+    where: { workoutId, userId },
+  });
+
+  if (!assignment) return { success: false, message: 'Workout assignment not found.' };
+
+  await prisma.userWorkout.updateMany({
+    where: { workoutId, userId },
+    data: {
+      status: 'completed',
+      endDate: new Date(),
+    },
+  });
+
+  return { success: true, message: 'Workout completed.' };
 }

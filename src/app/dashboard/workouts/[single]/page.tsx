@@ -2,38 +2,15 @@ import { getWorkoutById, getWorkoutExercises } from '@/lib/actions/workout';
 import { BackButton } from '@/components/ui/back-button';
 import Link from 'next/link';
 import { Metadata } from 'next';
-import { fmtDate, fmtTime, initials } from '@/features/trainees/helpers';
+import { fmtDate, fmtTime, initials } from '@/features/helpers';
 import { DeleteWorkoutButton } from '@/features/workouts/workout-remove';
+import { RunWorkoutButton } from '@/features/workouts/workout-run-button';
 import { WorkoutStatusSelect } from '@/features/workouts/workout-status-select';
+import { MUSCLE_COLORS } from '@/features/helpers'
 
 
 export const metadata: Metadata = {
   title: 'Workout',
-};
-
-const MUSCLE_COLORS: Record<string, { pill: string; dot: string }> = {
-  "Chest Exercises": { pill: "bg-rose-50 text-rose-600", dot: "bg-rose-400" },
-  "Back Exercises": { pill: "bg-blue-50 text-blue-600", dot: "bg-blue-400" },
-  "Legs Exercises": {
-    pill: "bg-emerald-50 text-emerald-600",
-    dot: "bg-emerald-400",
-  },
-  "Shoulder Exercises": {
-    pill: "bg-amber-50 text-amber-600",
-    dot: "bg-amber-400",
-  },
-  "Biceps Exercises": {
-    pill: "bg-violet-50 text-violet-600",
-    dot: "bg-violet-400",
-  },
-  "Triceps Exercises": {
-    pill: "bg-fuchsia-50 text-fuchsia-600",
-    dot: "bg-fuchsia-400",
-  },
-  "Core Exercises": {
-    pill: "bg-indigo-50 text-indigo-600",
-    dot: "bg-indigo-400",
-  },
 };
 
 // ── Page ──────────────────────────────────────────────────────────────────────
@@ -95,6 +72,7 @@ async function Content({ single }: { single: string }) {
           </svg>
           <span className="hidden sm:inline">Edit</span>
         </Link>
+        <RunWorkoutButton workoutId={single} />
         <DeleteWorkoutButton workoutId={single} workoutName={workout.name} />
       </div>
 

@@ -170,6 +170,7 @@ model UserWorkout {
   workoutId  String?
   assignedBy String?
   startDate  DateTime? @db.Timestamptz
+  endDate    DateTime? @db.Timestamptz
   status     String?   @db.VarChar(100)
   notes      String?
 

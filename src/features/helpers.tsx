@@ -13,6 +13,13 @@ export function fmtTime(date: Date | null | undefined) {
     minute: '2-digit',
   });
 }
+export function fmtDuration(seconds: number) {
+  const h = Math.floor(seconds / 3600);
+  const m = Math.floor((seconds % 3600) / 60);
+  const s = seconds % 60;
+  if (h > 0) return `${h}:${String(m).padStart(2, '0')}:${String(s).padStart(2, '0')}`;
+  return `${String(m).padStart(2, '0')}:${String(s).padStart(2, '0')}`;
+}
 export function avgDuration(sessions: { duration_minutes?: number }[]) {
   if (!sessions.length) return 0;
   return Math.round(sessions.reduce((s, x) => s + (x.duration_minutes || 0), 0) / sessions.length);
@@ -80,3 +87,15 @@ export function statusConfig(status: InviteStatus, expiresAt: Date) {
   };
   return map[s] ?? map['expired'];
 }
+
+
+// ── Muscle colours  ────────────────────────────────────
+export const MUSCLE_COLORS: Record<string, { pill: string; dot: string }> = {
+  "Chest Exercises":    { pill: "bg-rose-50 text-rose-600",     dot: "bg-rose-400"    },
+  "Back Exercises":     { pill: "bg-blue-50 text-blue-600",     dot: "bg-blue-400"    },
+  "Legs Exercises":     { pill: "bg-emerald-50 text-emerald-600", dot: "bg-emerald-400" },
+  "Shoulder Exercises": { pill: "bg-amber-50 text-amber-600",   dot: "bg-amber-400"   },
+  "Biceps Exercises":   { pill: "bg-violet-50 text-violet-600", dot: "bg-violet-400"  },
+  "Triceps Exercises":  { pill: "bg-fuchsia-50 text-fuchsia-600", dot: "bg-fuchsia-400" },
+  "Core Exercises":     { pill: "bg-indigo-50 text-indigo-600", dot: "bg-indigo-400"  },
+};

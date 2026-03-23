@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { initials, avatarGradient } from '@/features/trainees/helpers';
+import { initials, avatarGradient } from '@/features/helpers';
 
 // Trainee Card
 export function TraineeCard({ trainee: trainee }: { trainee: any }) {

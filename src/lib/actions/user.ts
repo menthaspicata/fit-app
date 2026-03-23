@@ -163,7 +163,12 @@ export async function fetchUserData() {
 export async function getAllTrainees() {
   const session = await getServerSession();
   const userId = session?.user.id;
-  return await prisma.user.findMany({ where: { trainerId: userId } });
+  console.log('trainer id' , userId)
+  return await prisma.user.findMany({ 
+    where: { 
+      trainerId: userId 
+    } 
+  });
 }
 
 export async function getTraineeById(id: string) {

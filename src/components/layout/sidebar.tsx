@@ -5,7 +5,7 @@ import { navItems } from '@/components/layout/nav-items';
 import { usePathname } from 'next/navigation';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useState } from "react";
-import { avatarGradient, initials } from '@/features/trainees/helpers';
+import { avatarGradient, initials } from '@/features/helpers';
 import { Logo } from '@/components/ui/logo';
 
 export default function Sidebar({ user }: { user: any }) {
