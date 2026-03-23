@@ -1,4 +1,5 @@
 import { Metadata } from 'next';
+import { BackButton } from "@/components/ui/back-button";
 import { TraineeCard } from '@/features/trainees/trainee-card';
 import { getAllTrainees, fetchUserData } from '@/lib/actions/user'
 
@@ -28,9 +29,10 @@ export default async function TraineesPage() {
             `}>
 
           {/* Header */}
-          <div className="flex-shrink-0 p-6 pb-4">
-            <div className="flex items-center justify-between mb-4">
-              <div>
+          <div className="flex-shrink-0">
+            <div className="flex items-center gap-3 mb-6 sm:mb-8">
+              <BackButton />
+              <div className='flex-1'>
                 <h1 className="text-2xl font-bold tracking-tight">My Trainees</h1>
                 <p className="text-slate-400 text-sm mt-0.5">Hi, {trainer?.name} 👋</p>
               </div>

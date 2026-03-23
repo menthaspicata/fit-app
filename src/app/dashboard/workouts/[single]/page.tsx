@@ -56,7 +56,7 @@ async function Content({ single }: { single: string }) {
 
       {/* ── Header ── */}
       <div className="flex items-center gap-3 mb-6 sm:mb-8">
-        <BackButton />
+        <BackButton href="/dashboard/workouts" />
         <div className="flex-1 min-w-0">
           <p className="text-xs text-gray-400 uppercase tracking-wide font-semibold">Workout Detail</p>
           <h1 className="text-xl sm:text-2xl font-bold text-gray-900 tracking-tight truncate mt-0.5">

@@ -1,4 +1,5 @@
 import { getAllInvites } from '@/lib/actions/invites';
+import { BackButton } from "@/components/ui/back-button";
 import { DeleteInviteButton } from '@/features/invites/invite-remove';
 import { fmtDate, avatarGradient, initials, statusConfig, isExpired } from '@/features/helpers';
 import { Metadata } from 'next';
@@ -19,6 +20,7 @@ export default async function InvitesPage() {
 
     {/* ── Header ── */}
     <div className="flex items-center gap-3 mb-6 sm:mb-8">
+        <BackButton />
         <div className="flex-1 min-w-0">
         <h1 className="text-xl sm:text-2xl font-bold text-gray-900 tracking-tight">Invites</h1>
         <p className="text-xs sm:text-sm text-gray-400 mt-0.5">
