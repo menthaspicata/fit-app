@@ -1,0 +1,234 @@
+/* ─────────────────────────────────────────
+   ConnectFitLanding.module.css
+   Only things Tailwind can't express cleanly:
+   - Multi-stop gradients / mesh backgrounds
+   - Noise texture overlay
+   - Complex pseudo-element effects
+   - Keyframe animations
+   - Gradient text clips
+   - Scroll-triggered fade-up
+───────────────────────────────────────── */
+
+/* Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap');
+
+body {
+  background-color: #0d0a1a;
+}
+/* ── NOISE OVERLAY ── */
+.noiseOverlay {
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='1'/%3E%3C/svg%3E");
+  opacity: 0.025;
+  pointer-events: none;
+  z-index: 9999;
+}
+
+/* ── TYPOGRAPHY ── */
+.fontSyne {
+  font-family: 'Syne', sans-serif;
+}
+
+.fontDM {
+  font-family: 'DM Sans', sans-serif;
+}
+
+/* ── GRADIENT TEXT ── */
+.gradientText {
+  background: linear-gradient(135deg, #ffffff 0%, #c4b5fd 40%, #7c3aed 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.gradientTextStat {
+  background: linear-gradient(135deg, #ffffff 0%, #a78bfa 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ── HERO RADIAL GLOWS ── */
+.heroGlowTop {
+  position: absolute;
+  top: -200px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 900px;
+  height: 700px;
+  background: radial-gradient(ellipse, rgba(124, 58, 237, 0.22) 0%, transparent 65%);
+  pointer-events: none;
+}
+
+.heroGlowBottom {
+  position: absolute;
+  bottom: -100px;
+  right: -200px;
+  width: 600px;
+  height: 600px;
+  background: radial-gradient(ellipse, rgba(139, 92, 246, 0.12) 0%, transparent 65%);
+  pointer-events: none;
+}
+
+/* ── FEATURE CARD HOVER GLOW ── */
+.featureCard {
+  position: relative;
+  overflow: hidden;
+  transition: border-color 0.3s, transform 0.3s;
+}
+
+.featureCard::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 0% 0%, rgba(124, 58, 237, 0.1) 0%, transparent 60%);
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.featureCard:hover::before {
+  opacity: 1;
+}
+
+.featureCard:hover {
+  border-color: rgba(124, 58, 237, 0.3);
+  transform: translateY(-3px);
+}
+
+/* ── STEP VISUAL GLOW ── */
+.stepVisual::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 50% 50%, rgba(124, 58, 237, 0.18) 0%, transparent 70%);
+}
+
+/* ── TESTIMONIAL CARD ── */
+.testimonialCard {
+  position: relative;
+  transition: border-color 0.3s, transform 0.3s, box-shadow 0.3s;
+}
+
+.testimonialCard:hover {
+  border-color: rgba(124, 58, 237, 0.3);
+  transform: translateY(-4px);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+}
+
+/* ── CTA BOX GLOW ── */
+.ctaBox::before {
+  content: '';
+  position: absolute;
+  top: -100px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 600px;
+  height: 400px;
+  background: radial-gradient(ellipse, rgba(124, 58, 237, 0.2) 0%, transparent 70%);
+}
+
+
+/* ── TIMER PROGRESS BAR ── */
+.timerProgressFill {
+  height: 100%;
+  width: 65%;
+  background: linear-gradient(90deg, #7c3aed, #8b5cf6);
+  border-radius: 2px;
+}
+
+/* ── STEP LINE ── */
+.stepLine {
+  width: 2px;
+  height: 60px;
+  background: linear-gradient(to bottom, #7c3aed, transparent);
+}
+
+/* ── KEYFRAMES ── */
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(28px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50%       { opacity: 0.5; transform: scale(0.8); }
+}
+
+/* ── ANIMATION HELPERS ── */
+.animateFadeUp {
+  animation: fadeUp 0.7s ease both;
+}
+
+.animateFadeUpD1 { animation: fadeUp 0.7s ease 0.1s both; }
+.animateFadeUpD2 { animation: fadeUp 0.7s ease 0.2s both; }
+.animateFadeUpD3 { animation: fadeUp 0.7s ease 0.3s both; }
+.animateFadeUpD4 { animation: fadeUp 0.7s ease 0.4s both; }
+
+.badgeDot {
+  animation: pulse 2s infinite;
+}
+
+/* ── SCROLL-TRIGGERED FADE-UP ── */
+.fadeUp {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+
+.fadeUp.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ── SECTION LABEL LINE ── */
+.sectionLabel::before {
+  content: '';
+  display: block;
+  width: 20px;
+  height: 1px;
+  background: #8b5cf6;
+}
+
+/* ── MOCKUP SCREEN (flex row for sidebar+main) ── */
+.mockupScreen {
+  display: flex;
+  background: #ecf0f4;
+  min-height: 460px;
+}
+
+/* ── NAV BUTTON HOVER ── */
+.btnPrimary {
+  transition: background 0.25s, box-shadow 0.25s, transform 0.25s;
+}
+
+.btnPrimary:hover {
+  background: #8b5cf6;
+  box-shadow: 0 0 24px rgba(124, 58, 237, 0.45);
+  transform: translateY(-1px);
+}
+
+.btnHero {
+  transition: background 0.25s, box-shadow 0.25s, transform 0.25s;
+}
+
+.btnHero:hover {
+  background: #8b5cf6;
+  box-shadow: 0 0 40px rgba(124, 58, 237, 0.5);
+  transform: translateY(-2px);
+}
+
+/* ── STAT ITEM ── */
+.statItem {
+  transition: background 0.2s;
+}
+
+.statItem:hover {
+  background: rgba(124, 58, 237, 0.07);
+}
