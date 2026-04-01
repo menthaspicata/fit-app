@@ -58,14 +58,14 @@ async function Content({ single }: { single: string }) {
       <div className="flex items-center gap-3 mb-6 sm:mb-8">
         <BackButton href="/dashboard/workouts" />
         <div className="flex-1 min-w-0">
-          <p className="text-xs text-gray-400 uppercase tracking-wide font-semibold">Workout Detail</p>
-          <h1 className="text-xl sm:text-2xl font-bold text-gray-900 tracking-tight truncate mt-0.5">
+          <p className="text-xs text-gray-400 dark:text-violet-300 uppercase tracking-wide font-semibold">Workout Detail</p>
+          <h1 className="text-xl sm:text-2xl font-bold text-gray-900 dark:text-violet-100 tracking-tight truncate mt-0.5">
             {workout.name}
           </h1>
         </div>
         <Link
           href={`/dashboard/workouts/${single}/edit`}
-          className="flex items-center gap-2 bg-white hover:bg-gray-50 border border-gray-200 hover:border-violet-300 text-gray-700 text-sm font-semibold px-4 py-2.5 rounded-xl shadow-sm transition-all"
+          className="flex items-center gap-2 bg-white dark:bg-slate-800 hover:bg-gray-50 dark:hover:bg-slate-700 border border-gray-200 dark:border-gray-800 hover:border-violet-300 text-gray-700 dark:text-violet-100 text-sm font-semibold px-4 py-2.5 rounded-xl shadow-sm transition-all"
         >
           <svg className="w-3.5 h-3.5 text-violet-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
@@ -77,47 +77,47 @@ async function Content({ single }: { single: string }) {
       </div>
 
       {/* ── Info card ── */}
-      <div className="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden mb-5">
-        <div className="px-5 sm:px-6 py-4 border-b border-gray-50">
-          <h2 className="text-xs font-bold text-gray-500 uppercase tracking-wider">Details</h2>
+      <div className="bg-white dark:bg-slate-900 rounded-2xl border border-gray-100 dark:border-gray-800 shadow-sm overflow-hidden mb-5">
+        <div className="px-5 sm:px-6 py-4 border-b border-gray-50 dark:border-gray-800">
+          <h2 className="text-xs font-bold text-gray-500 dark:text-violet-100 uppercase tracking-wider">Details</h2>
         </div>
 
         <div className="px-5 sm:px-6 py-5 grid grid-cols-1 sm:grid-cols-2 gap-5">
 
           {/* Assigned to */}
           <div className="flex items-center gap-3">
-            <div className="w-9 h-9 bg-gray-100 rounded-xl flex items-center justify-center flex-shrink-0">
+            <div className="w-9 h-9 bg-gray-100 dark:bg-slate-800 rounded-xl flex items-center justify-center flex-shrink-0">
               <svg className="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
               </svg>
             </div>
             <div>
-              <p className="text-[10px] font-semibold text-gray-400 uppercase tracking-wide">Assigned To</p>
+              <p className="text-[10px] font-semibold text-gray-400 dark:text-violet-300 uppercase tracking-wide">Assigned To</p>
               {assignedTo ? (
                 <div className="flex items-center gap-1.5 mt-0.5">
                   <div className="w-5 h-5 rounded-md bg-gradient-to-br from-violet-400 to-purple-600 flex items-center justify-center text-white text-[8px] font-bold">
                     {initials(assignedTo.name)}
                   </div>
-                  <p className="text-sm font-semibold text-gray-800">{assignedTo.name}</p>
+                  <p className="text-sm font-semibold text-gray-800 dark:text-violet-100">{assignedTo.name}</p>
                 </div>
               ) : (
-                <p className="text-sm text-gray-400 mt-0.5">Unassigned</p>
+                <p className="text-sm text-gray-400 dark:text-violet-100 mt-0.5">Unassigned</p>
               )}
             </div>
           </div>
 
           {/* Date */}
           <div className="flex items-center gap-3">
-            <div className="w-9 h-9 bg-gray-100 rounded-xl flex items-center justify-center flex-shrink-0">
+            <div className="w-9 h-9 bg-gray-100 dark:bg-slate-800 rounded-xl flex items-center justify-center flex-shrink-0">
               <svg className="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
               </svg>
             </div>
             <div>
-              <p className="text-[10px] font-semibold text-gray-400 uppercase tracking-wide">Scheduled</p>
-              <p className="text-sm font-semibold text-gray-800 mt-0.5">{fmtDate(workout.date)}</p>
+              <p className="text-[10px] font-semibold text-gray-400 dark:text-violet-300 uppercase tracking-wide">Scheduled</p>
+              <p className="text-sm font-semibold text-gray-800 dark:text-violet-100 mt-0.5">{fmtDate(workout.date)}</p>
               {fmtTime(workout.date) && (
-                <p className="text-xs text-gray-400">{fmtTime(workout.date)}</p>
+                <p className="text-xs text-gray-400 dark:text-violet-100">{fmtTime(workout.date)}</p>
               )}
             </div>
           </div>
@@ -130,39 +130,39 @@ async function Content({ single }: { single: string }) {
           {/* Notes — full width if present */}
           {workout.notes && (
             <div className="sm:col-span-2 flex items-start gap-3">
-              <div className="w-9 h-9 bg-gray-100 rounded-xl flex items-center justify-center flex-shrink-0 mt-0.5">
+              <div className="w-9 h-9 bg-gray-100 dark:bg-slate-800 rounded-xl flex items-center justify-center flex-shrink-0 mt-0.5">
                 <svg className="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
                 </svg>
               </div>
               <div>
-                <p className="text-[10px] font-semibold text-gray-400 uppercase tracking-wide">Notes</p>
-                <p className="text-sm text-gray-600 mt-0.5 leading-relaxed">{workout.notes}</p>
+                <p className="text-[10px] font-semibold text-gray-400 dark:text-violet-300 uppercase tracking-wide">Notes</p>
+                <p className="text-sm text-gray-600 dark:text-violet-100 mt-0.5 leading-relaxed">{workout.notes}</p>
               </div>
             </div>
           )}
         </div>
 
         {/* Stats strip */}
-        <div className="grid grid-cols-3 divide-x divide-gray-100 border-t border-gray-50">
+        <div className="grid grid-cols-3 divide-x divide-gray-100 dark:divide-gray-800 border-t border-gray-50 dark:border-gray-800">
           {[
             { label: 'Exercises', value: exercises.length },
             { label: 'Total Sets', value: totalSets },
             { label: 'Volume', value: totalVolume > 0 ? `${totalVolume.toLocaleString()} kg` : '—' },
           ].map((s) => (
             <div key={s.label} className="px-4 py-3 text-center">
-              <p className="text-base font-bold text-gray-900">{s.value}</p>
-              <p className="text-[10px] text-gray-400 uppercase tracking-wide mt-0.5">{s.label}</p>
+              <p className="text-base font-bold text-gray-900 dark:text-violet-100">{s.value}</p>
+              <p className="text-[10px] text-gray-400 dark:text-violet-100 uppercase tracking-wide mt-0.5">{s.label}</p>
             </div>
           ))}
         </div>
       </div>
 
       {/* ── Exercises ── */}
-      <div className="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
-        <div className="px-5 sm:px-6 py-4 border-b border-gray-50 flex items-center justify-between">
-          <h2 className="text-xs font-bold text-gray-500 uppercase tracking-wider">Exercises</h2>
-          <span className="text-xs text-gray-400">{exercises.length} exercise{exercises.length !== 1 ? 's' : ''}</span>
+      <div className="bg-white dark:bg-slate-900 rounded-2xl border border-gray-100 dark:border-gray-800  shadow-sm overflow-hidden">
+        <div className="px-5 sm:px-6 py-4 border-b border-gray-50 dark:border-gray-800 flex items-center justify-between">
+          <h2 className="text-xs font-bold text-gray-500 dark:text-violet-100 uppercase tracking-wider">Exercises</h2>
+          <span className="text-xs text-gray-400 dark:text-violet-100">{exercises.length} exercise{exercises.length !== 1 ? 's' : ''}</span>
         </div>
 
         {exercises.length === 0 ? (
@@ -172,10 +172,10 @@ async function Content({ single }: { single: string }) {
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M6 5v14M18 5v14M6 12h12M3 7h3M3 17h3M18 7h3M18 17h3" />
               </svg>
             </div>
-            <p className="text-sm text-gray-400">No exercises in this workout</p>
+            <p className="text-sm text-gray-400 dark:text-violet-100">No exercises in this workout</p>
           </div>
         ) : (
-          <div className="divide-y divide-gray-50">
+          <div className="divide-y divide-gray-50 dark:divide-gray-800">
             {exercises.map((ex, exIdx) => {
               const colors = MUSCLE_COLORS[ex.exercise?.muscleGroup ?? ''];
               const exVolume = ex.sets?.reduce((s, set) => s + set.reps * set.weight, 0) ?? 0;
@@ -184,11 +184,11 @@ async function Content({ single }: { single: string }) {
                 <div key={ex.id} className="px-5 sm:px-6 py-4">
                   {/* Exercise header */}
                   <div className="flex items-center gap-3 mb-3">
-                    <div className="w-7 h-7 rounded-lg bg-gray-100 flex items-center justify-center flex-shrink-0">
+                    <div className="w-7 h-7 rounded-lg bg-gray-100 dark:bg-slate-800 flex items-center justify-center flex-shrink-0">
                       <span className="text-[10px] font-bold text-gray-400">{exIdx + 1}</span>
                     </div>
                     <div className="flex-1 min-w-0 flex items-center gap-2 flex-wrap">
-                      <p className="text-sm font-bold text-gray-800">{ex.exercise?.name ?? 'Unknown exercise'}</p>
+                      <p className="text-sm font-bold text-gray-800 dark:text-purple-200">{ex.exercise?.name ?? 'Unknown exercise'}</p>
                       {ex.exercise?.muscleGroup && (
                         <span className={`text-[10px] font-bold px-2 py-0.5 rounded-full border ${colors?.pill ?? 'bg-gray-100 text-gray-500 border-gray-100'}`}>
                           {ex.exercise.muscleGroup}
@@ -205,23 +205,23 @@ async function Content({ single }: { single: string }) {
                     <div className="ml-10">
                       {/* Column headers */}
                       <div className="grid grid-cols-3 mb-1.5">
-                        <span className="text-[10px] font-semibold text-gray-400 uppercase tracking-wide">Set</span>
-                        <span className="text-[10px] font-semibold text-gray-400 uppercase tracking-wide text-center">Reps</span>
-                        <span className="text-[10px] font-semibold text-gray-400 uppercase tracking-wide text-center">Weight</span>
+                        <span className="text-[10px] font-semibold text-gray-400 dark:text-violet-100 uppercase tracking-wide">Set</span>
+                        <span className="text-[10px] font-semibold text-gray-400 dark:text-violet-100 uppercase tracking-wide text-center">Reps</span>
+                        <span className="text-[10px] font-semibold text-gray-400 dark:text-violet-100 uppercase tracking-wide text-center">Weight</span>
                       </div>
 
                       {/* Set rows */}
                       <div className="space-y-1.5">
                         {ex.sets.map((set) => (
-                          <div key={set.id} className="grid grid-cols-3 items-center bg-gray-50 rounded-xl px-3 py-2">
-                            <span className="text-xs font-semibold text-gray-500">#{set.set_number}</span>
+                          <div key={set.id} className="grid grid-cols-3 items-center bg-gray-50 dark:bg-slate-800 rounded-xl px-3 py-2">
+                            <span className="text-xs font-semibold text-gray-500 dark:text-violet-100">#{set.set_number}</span>
                             <div className="text-center">
-                              <span className="text-sm font-bold text-gray-800">{set.reps}</span>
-                              <span className="text-[10px] text-gray-400 ml-1">reps</span>
+                              <span className="text-sm font-bold text-gray-800 dark:text-purple-300">{set.reps}</span>
+                              <span className="text-[10px] text-gray-400 dark:text-violet-100 ml-1">reps</span>
                             </div>
                             <div className="text-center">
-                              <span className="text-sm font-bold text-gray-800">{set.weight}</span>
-                              <span className="text-[10px] text-gray-400 ml-1">kg</span>
+                              <span className="text-sm font-bold text-gray-800 dark:text-purple-300">{set.weight}</span>
+                              <span className="text-[10px] text-gray-400 dark:text-violet-100 ml-1">kg</span>
                             </div>
                           </div>
                         ))}
@@ -230,11 +230,11 @@ async function Content({ single }: { single: string }) {
                       {/* Per-exercise total */}
                       {ex.sets.length > 1 && (
                         <div className="grid grid-cols-3 mt-2 px-3">
-                          <span className="text-[10px] text-gray-400">Total</span>
-                          <span className="text-[10px] font-semibold text-gray-500 text-center">
+                          <span className="text-[10px] text-gray-400 dark:text-violet-100">Total</span>
+                          <span className="text-[10px] font-semibold text-gray-500 dark:text-violet-100 text-center">
                             {ex.sets.reduce((s, set) => s + set.reps, 0)} reps
                           </span>
-                          <span className="text-[10px] font-semibold text-gray-500 text-center">
+                          <span className="text-[10px] font-semibold text-gray-500 dark:text-violet-100 text-center">
                             {exVolume.toLocaleString()} kg
                           </span>
                         </div>

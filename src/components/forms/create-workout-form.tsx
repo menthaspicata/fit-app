@@ -54,10 +54,10 @@ export function CreateWorkoutForm({
   return (
     <form
       action={dispatch}
-      className="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden lg:col-start-1 lg:row-start-1"
+      className="bg-white dark:bg-slate-900 rounded-2xl border border-gray-100 dark:border-gray-800 shadow-sm overflow-hidden lg:col-start-1 lg:row-start-1"
     >
-      <div className="px-6 py-4 border-b border-gray-50">
-        <h2 className="text-sm font-bold text-gray-800 uppercase tracking-wide">
+      <div className="px-6 py-4 border-b border-gray-50 dark:border-gray-800">
+        <h2 className="text-sm font-bold text-gray-800 dark:text-violet-100 uppercase tracking-wide">
           {isEditing ? 'Edit Workout' : 'Workout Details'}
         </h2>
       </div>
@@ -72,7 +72,7 @@ export function CreateWorkoutForm({
             placeholder="e.g. Upper Body Blast"
             value={workoutName}
             onChange={(e) => setWorkoutName(e.target.value)}
-            className="w-full bg-gray-50 border border-gray-200 text-gray-900 placeholder-gray-400 text-sm rounded-xl px-4 py-2.5 focus:outline-none focus:border-violet-400 focus:ring-2 focus:ring-violet-100 transition-all"
+            className="w-full bg-gray-50 border border-gray-200 text-gray-900 placeholder-gray-400 dark:focus:border-slate-800 dark:bg-slate-700  dark:border-slate-600 dark:text-violet-100 dark:focus:ring-slate-600 text-sm rounded-xl px-4 py-2.5 focus:outline-none focus:border-violet-400 focus:ring-2 focus:ring-violet-100 transition-all"
           />
         </div>
 
@@ -86,7 +86,7 @@ export function CreateWorkoutForm({
               name="workout-date"
               value={workoutDate}
               onChange={(e) => setWorkoutDate(e.target.value)}
-              className="w-full bg-gray-50 border border-gray-200 text-gray-700 text-sm rounded-xl px-4 py-2.5 focus:outline-none focus:border-violet-400 focus:ring-2 focus:ring-violet-100 transition-all"
+              className="w-full bg-gray-50 border border-gray-200 text-gray-700 dark:focus:border-slate-800 dark:bg-slate-700  dark:border-slate-600 dark:text-violet-100 text-sm rounded-xl px-4 py-2.5 focus:outline-none focus:border-violet-400 focus:ring-2 focus:ring-violet-100 transition-all"
             />
           </div>
           <div>
@@ -97,7 +97,7 @@ export function CreateWorkoutForm({
               name="trainee-id"
               value={traineeId}
               onChange={(e) => setTraineeId(e.target.value)}
-              className="w-full bg-gray-50 border border-gray-200 text-gray-700 text-sm rounded-xl px-4 py-2.5 focus:outline-none focus:border-violet-400 focus:ring-2 focus:ring-violet-100 transition-all appearance-none cursor-pointer"
+              className="w-full bg-gray-50 border border-gray-200 text-gray-700 dark:focus:border-slate-800 dark:bg-slate-700  dark:border-slate-600 dark:text-violet-100 dark:focus:ring-slate-600 text-sm rounded-xl px-4 py-2.5 focus:outline-none focus:border-violet-400 focus:ring-2 focus:ring-violet-100 transition-all appearance-none cursor-pointer"
             >
               {trainees.map((t) => (
                 <option key={t.id} value={t.id}>{t.name}</option>
@@ -116,14 +116,14 @@ export function CreateWorkoutForm({
             value={notes}
             onChange={(e) => setNotes(e.target.value)}
             rows={3}
-            className="w-full bg-gray-50 border border-gray-200 text-gray-700 placeholder-gray-400 text-sm rounded-xl px-4 py-2.5 focus:outline-none focus:border-violet-400 focus:ring-2 focus:ring-violet-100 transition-all resize-none"
+            className="w-full bg-gray-50 border border-gray-200 text-gray-700 placeholder-gray-400 dark:focus:border-slate-800 dark:bg-slate-700  dark:border-slate-600 dark:text-violet-100 dark:focus:ring-slate-600 text-sm rounded-xl px-4 py-2.5 focus:outline-none focus:border-violet-400 focus:ring-2 focus:ring-violet-100 transition-all resize-none"
           />
         </div>
 
         {state.message && !state.success && (
           <p className="text-sm text-red-500">{state.message}</p>
         )}
-        <button className="w-full cursor-pointer bg-violet-600 hover:bg-violet-700 active:scale-[0.99] text-white font-semibold text-sm py-3.5 rounded-2xl shadow-lg shadow-violet-200 transition-all duration-150 flex items-center justify-center gap-2">
+        <button className="w-full cursor-pointer bg-violet-600 hover:bg-violet-700 active:scale-[0.99] text-white font-semibold text-sm py-3.5 rounded-2xl shadow-lg shadow-violet-200 dark:shadow-violet-900 transition-all duration-150 flex items-center justify-center gap-2">
           <FontAwesomeIcon icon={faCheck} className="w-4 h-4" />
           {isEditing ? 'Save Changes' : 'Save Workout'}
         </button>

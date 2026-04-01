@@ -105,9 +105,9 @@ export function WorkoutList({ workouts }: WorkoutListProps) {
   }, [workouts, sortField, sortDir, statusFilter]);
 
   return (
-    <div className="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
+    <div className="bg-white dark:bg-slate-900 rounded-2xl border border-gray-100 dark:border-gray-800 shadow-sm overflow-hidden">
       {/* ── Toolbar ── */}
-      <div className="flex flex-wrap items-center gap-2 px-6 py-3 border-b border-gray-50 bg-gray-50/50">
+      <div className="flex flex-wrap items-center gap-2 px-6 py-3 border-b border-gray-50 dark:border-gray-800 bg-gray-50/50 dark:bg-slate-900/50">
 
         {/* Sort select + direction toggle */}
         <div className="flex items-center gap-1.5">
@@ -116,13 +116,13 @@ export function WorkoutList({ workouts }: WorkoutListProps) {
             <select
               value={sortField}
               onChange={(e) => setSortField(e.target.value as SortField)}
-              className="appearance-none text-xs font-semibold text-gray-700 bg-white border border-gray-200 rounded-lg pl-3 pr-7 py-1.5 cursor-pointer hover:border-violet-300 focus:outline-none focus:border-violet-400 transition-colors"
+              className="appearance-none text-xs font-semibold text-gray-700 dark:text-violet-100 bg-white dark:bg-slate-900 border border-gray-200 rounded-lg pl-3 pr-7 py-1.5 cursor-pointer hover:border-violet-300 focus:outline-none focus:border-violet-400 transition-colors"
             >
               {SORT_SELECT_OPTIONS.map((opt) => (
                 <option key={opt.value} value={opt.value}>{opt.label}</option>
               ))}
             </select>
-            <svg className="pointer-events-none absolute right-2 top-1/2 -translate-y-1/2 w-3 h-3 text-gray-400"
+            <svg className="pointer-events-none absolute right-2 top-1/2 -translate-y-1/2 w-3 h-3 text-gray-400 "
               fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M19 9l-7 7-7-7" />
             </svg>
@@ -130,7 +130,7 @@ export function WorkoutList({ workouts }: WorkoutListProps) {
           {sortField !== "none" && (
             <button
               onClick={() => setSortDir((d) => (d === "asc" ? "desc" : "asc"))}
-              className="flex items-center gap-1 text-xs font-semibold text-gray-500 bg-white border border-gray-200 rounded-lg px-2.5 py-1.5 hover:border-violet-300 hover:text-violet-600 transition-colors"
+              className="flex items-center gap-1 text-xs font-semibold text-gray-500  bg-white border border-gray-200 rounded-lg px-2.5 py-1.5 hover:border-violet-300 hover:text-violet-600 transition-colors"
               title={sortDir === "asc" ? "Ascending" : "Descending"}
             >
               <svg
@@ -154,11 +154,11 @@ export function WorkoutList({ workouts }: WorkoutListProps) {
           <div className="flex items-center gap-1.5">
             <span className="text-[11px] font-semibold text-gray-400 uppercase tracking-wide">Filter</span>
             <button
-              onClick={() => setStatusFilter("all")}
-              className={`text-xs font-semibold px-3 py-1.5 rounded-lg border transition-all ${
+                onClick={() => setStatusFilter("all")}
+              className={`text-xs font-semibold px-3 py-1.5 rounded-lg border transition-all cursor-pointer ${
                 statusFilter === "all"
                   ? "bg-gray-800 text-white border-gray-800"
-                  : "bg-white text-gray-500 border-gray-200 hover:border-gray-400 hover:text-gray-700"
+                  : "bg-white dark:bg-slate-900 text-gray-500 dark:text-violet-100  border-gray-200 hover:border-gray-400 hover:text-gray-700 dark:hover:text-gray-400"
               }`}
             >
               All
@@ -167,10 +167,10 @@ export function WorkoutList({ workouts }: WorkoutListProps) {
               <button
                 key={s.value}
                 onClick={() => setStatusFilter(statusFilter === s.value ? "all" : s.value)}
-                className={`text-xs font-semibold px-3 py-1.5 rounded-lg border transition-all ${
+                className={`text-xs font-semibold px-3 py-1.5 rounded-lg border transition-all cursor-pointer ${
                   statusFilter === s.value
                     ? `${s.color} border-current`
-                    : "bg-white text-gray-500 border-gray-200 hover:border-gray-300 hover:text-gray-700"
+                    : "bg-white dark:bg-slate-900 text-gray-500 dark:text-violet-100 border-gray-200 hover:border-gray-300 hover:text-gray-700 dark:hover:text-gray-400"
                 }`}
               >
                 {s.label}
@@ -181,7 +181,7 @@ export function WorkoutList({ workouts }: WorkoutListProps) {
       </div>
 
       {/* ── Table header — desktop ── */}
-      <div className="hidden sm:grid grid-cols-[1fr_180px_120px_140px_40px] items-center px-6 py-3 border-b border-gray-50">
+      <div className="hidden sm:grid grid-cols-[1fr_180px_120px_140px_40px] items-center px-6 py-3 border-b border-gray-50 dark:border-gray-800">
         <span className="text-[11px] font-semibold text-gray-400 uppercase tracking-wide">Workout</span>
         <span className="text-[11px] font-semibold text-gray-400 uppercase tracking-wide">Assigned To</span>
         <span className="text-[11px] font-semibold text-gray-400 uppercase tracking-wide">Status</span>
@@ -190,25 +190,25 @@ export function WorkoutList({ workouts }: WorkoutListProps) {
       </div>
 
       {/* ── Rows ── */}
-      <div className="divide-y divide-gray-50">
+      <div className="divide-y divide-gray-50 dark:divide-gray-800">
         {processed.map((workout) => {
           const assignedTo = workout.userWorkouts[0]?.user;
           return (
             <Link
               key={workout.id}
               href={`/dashboard/workouts/${workout.id}`}
-              className="group flex sm:grid sm:grid-cols-[1fr_180px_120px_140px_40px] items-center gap-4 px-6 py-4 hover:bg-gray-50/60 transition-colors"
+              className="group flex sm:grid sm:grid-cols-[1fr_180px_120px_140px_40px] items-center gap-4 px-6 py-4 hover:bg-gray-50/60 dark:hover:bg-gray-50/10 transition-colors"
             >
               {/* Name + icon */}
               <div className="flex items-center gap-3 min-w-0 flex-1">
-                <div className="w-9 h-9 bg-violet-50 border border-violet-100 rounded-xl flex items-center justify-center flex-shrink-0 group-hover:bg-violet-100 transition-colors">
+                <div className="w-9 h-9 bg-violet-50 border border-violet-100  rounded-xl flex items-center justify-center flex-shrink-0 group-hover:bg-violet-100  transition-colors">
                   <svg className="w-4 h-4 text-violet-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
                       d="M6 5v14M18 5v14M6 12h12M3 7h3M3 17h3M18 7h3M18 17h3" />
                   </svg>
                 </div>
                 <div className="min-w-0">
-                  <p className="text-sm font-semibold text-gray-800 truncate group-hover:text-violet-700 transition-colors">
+                  <p className="text-sm font-semibold text-gray-800 dark:text-violet-200 truncate group-hover:text-violet-700 transition-colors">
                     {workout.name}
                   </p>
                   {/* Mobile: date + assignee + status */}
@@ -229,7 +229,7 @@ export function WorkoutList({ workouts }: WorkoutListProps) {
                     <div className={`w-6 h-6 rounded-lg bg-gradient-to-br ${avatarGradient(assignedTo.name)} flex items-center justify-center text-white text-[9px] font-bold flex-shrink-0`}>
                       {initials(assignedTo.name)}
                     </div>
-                    <span className="text-sm text-gray-600 truncate">{assignedTo.name}</span>
+                    <span className="text-sm text-gray-600 dark:text-violet-100 truncate">{assignedTo.name}</span>
                   </>
                 ) : (
                   <span className="text-xs text-gray-400 bg-gray-100 px-2 py-0.5 rounded-full">Unassigned</span>
@@ -243,7 +243,7 @@ export function WorkoutList({ workouts }: WorkoutListProps) {
 
               {/* Date — desktop */}
               <div className="hidden sm:block">
-                <p className="text-sm text-gray-600">{workout.date ? fmtDate(new Date(workout.date)) : "—"}</p>
+                <p className="text-sm text-gray-600 dark:text-gray-500">{workout.date ? fmtDate(new Date(workout.date)) : "—"}</p>
                 <p className="text-xs text-gray-400 mt-0.5">{workout.date ? fmtTime(new Date(workout.date)) : ""}</p>
               </div>
 

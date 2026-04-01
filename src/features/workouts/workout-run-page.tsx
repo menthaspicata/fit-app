@@ -120,7 +120,7 @@ export function WorkoutInProgress({ workoutId, workout, exercises, onComplete }:
 
   // In-progress screen
   return (
-    <div className="max-w-3xl mx-auto pb-32">
+    <div className="max-w-3xl mx-auto pb-32 relative">
 
       <WorkoutHeader
         workout={workout}

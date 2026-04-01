@@ -34,7 +34,7 @@ export function RemoveTraineeButton({ traineeId, traineeName }: RemoveTraineeBut
     return (
       <div className="flex items-center gap-2 md:ml-auto">
         {error && <p className="text-xs text-red-400">{error}</p>}
-        <span className="text-xs text-slate-400 hidden sm:block">Remove <span className="text-slate-700 font-medium">{traineeName}</span>?</span>
+        <span className="text-xs text-slate-400 hidden sm:block">Remove <span className="text-slate-700 dark:text-slate-300 font-medium">{traineeName}</span>?</span>
         <button
           onClick={() => setShowConfirm(false)}
           disabled={isPending}

@@ -28,7 +28,7 @@ async function TraineeDetail({ single }: { single: string }) {
   }
 
   return (
-    <div className="h-full flex flex-col overflow-hidden bg-white rounded-2xl border border-gray-100 shadow-sm ">
+    <div className="h-full flex flex-col overflow-hidden bg-white dark:bg-gray-800 dark:border-gray-800 rounded-2xl border border-gray-100 shadow-sm ">
       {/* Header */}
       <div className="flex-shrink-0 p-6">
         <div className="flex flex-col md:flex-row items-center gap-4">

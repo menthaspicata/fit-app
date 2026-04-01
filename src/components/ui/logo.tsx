@@ -15,7 +15,8 @@ export function Logo() {
                         </svg>
                     </div>
         
-                    <p>ConnectFit <br/>
+                    <p  className="text-gray-800 dark:text-violet-200">
+                        ConnectFit <br/>
                         <span className="text-slate-500 text-xs block leading-none">Trainer Portal</span>
                     </p>
                 </div>

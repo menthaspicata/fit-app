@@ -22,14 +22,14 @@ export default async function InvitesPage() {
     <div className="flex items-center gap-3 mb-6 sm:mb-8">
         <BackButton />
         <div className="flex-1 min-w-0">
-        <h1 className="text-xl sm:text-2xl font-bold text-gray-900 tracking-tight">Invites</h1>
+        <h1 className="text-xl sm:text-2xl font-bold text-gray-900 dark:text-violet-100 tracking-tight">Invites</h1>
         <p className="text-xs sm:text-sm text-gray-400 mt-0.5">
             {invites.length} invite{invites.length !== 1 ? 's' : ''} sent
         </p>
         </div>
         <Link
         href="/dashboard/create-trainee"
-        className="flex items-center gap-2 bg-violet-600 hover:bg-violet-700 active:scale-[0.99] text-white text-sm font-semibold px-4 py-2.5 rounded-xl shadow-md shadow-violet-200 transition-all"
+        className="flex items-center gap-2 bg-violet-600 hover:bg-violet-700 active:scale-[0.99] text-white text-sm font-semibold px-4 py-2.5 rounded-xl shadow-md shadow-violet-200 dark:shadow-violet-800 transition-all"
         >
         <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
@@ -46,8 +46,8 @@ export default async function InvitesPage() {
             { label: 'Accepted', count: accepted.length, pill: 'bg-emerald-50 border-emerald-200 text-emerald-600' },
             { label: 'Expired',  count: expired.length,  pill: 'bg-gray-100 border-gray-200 text-gray-500' },
         ].map((s) => (
-            <div key={s.label} className="bg-white rounded-2xl border border-gray-100 shadow-sm px-4 py-3 text-center">
-            <p className="text-xl font-bold text-gray-900">{s.count}</p>
+            <div key={s.label} className="bg-white dark:bg-slate-900/50 rounded-2xl border border-gray-100 dark:border-gray-800 shadow-sm px-4 py-3 text-center">
+            <p className="text-xl font-bold text-gray-900 dark:text-violet-200">{s.count}</p>
             <span className={`text-[10px] font-bold px-2 py-0.5 rounded-full border ${s.pill} mt-1 inline-block`}>
                 {s.label.toUpperCase()}
             </span>
@@ -58,7 +58,7 @@ export default async function InvitesPage() {
 
     {/* ── Empty state ── */}
     {invites.length === 0 && (
-        <div className="bg-white rounded-2xl border border-gray-100 shadow-sm flex flex-col items-center justify-center py-20">
+        <div className="bg-white dark:bg-slate-900/50 rounded-2xl border border-gray-100 dark:border-gray-800 shadow-sm flex flex-col items-center justify-center py-20">
         <div className="w-14 h-14 bg-gray-100 rounded-2xl flex items-center justify-center mb-4">
             <svg className="w-7 h-7 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
@@ -80,10 +80,10 @@ export default async function InvitesPage() {
 
     {/* ── Invite list ── */}
     {invites.length > 0 && (
-        <div className="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
+        <div className="bg-white dark:bg-slate-900/50 rounded-2xl border border-gray-100 dark:border-gray-800 shadow-sm overflow-hidden">
 
         {/* Column headers — desktop */}
-        <div className="hidden sm:grid grid-cols-[1fr_110px_120px_80px_40px] items-center px-6 py-3 border-b border-gray-50">
+        <div className="hidden sm:grid grid-cols-[1fr_110px_120px_80px_40px] items-center px-6 py-3 border-b border-gray-50 dark:border-gray-800">
             <span className="text-[11px] font-semibold text-gray-400 uppercase tracking-wide">Trainee</span>
             <span className="text-[11px] font-semibold text-gray-400 uppercase tracking-wide">Status</span>
             <span className="text-[11px] font-semibold text-gray-400 uppercase tracking-wide">Sent</span>
@@ -91,7 +91,7 @@ export default async function InvitesPage() {
             <span />
         </div>
 
-        <div className="divide-y divide-gray-50">
+        <div className="divide-y divide-gray-50 dark:divide-gray-800">
             {invites.map((invite) => {
             const cfg     = statusConfig(invite.status, invite.expiresAt);
             const expired = isExpired(invite.expiresAt) && invite.status === 'pending';
@@ -100,7 +100,7 @@ export default async function InvitesPage() {
             return (
                 <div
                 key={invite.id}
-                className="flex sm:grid sm:grid-cols-[1fr_110px_120px_80px_40px] items-center gap-4 px-6 py-4 hover:bg-gray-50/50 transition-colors"
+                className="flex sm:grid sm:grid-cols-[1fr_110px_120px_80px_40px] items-center gap-4 px-6 py-4 hover:bg-gray-50/50 dark:hover:bg-gray-50/10 transition-colors"
                 >
                 {/* Avatar + name */}
                 <div className="flex items-center gap-3 min-w-0 flex-1">
@@ -108,7 +108,7 @@ export default async function InvitesPage() {
                     {initials(name)}
                     </div>
                     <div className="min-w-0">
-                    <p className="text-sm font-semibold text-gray-800 truncate">{name}</p>
+                    <p className="text-sm font-semibold text-gray-800 dark:text-violet-200  truncate">{name}</p>
                     {invite.email && invite.name && (
                         <p className="text-xs text-gray-400 truncate">{invite.email}</p>
                     )}
@@ -117,7 +117,7 @@ export default async function InvitesPage() {
                         <span className={`text-[10px] font-bold px-2 py-0.5 rounded-full border ${cfg.pill}`}>
                         {invite.status}
                         </span>
-                        <span className="text-[10px] text-gray-400">
+                        <span className="text-[10px] text-gray-400 dark:text-gray-500">
                         Sent {fmtDate(invite.createdAt)} · Exp {fmtDate(invite.expiresAt)}
                         </span>
                     </div>
@@ -134,12 +134,12 @@ export default async function InvitesPage() {
 
                 {/* Sent — desktop */}
                 <div className="hidden sm:block">
-                    <p className="text-sm text-gray-600">{fmtDate(invite.createdAt)}</p>
+                    <p className="text-sm text-gray-600 dark:text-gray-500">{fmtDate(invite.createdAt)}</p>
                 </div>
 
                 {/* Expires — desktop */}
                 <div className="hidden sm:block">
-                    <p className={`text-sm ${expired ? 'text-red-400' : 'text-gray-600'}`}>
+                    <p className={`text-sm ${expired ? 'text-red-400' : 'text-gray-600 dark:text-gray-500'}`}>
                     {fmtDate(invite.expiresAt)}
                     </p>
                 </div>

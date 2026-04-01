@@ -48,14 +48,14 @@ export function WorkoutHeader({
   }, [paused]);
 
   return (
-    <div className="sticky top-0 z-20 bg-gray-50/95 backdrop-blur-sm pt-4 pb-3 -mx-4 px-4 sm:-mx-6 sm:px-6 border-b border-gray-100 mb-5">
+    <div className=" pt-4 pb-3 px-4 sm:px-6  mb-5">
       <div className="flex items-center gap-3">
 
         {/* Timer + pause */}
         <div className="flex-1">
           <p className="text-[10px] font-semibold text-gray-400 uppercase tracking-wide">{workout.name}</p>
           <div className="flex items-center gap-2 mt-0.5">
-            <span className="text-2xl font-bold text-gray-900 tabular-nums tracking-tight font-mono">
+            <span className="text-2xl font-bold text-gray-900 dark:text-violet-200 tabular-nums tracking-tight font-mono">
               {fmtDuration(elapsed)}
             </span>
             <button
@@ -89,7 +89,7 @@ export function WorkoutHeader({
               style={{ transition: 'stroke-dashoffset 0.4s ease' }}
             />
           </svg>
-          <span className="absolute inset-0 flex items-center justify-center text-[10px] font-bold text-gray-700">
+          <span className="absolute inset-0 flex items-center justify-center text-[10px] font-bold text-gray-700 dark:text-violet-100">
             {doneSets}/{totalSets}
           </span>
         </div>

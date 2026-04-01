@@ -24,8 +24,8 @@ export default function BottomBarClient({ user }: { user: any }) {
                             <Link href={href}
                                 className={`flex flex-col items-center
                                 ${isActive
-                                    ? 'text-violet-800'
-                                    : 'text-gray-800 hover:text-gray-600'
+                                    ? 'text-violet-800 dark:text-violet-600 dark:hover:text-violet-300'
+                                    : 'text-gray-800 hover:text-gray-600 dark:text-violet-100 dark:hover:text-violet-300'
                                 }`}
                             >
                                 <FontAwesomeIcon icon={icon} className='h-5 w-5' />

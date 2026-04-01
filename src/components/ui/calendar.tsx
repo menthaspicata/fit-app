@@ -17,8 +17,8 @@ export function Calendar({ selectedDate, onSelect }: Props) {
       }}
       classNames={{
         today: `border-violet-600`, // Add a border to today's date
-        selected: `bg-violet-600 border-violet-600 text-white`, // Highlight the selected day
-        root: `${defaultClassNames.root} p-3`, // Add a shadow to the root element
+        selected: `bg-violet-600 border-violet-600 rounded-2xl text-white`, // Highlight the selected day
+        root: `${defaultClassNames.root} p-3 dark:text-white`, // Add a shadow to the root element
         chevron: `${defaultClassNames.chevron} fill-violet-600`, // Change the color of the chevron
       }}
     />

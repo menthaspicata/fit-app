@@ -22,12 +22,12 @@ export function CreateTraineeForm() {
   return (
       <div className="w-full max-w-md mx-auto">
         {/* Card */}
-        <div className="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
+        <div className="bg-white dark:bg-slate-900 rounded-2xl border border-gray-100 dark:border-gray-800 shadow-sm overflow-hidden">
 
           {/* Header */}
-          <div className="px-6 pt-6 pb-5 border-b border-gray-50">
+          <div className="px-6 pt-6 pb-5 border-b border-gray-50 dark:border-gray-800">
             <div className="flex items-center gap-3">
-              <div className="w-9 h-9 bg-violet-50 border border-violet-100 rounded-xl flex items-center justify-center">
+              <div className="w-9 h-9 bg-violet-50 dark:bg-slate-800 border border-violet-100 dark:border-slate-800 rounded-xl flex items-center justify-center">
                 <FontAwesomeIcon icon={faUser} className="w-4 h-4 text-violet-600" />
               </div>
               <p className="text-sm text-gray-400">
@@ -59,7 +59,7 @@ export function CreateTraineeForm() {
                     name="username"
                     placeholder="e.g. Sofia Morlaunt"
                     required
-                    className="w-full bg-gray-50 border border-gray-200 text-gray-900 placeholder-gray-400 text-sm rounded-xl pl-9 pr-4 py-2.5 focus:outline-none focus:border-violet-400 focus:ring-2 focus:ring-violet-100 transition-all"
+                    className="w-full bg-gray-50 border border-gray-200 text-gray-900 placeholder-gray-400 dark:bg-slate-700  dark:border-slate-600 dark:text-violet-100 dark:focus:ring-slate-600 dark:focus:border-slate-800 text-sm rounded-xl pl-9 pr-4 py-2.5 focus:outline-none focus:border-violet-400 focus:ring-2 focus:ring-violet-100 transition-all"
                   />
                 </div>
                 {state.errors?.name && (
@@ -82,7 +82,7 @@ export function CreateTraineeForm() {
               <button
                 type="submit"
                 disabled={isPending}
-                className="w-full bg-violet-600 hover:bg-violet-700 disabled:opacity-60 disabled:cursor-not-allowed active:scale-[0.99] text-white font-semibold text-sm py-3 rounded-xl shadow-md shadow-violet-200 transition-all duration-150 flex items-center justify-center gap-2"
+                className="w-full cursor-pointer bg-violet-600 hover:bg-violet-700 disabled:opacity-60 disabled:cursor-not-allowed active:scale-[0.99] text-white font-semibold text-sm py-3 rounded-xl shadow-md shadow-violet-200 dark:shadow-purple-800/50 transition-all duration-150 flex items-center justify-center gap-2"
               >
                 {isPending ? (
                   <>

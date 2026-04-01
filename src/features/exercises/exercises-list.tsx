@@ -29,9 +29,9 @@ export function ExerciseList({ allExercises }: Props) {
   return (
     <div className="lg:col-start-2 lg:row-start-1 lg:row-span-2">
       {/* ── Right: Exercise Search ── */}
-      <div className="sticky top-6 bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
-        <div className="px-5 py-4 border-b border-gray-50">
-          <h2 className="text-sm font-bold text-gray-800 uppercase tracking-wide mb-3">
+      <div className="sticky top-6 bg-white dark:bg-slate-900 rounded-2xl border border-gray-100 dark:border-gray-800 shadow-sm overflow-hidden">
+        <div className="px-5 py-4 border-b border-gray-50 dark:border-gray-800">
+          <h2 className="text-sm font-bold text-gray-800 dark:text-violet-100 uppercase tracking-wide mb-3">
             Exercise Library
           </h2>
 
@@ -46,7 +46,7 @@ export function ExerciseList({ allExercises }: Props) {
               placeholder="Search exercises…"
               value={search}
               onChange={(e) => setSearch(e.target.value)}
-              className="w-full bg-gray-50 border border-gray-200 text-gray-700 placeholder-gray-400 text-sm rounded-xl pl-9 pr-4 py-2.5 focus:outline-none focus:border-violet-400 focus:ring-2 focus:ring-violet-100 transition-all"
+              className="w-full bg-gray-50  border border-gray-200 dark:bg-slate-700  dark:border-slate-600 dark:text-violet-100 text-gray-700 placeholder-gray-400 text-sm rounded-xl pl-9 pr-4 py-2.5 focus:outline-none focus:border-violet-400 dark:focus:border-slate-800  focus:ring-2 focus:ring-violet-100 dark:focus:ring-slate-600 transition-all"
             />
           </div>
         </div>

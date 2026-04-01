@@ -86,16 +86,16 @@ export default function Schedule() {
   }, [isCalendarOpen]);
 
   return (
-    <div className="col-span-2 bg-white rounded-2xl border border-gray-100 shadow-sm overflow-visible">
+    <div className="col-span-2 bg-white dark:bg-slate-900 rounded-2xl border border-gray-100 dark:border-gray-800 shadow-sm overflow-visible">
       {/* Header */}
-      <div className="flex items-center justify-between px-6 py-4 border-b border-gray-50">
-        <h2 className="text-base font-bold text-gray-900">Today's Schedule</h2>
+      <div className="flex items-center justify-between px-6 py-4 border-b border-gray-50 dark:border-gray-800">
+        <h2 className="text-base font-bold text-gray-900 dark:text-violet-100">Today's Schedule</h2>
 
         {/* Date nav */}
         <div className="flex items-center gap-2 relative" ref={calendarRef}>
           <button
             onClick={() => changeDay(-1)}
-            className="cursor-pointer w-8 h-8 bg-violet-600 hover:bg-violet-700 rounded-lg flex items-center justify-center transition-colors shadow-sm shadow-violet-200"
+            className="cursor-pointer w-8 h-8 bg-violet-600 hover:bg-violet-700 rounded-lg flex items-center justify-center transition-colors shadow-sm shadow-violet-200 dark:shadow-purple-900"
           >
             <FontAwesomeIcon
               icon={faChevronLeft}
@@ -106,7 +106,7 @@ export default function Schedule() {
           {/* Date pill */}
           <div
             onClick={() => setIsCalendarOpen((prev) => !prev)}
-            className="flex items-center gap-1.5 px-3 py-1.5 bg-gray-50 rounded-lg border border-gray-100 cursor-pointer select-none"
+            className="flex items-center gap-1.5 px-3 py-1.5 bg-gray-50 dark:bg-indigo-950/50 rounded-lg border border-gray-100 dark:border-gray-800 cursor-pointer select-none"
             aria-expanded={isCalendarOpen}
             aria-haspopup="dialog"
           >
@@ -114,7 +114,7 @@ export default function Schedule() {
               icon={faCalendar}
               className="w-3.5 h-3.5 text-gray-400"
             />
-            <span className="text-sm font-semibold text-gray-700 whitespace-nowrap">
+            <span className="text-sm font-semibold text-gray-700 dark:text-violet-100 whitespace-nowrap">
               {formatDate(selectedDate)}
             </span>
             {isToday && (
@@ -126,7 +126,7 @@ export default function Schedule() {
 
           <button
             onClick={() => changeDay(1)}
-            className="cursor-pointer w-8 h-8 bg-violet-600 hover:bg-violet-700 rounded-lg flex items-center justify-center transition-colors shadow-sm shadow-violet-200"
+            className="cursor-pointer w-8 h-8 bg-violet-600 hover:bg-violet-700 rounded-lg flex items-center justify-center transition-colors shadow-sm shadow-violet-200 dark:shadow-purple-900"
           >
             <FontAwesomeIcon
               icon={faChevronRight}
@@ -139,11 +139,11 @@ export default function Schedule() {
             <div
               role="dialog"
               aria-label="Date picker"
-              className="absolute top-[calc(100%+8px)] left-1/2 z-50 bg-white border border-gray-200 rounded-2xl shadow-2xl p-2 w-max max-w-[calc(100vw-2rem)]"
+              className="absolute top-[calc(100%+8px)] left-1/2 z-50 bg-white dark:bg-slate-900 border border-gray-200 dark:border-gray-800 rounded-2xl shadow-2xl p-2 w-max max-w-[calc(100vw-2rem)]"
               style={{ animation: "popupIn 0.15s ease-out forwards" }}
             >
               {/* Arrow */}
-              <div className="absolute -top-[7px] left-1/2 -translate-x-1/2 w-3.5 h-3.5 rotate-45 bg-white border-l border-t border-gray-200" />
+              <div className="absolute -top-[7px] left-1/2 -translate-x-1/2 w-3.5 h-3.5 rotate-45 bg-white dark:bg-slate-900 border-l border-t border-gray-200 dark:border-gray-800 dark:text-white" />
               <Calendar
                 selectedDate={selectedDate}
                 onSelect={(date) => {
@@ -164,7 +164,7 @@ export default function Schedule() {
       </div>
 
       {/* Workout list */}
-      <div className="divide-y divide-gray-50">
+      <div className="divide-y divide-gray-50 dark:divide-gray-800">
         {isLoading ? (
           <div className="flex items-center justify-center py-14">
             <div className="w-6 h-6 border-2 border-violet-500 border-t-transparent rounded-full animate-spin" />
@@ -174,7 +174,7 @@ export default function Schedule() {
           workouts.map((workout) => (
             <div
               key={workout.id}
-              className="flex relative items-center gap-4 px-6 py-3.5 hover:bg-gray-50/50 transition-colors group"
+              className="flex relative items-center gap-4 px-6 py-3.5 hover:bg-gray-50/50 dark:hover:bg-gray-50/10 transition-colors group"
             >
               <Link
                 href={`/dashboard/workouts/${workout.workoutId}`}
@@ -182,7 +182,7 @@ export default function Schedule() {
               />
               {/* Time */}
               <div className="w-14 text-center flex-shrink-0">
-                <div className="text-sm font-bold text-gray-800">
+                <div className="text-sm font-bold text-gray-800 dark:text-violet-200">
                   {new Date(workout.startDate).toLocaleTimeString([], {
                     hour: "2-digit",
                     minute: "2-digit",
@@ -194,7 +194,7 @@ export default function Schedule() {
                 <div
                   className={`w-2.5 h-2.5 rounded-full ${workout.status === "completed" ? "bg-emerald-400" : "bg-violet-500 animate-pulse"}`}
                 />
-                <div className="w-px h-6 bg-gray-200" />
+                <div className="w-px h-6 bg-gray-200 dark:bg-gray-400" />
               </div>
               {/* Avatar */}
               <div
@@ -204,10 +204,10 @@ export default function Schedule() {
               </div>
               {/* Info */}
               <div className="flex-1 min-w-0">
-                <div className="text-sm font-semibold text-gray-800">
+                <div className="text-sm font-semibold text-gray-800 dark:text-violet-200">
                   {workout.user.name}
                 </div>
-                <div className="text-xs text-gray-400">
+                <div className="text-xs text-gray-400 dark:text-gray-300">
                   {workout.name}
                 </div>
               </div>

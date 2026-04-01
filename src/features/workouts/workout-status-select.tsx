@@ -47,7 +47,7 @@ export function WorkoutStatusSelect({
 
   return (
     <div className="flex items-center gap-3">
-      <div className="w-9 h-9 bg-gray-100 rounded-xl flex items-center justify-center flex-shrink-0">
+      <div className="w-9 h-9 bg-gray-100 dark:bg-slate-800 rounded-xl flex items-center justify-center flex-shrink-0">
         <FontAwesomeIcon
           icon={faCircleCheck}
           className="w-9 h-9 text-gray-400"

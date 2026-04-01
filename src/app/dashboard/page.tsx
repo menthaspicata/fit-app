@@ -32,7 +32,7 @@ export default async function Page() {
   return (
     <main>
       <div className="flex justify-between items-center  mb-3">
-        <h1 className="text-xl md:text-2xl justify-self-start">
+        <h1 className="text-xl md:text-2xl justify-self-start dark:text-violet-200">
           Welcome, {userData?.name} 👋
         </h1>
 
@@ -40,14 +40,14 @@ export default async function Page() {
           <div className="flex items-center gap-2">
             <Link
               href="/dashboard/create-trainee"
-              className="flex items-center gap-2 bg-violet-600 hover:bg-violet-700 text-white text-sm font-semibold px-4 py-2.5 rounded-xl shadow-md shadow-violet-200 transition-all active:scale-95"
+              className="flex items-center gap-2 bg-violet-600 hover:bg-violet-700 text-white text-sm font-semibold px-4 py-2.5 rounded-xl shadow-md shadow-violet-200 dark:shadow-violet-800 transition-all active:scale-95"
             >
               <FontAwesomeIcon icon={faPlus} className="w-4 h-4" />
               Create Trainee
             </Link>
             <Link
               href="/dashboard/create-workout"
-              className="flex items-center gap-2 bg-white hover:bg-gray-50 text-gray-700 border border-gray-200 text-sm font-semibold px-4 py-2.5 rounded-xl shadow-sm transition-all active:scale-95"
+              className="flex items-center gap-2 bg-white dark:bg-indigo-950/50 dark:hover:border-gray-800 dark:hover:bg-indigo-900/50 hover:bg-gray-50 text-gray-700 dark:text-violet-100 border border-gray-200 dark:border-gray-800 text-sm font-semibold px-4 py-2.5 rounded-xl shadow-sm transition-all active:scale-95"
             >
               <FontAwesomeIcon
                 icon={faPlus}

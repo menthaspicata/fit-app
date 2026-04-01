@@ -18,11 +18,11 @@ export function ExerciseBuilder({ allExercises }: Props) {
     <>
       {/* Exercises Builder */}
       <div
-        className="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden
+        className="bg-white dark:bg-slate-900 rounded-2xl border border-gray-100 dark:border-gray-800 shadow-sm overflow-hidden
             lg:col-start-1 lg:row-start-2"
       >
-        <div className="px-6 py-4 border-b border-gray-50 flex items-center justify-between">
-          <h2 className="text-sm font-bold text-gray-800 uppercase tracking-wide">
+        <div className="px-6 py-4 border-b border-gray-50 dark:border-gray-800 flex items-center justify-between">
+          <h2 className="text-sm font-bold text-gray-800 dark:text-violet-100 uppercase tracking-wide">
             Exercises
           </h2>
           {exercises.length > 0 && (
@@ -34,8 +34,8 @@ export function ExerciseBuilder({ allExercises }: Props) {
 
         <div className="px-6 py-5 max-h-[520px] overflow-y-auto">
           {exercises.length === 0 ? (
-            <div className="flex flex-col items-center justify-center py-12 border-2 border-dashed border-gray-200 rounded-2xl">
-              <div className="w-12 h-12 bg-gray-100 rounded-2xl flex items-center justify-center mb-3">
+            <div className="flex flex-col items-center justify-center py-12 border-2 border-dashed border-gray-200 dark:border-gray-700 rounded-2xl">
+              <div className="w-12 h-12 bg-gray-100 dark:bg-slate-800 rounded-2xl flex items-center justify-center mb-3">
                 <FontAwesomeIcon
                   icon={faDumbbell}
                   className="w-6 h-6 text-gray-300"

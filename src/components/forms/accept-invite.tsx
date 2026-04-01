@@ -35,7 +35,7 @@ export function AcceptInviteForm({ token }: { token: string }) {
       </div>
 
       {/* Photo */}
-      <div className="grid">
+      {/* <div className="grid">
         <label htmlFor="photo" className="text-sm font-medium text-gray-700 mb-2">
           Profile photo <span className="text-gray-400 font-normal">(optional)</span>
         </label>
@@ -46,7 +46,7 @@ export function AcceptInviteForm({ token }: { token: string }) {
           accept="image/*"
           className="text-sm text-gray-500 file:mr-4 file:py-1.5 file:px-3 file:rounded-lg file:border-0 file:bg-cyan-50 file:text-cyan-700 hover:file:bg-cyan-100"
         />
-      </div>
+      </div> */}
 
       <Button
         type="submit"

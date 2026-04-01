@@ -34,8 +34,8 @@ export function ExerciseCard({
   const allExDone = doneCount === exSets.length && exSets.length > 0;
 
   return (
-    <div className={`bg-white rounded-2xl border shadow-sm overflow-hidden transition-all ${
-      isActive ? 'border-violet-200 shadow-violet-100' : allExDone ? 'border-emerald-100' : 'border-gray-100'
+    <div className={`bg-white rounded-2xl border shadow-sm overflow-hidden transition-all dark:bg-slate-900 dark:border-gray-800 ${
+      isActive ? 'border-violet-200 ' : allExDone ? 'border-emerald-100' : 'border-gray-100 dark:border-gray-800'
     }`}>
 
       {/* ── Header row (tap to expand/collapse) ── */}
@@ -61,7 +61,7 @@ export function ExerciseCard({
         {/* Name + muscle group */}
         <div className="flex-1 min-w-0">
           <div className="flex items-center gap-2 flex-wrap">
-            <p className={`text-sm font-bold ${allExDone ? 'text-gray-400 line-through' : 'text-gray-800'}`}>
+            <p className={`text-sm font-bold ${allExDone ? 'text-gray-400 line-through' : 'text-gray-800 dark:text-purple-200'}`}>
               {ex.exercise?.name ?? 'Unknown exercise'}
             </p>
             {ex.exercise?.muscleGroup && (
@@ -98,7 +98,7 @@ export function ExerciseCard({
 
       {/* ── Expanded: sets table ── */}
       {isActive && exSets.length > 0 && (
-        <div className="border-t border-gray-50 px-5 pb-4">
+        <div className="border-t border-gray-50 dark:border-slate-600 px-5 pb-4">
 
           {/* Column headers */}
           <div className="grid grid-cols-4 py-2.5 ml-11">
@@ -160,7 +160,7 @@ function SetRow({ set, isDone, onToggle }: { set: WorkoutSetDTO; isDone: boolean
       className={`w-full grid grid-cols-4 items-center rounded-xl px-3 py-2.5 ml-8 transition-all active:scale-[0.98] ${
         isDone
           ? 'bg-emerald-50 border border-emerald-100'
-          : 'bg-gray-50 border border-transparent hover:border-violet-100 hover:bg-violet-50/40'
+          : 'bg-gray-50 dark:bg-slate-800  border border-transparent hover:border-violet-100 dark:hover:border-slate-800 dark:hover:bg-gray-50/10 hover:bg-violet-50/40'
       }`}
       style={{ width: 'calc(100% - 2rem)' }}
     >
@@ -168,11 +168,11 @@ function SetRow({ set, isDone, onToggle }: { set: WorkoutSetDTO; isDone: boolean
         #{set.set_number}
       </span>
       <div className="text-center">
-        <span className={`text-sm font-bold ${isDone ? 'text-emerald-700' : 'text-gray-800'}`}>{set.reps}</span>
+        <span className={`text-sm font-bold ${isDone ? 'text-emerald-700' : 'text-gray-800 dark:text-violet-100'}`}>{set.reps}</span>
         <span className="text-[10px] text-gray-400 ml-1">reps</span>
       </div>
       <div className="text-center">
-        <span className={`text-sm font-bold ${isDone ? 'text-emerald-700' : 'text-gray-800'}`}>{set.weight}</span>
+        <span className={`text-sm font-bold ${isDone ? 'text-emerald-700' : 'text-gray-800 dark:text-violet-100'}`}>{set.weight}</span>
         <span className="text-[10px] text-gray-400 ml-1">kg</span>
       </div>
       <div className="flex justify-center">

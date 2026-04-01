@@ -21,7 +21,7 @@ export function WorkoutExerciseCard({ exerciseId, meta }: Props) {
   if (!entry) return null;
 
   return (
-    <div className="bg-white border border-gray-100 rounded-2xl overflow-hidden shadow-sm">
+    <div className="bg-white border dark:bg-gray-50/10 border-gray-100 dark:border-slate-800 rounded-2xl overflow-hidden shadow-sm">
       <div className="flex items-center gap-3 px-4 py-3 border-b border-gray-50">
         <div
           className={`w-2 h-2 rounded-full flex-shrink-0 ${colors?.dot ?? "bg-gray-300"}`}
@@ -70,7 +70,7 @@ export function WorkoutExerciseCard({ exerciseId, meta }: Props) {
         ))}
         <button
           onClick={() => addSet(exerciseId)}
-          className="w-full cursor-pointer flex items-center justify-center gap-1.5 text-xs font-semibold text-violet-600 hover:text-violet-700 bg-violet-50 hover:bg-violet-100 border border-dashed border-violet-200 rounded-xl py-2 transition-all mt-1"
+          className="w-full cursor-pointer flex items-center justify-center gap-1.5 text-xs font-semibold text-violet-600  hover:text-violet-700 dark:text-violet-200  dark:hover:text-violet-400 bg-violet-50 dark:bg-purple-800/30 hover:bg-violet-100 dark:hover:bg-purple-800/50 border border-dashed border-violet-200 rounded-xl py-2 transition-all mt-1"
         >
           <FontAwesomeIcon icon={faPlus} className="w-3.5 h-3.5" /> Add Set
         </button>

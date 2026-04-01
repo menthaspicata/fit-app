@@ -19,7 +19,7 @@ export function DeleteInviteButton({ id }: { id: string }) {
     return (
       <button
         onClick={() => setConfirming(true)}
-        className="w-8 h-8 rounded-xl hover:bg-red-50 flex items-center justify-center transition-all group"
+        className="w-8 h-8 cursor-pointer rounded-xl hover:bg-red-50 flex items-center justify-center transition-all group"
         title="Delete invite"
       >
         <svg className="w-4 h-4 text-gray-300 group-hover:text-red-400 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -35,7 +35,7 @@ export function DeleteInviteButton({ id }: { id: string }) {
       {/* Cancel */}
       <button
         onClick={() => setConfirming(false)}
-        className="w-7 h-7 rounded-lg bg-gray-100 hover:bg-gray-200 flex items-center justify-center transition-colors"
+        className="w-7 h-7 cursor-pointer rounded-lg bg-gray-100 hover:bg-gray-200 flex items-center justify-center transition-colors"
         title="Cancel"
       >
         <svg className="w-3.5 h-3.5 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -46,7 +46,7 @@ export function DeleteInviteButton({ id }: { id: string }) {
       <button
         onClick={handleDelete}
         disabled={loading}
-        className="w-7 h-7 rounded-lg bg-red-500 hover:bg-red-600 disabled:opacity-60 flex items-center justify-center transition-colors"
+        className="w-7 h-7 cursor-pointer rounded-lg bg-red-500 hover:bg-red-600 disabled:opacity-60 flex items-center justify-center transition-colors"
         title="Confirm delete"
       >
         {loading ? (

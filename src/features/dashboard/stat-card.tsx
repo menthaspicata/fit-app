@@ -19,7 +19,7 @@ export function StatCard({ stat, delay }: { stat: Stat; delay: number }) {
   const c = colorMap[stat.color as keyof typeof colorMap];
 
   return (
-    <div className="bg-white rounded-2xl p-5 border border-gray-100 shadow-sm hover:shadow-md transition-all duration-200 hover:-translate-y-0.5 cursor-default">
+    <div className="bg-white dark:bg-slate-900 rounded-2xl p-5 border border-gray-100 dark:border-gray-800 shadow-sm cursor-default">
       <div className="flex items-start justify-between mb-4">
         <div
           className={`w-10 h-10 ${c.bg} ring-1 ${c.ring} rounded-xl flex items-center justify-center`}
@@ -28,7 +28,7 @@ export function StatCard({ stat, delay }: { stat: Stat; delay: number }) {
         </div>
         <span className={`w-2 h-2 rounded-full ${c.dot} mt-1`} />
       </div>
-      <div className="text-2xl font-bold text-gray-900 mb-0.5">
+      <div className="text-2xl font-bold text-gray-900 dark:text-violet-100 mb-0.5">
         {stat.value}
       </div>
       <div className="text-sm font-medium text-gray-500 mb-1">{stat.label}</div>

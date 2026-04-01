@@ -18,12 +18,12 @@ export function Field({
   const hasError = !!errors?.length;
   return (
     <div className="flex flex-col mb-4">
-      <label htmlFor={id} className="text-sm mb-1">
+      <label htmlFor={id} className="text-sm mb-1 dark:text-gray-500">
         {label}
       </label>
       <input
         className={`outline-none px-4 py-2 rounded-lg border transition-colors focus:ring-2 focus:ring-blue-400
-          bg-white
+          bg-white dark:bg-slate-700  dark:border-slate-600 dark:text-violet-100 dark:focus:ring-slate-600 dark:focus:border-slate-800
            ${
           hasError
             ? 'border-red-400 bg-red-50 focus:ring-red-300'

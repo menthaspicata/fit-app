@@ -11,14 +11,14 @@ interface FinishBarProps {
 
 export function FinishBar({ allDone, doneSets, totalSets, setShowConfirm }: FinishBarProps) {
   return (
-    <div className="fixed bottom-0 left-0 right-0 z-30 px-4 pb-6 pt-3 bg-gradient-to-t from-gray-50 via-gray-50/95 to-transparent pointer-events-none">
+    <div className="absolute bottom-0 left-0 right-0 z-30 px-4 pb-6 pt-3 bg-gradient-to-t from-gray-50 via-gray-50/95 dark:from-slate-950 dark:via-slate-950/95 dark:to-transparent pointer-events-none">
       <div className="max-w-3xl mx-auto pointer-events-auto">
         <button
           onClick={() => setShowConfirm(true)}
-          className={`w-full flex items-center justify-center gap-2.5 font-bold text-sm py-4 rounded-2xl shadow-lg transition-all active:scale-[0.98] ${
+          className={`w-full cursor-pointer flex items-center justify-center gap-2.5 font-bold text-sm py-4 rounded-2xl shadow-lg transition-all active:scale-[0.98] ${
             allDone
-              ? 'bg-emerald-500 hover:bg-emerald-600 text-white shadow-emerald-200'
-              : 'bg-gray-900 hover:bg-gray-800 text-white shadow-gray-300'
+              ? 'bg-emerald-500 hover:bg-emerald-600 text-white'
+              : 'bg-gray-900 hover:bg-gray-800 dark:bg-purple-800 dark:hover:border-gray-800 dark:hover:bg-indigo-900/20 text-white'
           }`}
         >
           <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">

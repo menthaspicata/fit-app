@@ -10,8 +10,8 @@ export const metadata: Metadata = {
 export default function LoginPage() {
   return (
     <main className="flex items-center justify-center">
-      <div className="relative flex w-full flex-col items-center gradient-card rounded-lg border border-neutral-200 py-10 shadow-lg max-w-md">
-        <div className={`flex items-center mb-5 text-2xl ${zalandoSansExpanded.className}`}>
+      <div className="relative flex w-full flex-col items-center gradient-card rounded-lg border border-neutral-200 dark:border-gray-800 py-10 shadow-lg max-w-md">
+        <div className={`flex items-center mb-5 text-2xl dark:text-violet-200 ${zalandoSansExpanded.className}`}>
         <svg width="100" height="100"  fill="none" xmlns="http://www.w3.org/2000/svg">
           <g>
             <g fill="#40009B">
@@ -22,8 +22,9 @@ export default function LoginPage() {
           </g>
         </svg>
             ConnectFit
-        </div>        <h1 className="text-2xl font-bold">Welcome back!</h1>
-        <p className="text-gray-500">Sign in to manage your workouts</p>
+        </div>        
+        <h1 className="text-2xl font-bold dark:text-violet-200">Welcome back!</h1>
+        <p className="text-gray-500 dark:text-gray-300">Sign in to manage your workouts</p>
         <Suspense>
           <LoginForm />
         </Suspense>

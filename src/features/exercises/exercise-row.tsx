@@ -25,9 +25,9 @@ export function SetRow({ exerciseId, set }: { exerciseId: string; set: SetRowPro
             value={set.reps ?? ''}
             placeholder="0"
             onChange={(e) => updateReps(exerciseId, set.setNumber ?? 0, Number(e.target.value))}
-            className="w-full text-sm text-center bg-gray-50 border border-gray-200 rounded-lg py-1.5 pr-8 focus:outline-none focus:border-violet-400 focus:ring-2 focus:ring-violet-100 transition-all"
+            className="w-full text-sm text-center dark:bg-slate-700  dark:border-slate-600 dark:text-violet-100 dark:focus:ring-slate-600 dark:focus:border-slate-800 bg-gray-50 border border-gray-200 rounded-lg py-1.5 pr-8 focus:outline-none focus:border-violet-400 focus:ring-2 focus:ring-violet-100 transition-all"
           />
-          <span className="absolute right-2 top-1/2 -translate-y-1/2 text-[10px] text-gray-400 pointer-events-none">reps</span>
+          <span className="absolute right-2 top-1/2 -translate-y-1/2 text-[10px] text-gray-400  pointer-events-none">reps</span>
         </div>
         <div className="relative">
           <input
@@ -35,7 +35,7 @@ export function SetRow({ exerciseId, set }: { exerciseId: string; set: SetRowPro
             value={set.weight ?? ''}
             placeholder="0"
             onChange={(e) => updateWeight(exerciseId, set.setNumber ?? 0, Number(e.target.value))}
-            className="w-full text-sm text-center bg-gray-50 border border-gray-200 rounded-lg py-1.5 pr-7 focus:outline-none focus:border-violet-400 focus:ring-2 focus:ring-violet-100 transition-all"
+            className="w-full text-sm text-center dark:bg-slate-700  dark:border-slate-600 dark:text-violet-100 dark:focus:ring-slate-600 dark:focus:border-slate-800 bg-gray-50 border border-gray-200 rounded-lg py-1.5 pr-7 focus:outline-none focus:border-violet-400 focus:ring-2 focus:ring-violet-100 transition-all"
           />
           <span className="absolute right-2 top-1/2 -translate-y-1/2 text-[10px] text-gray-400 pointer-events-none">kg</span>
         </div>

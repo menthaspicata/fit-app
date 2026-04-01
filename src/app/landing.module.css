@@ -1,42 +1,77 @@
 /* ─────────────────────────────────────────
-   ConnectFitLanding.module.css
-   Only things Tailwind can't express cleanly:
-   - Multi-stop gradients / mesh backgrounds
-   - Noise texture overlay
-   - Complex pseudo-element effects
-   - Keyframe animations
+   landing.module.css
+   Non-Tailwind styles only:
+   - Radial gradient glows
    - Gradient text clips
+   - Pseudo-element effects
+   - Keyframe animations
    - Scroll-triggered fade-up
+   Light/dark handled via :root / html.dark
 ───────────────────────────────────────── */
 
-/* Google Fonts */
 @import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap');
 
-body {
-  background-color: #0d0a1a;
+/* ── CSS THEME TOKENS ── */
+:root {
+  /* Light theme */
+  --bg-page:        #F5F3FF;
+  --bg-sidebar:     #FFFFFF;
+  --bg-card:        rgba(124, 58, 237, 0.04);
+  --bg-elevated:    #EDE9FE;
+  --border-default: rgba(124, 58, 237, 0.12);
+  --border-focus:   rgba(124, 58, 237, 0.35);
+  --text-primary:   #1A1035;
+  --text-muted:     rgba(80, 50, 140, 0.6);
+  --glow-strong:    rgba(124, 58, 237, 0.14);
+  --glow-soft:      rgba(139, 92, 246, 0.07);
+  --noise-opacity:  0.018;
+  --mockup-bg:      #ECF0F4;
+  --step-bg:        rgba(124, 58, 237, 0.03);
 }
+
+html.dark {
+  /* Dark theme */
+  --bg-page:        #0D0A1A;
+  --bg-sidebar:     #1C1530;
+  --bg-card:        rgba(255, 255, 255, 0.04);
+  --bg-elevated:    #2E2545;
+  --border-default: rgba(255, 255, 255, 0.08);
+  --border-focus:   rgba(124, 58, 237, 0.35);
+  --text-primary:   #F0EDFF;
+  --text-muted:     rgba(220, 210, 255, 0.55);
+  --glow-strong:    rgba(124, 58, 237, 0.22);
+  --glow-soft:      rgba(139, 92, 246, 0.12);
+  --noise-opacity:  0.025;
+  --mockup-bg:      #ECF0F4;
+  --step-bg:        rgba(255, 255, 255, 0.015);
+}
+
 /* ── NOISE OVERLAY ── */
 .noiseOverlay {
   position: fixed;
   inset: 0;
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='1'/%3E%3C/svg%3E");
-  opacity: 0.025;
+  opacity: var(--noise-opacity);
   pointer-events: none;
   z-index: 9999;
 }
 
 /* ── TYPOGRAPHY ── */
-.fontSyne {
-  font-family: 'Syne', sans-serif;
-}
-
-.fontDM {
-  font-family: 'DM Sans', sans-serif;
-}
+.fontSyne { font-family: 'Syne', sans-serif; }
+.fontDM   { font-family: 'DM Sans', sans-serif; }
 
 /* ── GRADIENT TEXT ── */
+/* Dark: white → lavender → purple */
 .gradientText {
   background: linear-gradient(135deg, #ffffff 0%, #c4b5fd 40%, #7c3aed 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Light: deep purple → violet → purple */
+:root .gradientText {
+  background: linear-gradient(135deg, #3B0764 0%, #6D28D9 45%, #7C3AED 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -49,7 +84,14 @@ body {
   background-clip: text;
 }
 
-/* ── HERO RADIAL GLOWS ── */
+:root .gradientTextStat {
+  background: linear-gradient(135deg, #3B0764 0%, #7C3AED 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ── HERO GLOWS ── */
 .heroGlowTop {
   position: absolute;
   top: -200px;
@@ -57,7 +99,7 @@ body {
   transform: translateX(-50%);
   width: 900px;
   height: 700px;
-  background: radial-gradient(ellipse, rgba(124, 58, 237, 0.22) 0%, transparent 65%);
+  background: radial-gradient(ellipse, var(--glow-strong) 0%, transparent 65%);
   pointer-events: none;
 }
 
@@ -67,33 +109,39 @@ body {
   right: -200px;
   width: 600px;
   height: 600px;
-  background: radial-gradient(ellipse, rgba(139, 92, 246, 0.12) 0%, transparent 65%);
+  background: radial-gradient(ellipse, var(--glow-soft) 0%, transparent 65%);
   pointer-events: none;
 }
 
-/* ── FEATURE CARD HOVER GLOW ── */
+.mockupGlow {
+  position: absolute;
+  inset: -60px;
+  background: radial-gradient(ellipse at 50% 40%, var(--glow-strong) 0%, transparent 65%);
+  pointer-events: none;
+}
+
+/* ── FEATURE CARD ── */
 .featureCard {
   position: relative;
   overflow: hidden;
-  transition: border-color 0.3s, transform 0.3s;
+  transition: border-color 0.3s, transform 0.3s, box-shadow 0.3s;
 }
 
 .featureCard::before {
   content: '';
   position: absolute;
   inset: 0;
-  background: radial-gradient(circle at 0% 0%, rgba(124, 58, 237, 0.1) 0%, transparent 60%);
+  background: radial-gradient(circle at 0% 0%, rgba(124, 58, 237, 0.08) 0%, transparent 60%);
   opacity: 0;
   transition: opacity 0.3s;
 }
 
-.featureCard:hover::before {
-  opacity: 1;
-}
+.featureCard:hover::before { opacity: 1; }
 
 .featureCard:hover {
   border-color: rgba(124, 58, 237, 0.3);
   transform: translateY(-3px);
+  box-shadow: 0 12px 40px rgba(124, 58, 237, 0.08);
 }
 
 /* ── STEP VISUAL GLOW ── */
@@ -101,7 +149,7 @@ body {
   content: '';
   position: absolute;
   inset: 0;
-  background: radial-gradient(circle at 50% 50%, rgba(124, 58, 237, 0.18) 0%, transparent 70%);
+  background: radial-gradient(circle at 50% 50%, rgba(124, 58, 237, 0.1) 0%, transparent 70%);
 }
 
 /* ── TESTIMONIAL CARD ── */
@@ -110,10 +158,22 @@ body {
   transition: border-color 0.3s, transform 0.3s, box-shadow 0.3s;
 }
 
+.testimonialCard::before {
+  content: '"';
+  position: absolute;
+  top: 16px;
+  right: 24px;
+  font-family: 'Syne', sans-serif;
+  font-size: 5rem;
+  color: rgba(124, 58, 237, 0.1);
+  line-height: 1;
+  font-weight: 800;
+}
+
 .testimonialCard:hover {
   border-color: rgba(124, 58, 237, 0.3);
   transform: translateY(-4px);
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 20px 60px rgba(124, 58, 237, 0.08);
 }
 
 /* ── CTA BOX GLOW ── */
@@ -125,11 +185,10 @@ body {
   transform: translateX(-50%);
   width: 600px;
   height: 400px;
-  background: radial-gradient(ellipse, rgba(124, 58, 237, 0.2) 0%, transparent 70%);
+  background: radial-gradient(ellipse, rgba(124, 58, 237, 0.15) 0%, transparent 70%);
 }
 
-
-/* ── TIMER PROGRESS BAR ── */
+/* ── TIMER PROGRESS ── */
 .timerProgressFill {
   height: 100%;
   width: 65%;
@@ -146,14 +205,8 @@ body {
 
 /* ── KEYFRAMES ── */
 @keyframes fadeUp {
-  from {
-    opacity: 0;
-    transform: translateY(28px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  from { opacity: 0; transform: translateY(28px); }
+  to   { opacity: 1; transform: translateY(0); }
 }
 
 @keyframes pulse {
@@ -162,26 +215,19 @@ body {
 }
 
 /* ── ANIMATION HELPERS ── */
-.animateFadeUp {
-  animation: fadeUp 0.7s ease both;
-}
+.animateFadeUp    { animation: fadeUp 0.7s ease both; }
+.animateFadeUpD1  { animation: fadeUp 0.7s ease 0.1s both; }
+.animateFadeUpD2  { animation: fadeUp 0.7s ease 0.2s both; }
+.animateFadeUpD3  { animation: fadeUp 0.7s ease 0.3s both; }
+.animateFadeUpD4  { animation: fadeUp 0.7s ease 0.4s both; }
+.badgeDot         { animation: pulse 2s infinite; }
 
-.animateFadeUpD1 { animation: fadeUp 0.7s ease 0.1s both; }
-.animateFadeUpD2 { animation: fadeUp 0.7s ease 0.2s both; }
-.animateFadeUpD3 { animation: fadeUp 0.7s ease 0.3s both; }
-.animateFadeUpD4 { animation: fadeUp 0.7s ease 0.4s both; }
-
-.badgeDot {
-  animation: pulse 2s infinite;
-}
-
-/* ── SCROLL-TRIGGERED FADE-UP ── */
+/* ── SCROLL FADE-UP ── */
 .fadeUp {
   opacity: 0;
   transform: translateY(28px);
   transition: opacity 0.7s ease, transform 0.7s ease;
 }
-
 .fadeUp.visible {
   opacity: 1;
   transform: translateY(0);
@@ -196,18 +242,17 @@ body {
   background: #8b5cf6;
 }
 
-/* ── MOCKUP SCREEN (flex row for sidebar+main) ── */
+/* ── MOCKUP SCREEN ── */
 .mockupScreen {
   display: flex;
-  background: #ecf0f4;
+  background: var(--mockup-bg);
   min-height: 460px;
 }
 
-/* ── NAV BUTTON HOVER ── */
+/* ── BUTTON TRANSITIONS ── */
 .btnPrimary {
   transition: background 0.25s, box-shadow 0.25s, transform 0.25s;
 }
-
 .btnPrimary:hover {
   background: #8b5cf6;
   box-shadow: 0 0 24px rgba(124, 58, 237, 0.45);
@@ -217,18 +262,34 @@ body {
 .btnHero {
   transition: background 0.25s, box-shadow 0.25s, transform 0.25s;
 }
-
 .btnHero:hover {
   background: #8b5cf6;
   box-shadow: 0 0 40px rgba(124, 58, 237, 0.5);
   transform: translateY(-2px);
 }
 
-/* ── STAT ITEM ── */
+/* ── STAT ITEM HOVER ── */
 .statItem {
   transition: background 0.2s;
 }
-
 .statItem:hover {
   background: rgba(124, 58, 237, 0.07);
+}
+
+/* ── THEME TOGGLE BUTTON ── */
+.themeToggle {
+  transition: background 0.2s, border-color 0.2s, transform 0.15s;
+}
+.themeToggle:hover {
+  transform: scale(1.08);
+}
+
+/* ── THEME TOGGLE TRACK ── */
+.toggleTrack {
+  transition: background 0.3s;
+}
+
+/* ── TOGGLE THUMB TRANSITION ── */
+.toggleThumb {
+  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
 }

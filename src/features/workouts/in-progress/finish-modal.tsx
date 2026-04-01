@@ -39,7 +39,7 @@ export function FinishModal({
         onClick={() => setShowConfirm(false)}
       />
 
-      <div className="relative bg-white rounded-2xl shadow-xl w-full max-w-sm overflow-hidden">
+      <div className="relative bg-white dark:bg-slate-900 dark:border-gray-800 rounded-2xl shadow-xl w-full max-w-sm overflow-hidden">
         <div className="px-6 pt-6 pb-2">
 
           {/* Icon */}
@@ -55,10 +55,10 @@ export function FinishModal({
             )}
           </div>
 
-          <h3 className="text-base font-bold text-gray-900 text-center">
+          <h3 className="text-base font-bold text-gray-900 dark:text-violet-100 text-center">
             {allDone ? 'Great work! 💪' : 'Finish early?'}
           </h3>
-          <p className="text-sm text-gray-500 text-center mt-1.5 mb-4">
+          <p className="text-sm text-gray-500 dark:text-gray-300 text-center mt-1.5 mb-4">
             {allDone
               ? `You completed all ${totalSets} sets in ${fmtDuration(elapsed)}.`
               : `You've completed ${doneSets} of ${totalSets} sets. Finish anyway?`}
@@ -71,25 +71,25 @@ export function FinishModal({
               { label: 'Duration',   value: fmtDuration(elapsed) },
               { label: 'Exercises',  value: `${exercisesDoneCount}/${exercises.length}` },
             ].map((s) => (
-              <div key={s.label} className="text-center bg-gray-50 rounded-xl py-2.5">
-                <p className="text-sm font-bold text-gray-800">{s.value}</p>
-                <p className="text-[9px] text-gray-400 uppercase tracking-wide mt-0.5">{s.label}</p>
+              <div key={s.label} className="text-center bg-gray-50 dark:bg-slate-800 rounded-xl py-2.5">
+                <p className="text-sm font-bold text-gray-800 dark:text-purple-200">{s.value}</p>
+                <p className="text-[9px] text-gray-400 dark:text-gray-300 uppercase tracking-wide mt-0.5">{s.label}</p>
               </div>
             ))}
           </div>
         </div>
 
-        <div className="grid grid-cols-2 border-t border-gray-100">
+        <div className="grid grid-cols-2 border-t border-gray-100 dark:border-gray-800">
           <button
             onClick={() => setShowConfirm(false)}
-            className="py-4 text-sm font-semibold text-gray-500 hover:bg-gray-50 transition-colors"
+            className="py-4 text-sm font-semibold text-gray-500 hover:bg-gray-50 transition-colors cursor-pointer dark:hover:border-gray-800 dark:hover:bg-indigo-900/20"
           >
             Keep Going
           </button>
           <button
             onClick={onConfirm}
             disabled={saving}
-            className="py-4 text-sm font-bold text-white bg-violet-600 hover:bg-violet-700 disabled:opacity-60 transition-colors"
+            className="cursor-pointer py-4 text-sm font-bold text-white bg-violet-600 hover:bg-violet-700 disabled:opacity-60 transition-colors"
           >
             {saving ? 'Saving…' : 'Save & Finish'}
           </button>

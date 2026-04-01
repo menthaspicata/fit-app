@@ -1,5 +1,7 @@
 @import "tailwindcss";
 
+@custom-variant dark (&:where(.dark *));
+
 /* :root {
   --background: #ffffff;
   --foreground: #171717;
@@ -30,10 +32,7 @@
   }
 }
 
-:root[data-theme="dark"] {
-  /* --bg-color: #1a1a1a;
-  --text-color: #f0f0f0; */
-}
+
 
 html,
 body {
@@ -42,8 +41,8 @@ body {
 }
 
 body {
-  color: var(--foreground);
-  background: var(--color-light-primary);
+  /* color: var(--foreground);
+  background: var(--color-light-primary); */
   font-family: Arial, Helvetica, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -51,6 +50,7 @@ body {
 
 * {
   box-sizing: border-box;
+  transition: background-color 0.2s ease, color 0.2s ease;
 }
 
 a {
@@ -60,6 +60,10 @@ a {
 @media (prefers-color-scheme: dark) {
   html {
     color-scheme: dark;
+  }
+  .gradient-card {
+    background: #0F172B;
+    background: linear-gradient(150deg, rgba(15, 23, 43, 1) 0%, rgba(49, 65, 88, 1) 100%);
   }
 }
 
@@ -102,7 +106,7 @@ a {
   background: linear-gradient(151deg, rgba(234, 230, 249, 1) 0%, rgba(251, 251, 251, 1) 100%);
 }
 
-button > a {
+button>a {
   display: flex;
   align-items: center;
   height: inherit;
@@ -112,4 +116,18 @@ button > a {
 .gradient-card {
   background: #EAE6F9;
   background: linear-gradient(151deg, rgba(234, 230, 249, 1) 0%, rgba(251, 251, 251, 1) 100%);
+}
+
+:root[data-theme="dark"] {
+  .gradient-card {
+    background: #0F172B;
+    background: linear-gradient(150deg, rgba(15, 23, 43, 1) 0%, rgba(49, 65, 88, 1) 100%);
+  }
+}
+
+html[class="dark"] {
+  .gradient-card {
+    background: #0F172B;
+    background: linear-gradient(150deg, rgba(15, 23, 43, 1) 0%, rgba(49, 65, 88, 1) 100%);
+  }
 }

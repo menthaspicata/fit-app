@@ -5,7 +5,7 @@ import { initials, avatarGradient } from '@/features/helpers';
 export function TraineeCard({ trainee: trainee }: { trainee: any }) {
   return (
     <Link href={`/dashboard/trainees/${trainee.id}`}
-      className="group block cursor-pointer w-full text-left bg-white hover:bg-slate-100 border border-slate-400/50 hover:border-violet-500/60 rounded-2xl p-5 transition-all duration-300 hover:shadow-[0_0_30px_rgba(139,92,246,0.15)] hover:-translate-y-0.5 backdrop-blur-sm"
+      className="group block cursor-pointer w-full text-left bg-white hover:bg-slate-100  dark:bg-gray-800 dark:hover:bg-gray-50/10 border border-slate-400/50 hover:border-violet-500/60 rounded-2xl p-5 transition-all duration-300 hover:shadow-[0_0_30px_rgba(139,92,246,0.15)] hover:-translate-y-0.5 backdrop-blur-sm"
     >
       <div className="flex items-start gap-4">
         {/* Avatar */}
@@ -21,7 +21,7 @@ export function TraineeCard({ trainee: trainee }: { trainee: any }) {
         {/* Info */}
         <div className="flex-1 min-w-0">
           <div className="flex items-center justify-between mb-0.5">
-            <h3 className="font-semibold dark:text-white text-sm truncate group-hover:text-violet-300 transition-colors">{trainee.name}</h3>
+            <h3 className="font-semibold dark:text-white text-sm truncate group-hover:text-violet-300  transition-colors">{trainee.name}</h3>
             <svg className="w-4 h-4 text-slate-600 group-hover:text-violet-400 transition-colors flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" /></svg>
           </div>
           <p className="text-xs text-slate-500 truncate mb-3">{trainee.email}</p>

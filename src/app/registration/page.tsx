@@ -11,8 +11,8 @@ export const metadata: Metadata = {
 export default function RegistrationPage() {
   return (
     <main className="flex items-center justify-center">
-      <div className='relative flex w-full flex-col items-center gradient-card rounded-lg border border-neutral-200 py-10 shadow-lg max-w-md'>
-        <div className={`flex items-center mb-5 text-2xl ${zalandoSansExpanded.className}`}>
+      <div className='relative flex w-full flex-col items-center gradient-card rounded-lg border border-neutral-200 dark:border-gray-800 py-10 shadow-lg max-w-md'>
+        <div className={`flex items-center mb-5 text-2xl dark:text-violet-200 ${zalandoSansExpanded.className}`}>
         <svg width="100" height="100"  fill="none" xmlns="http://www.w3.org/2000/svg">
           <g>
             <g fill="#40009B">
@@ -25,7 +25,7 @@ export default function RegistrationPage() {
           ConnectFit
         </div>
         
-                <h1 className="mb-3 text-2xl">Create an account</h1>
+        <h1 className="mb-3 text-2xl dark:text-violet-200">Create an account</h1>
         <Suspense>
           <RegistrationForm />
         </Suspense>
