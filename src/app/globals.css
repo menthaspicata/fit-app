@@ -24,7 +24,14 @@ input, textarea, select {
 
 .dark input, .dark textarea, .dark select {
   color-scheme: dark;         /* only dark when your app says so */
+  
 }
+
+input, textarea, select {
+  -webkit-appearance: none;
+  appearance: none;
+}
+
 
 * {
   box-sizing: border-box;
