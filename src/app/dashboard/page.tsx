@@ -24,9 +24,9 @@ export default async function Page() {
   ]);
 
   const STATS = [
-    { label: "Total Trainees",   value: stats.totalTrainees,  icon: faUsers,    color: "violet" },
-    { label: "Active Workouts",  value: stats.activeWorkouts, icon: faDumbbell, color: "purple" },
-    { label: "Workouts Today",   value: stats.workoutsToday,  icon: faChartBar, color: "indigo" },
+    { label: "Total Trainees",   value: stats.totalTrainees,  icon: faUsers,    color: "violet", trainee: false },
+    { label: "Active Workouts",  value: stats.activeWorkouts, icon: faDumbbell, color: "purple", trainee: true },
+    { label: "Workouts Today",   value: stats.workoutsToday,  icon: faChartBar, color: "indigo", trainee: true },
   ] as const;
 
   return (
@@ -62,7 +62,9 @@ export default async function Page() {
       {/* Stat Cards */}
       <div className="grid grid-cols-3 gap-3 mb-6">
         {STATS.map((s, i) => (
-          <StatCard key={i} stat={s} delay={i} />
+           (userData?.role?.toLocaleLowerCase() === "trainee" && s.trainee) || (userData?.role === "trainer") ? (
+            <StatCard key={i} stat={s} delay={i} />
+          ) : null
         ))}
       </div>
 

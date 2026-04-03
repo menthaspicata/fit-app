@@ -1,8 +1,8 @@
-'use server';
+"use server";
 
-import { z } from 'zod';
-import { prisma } from '@/lib/prisma'
-import { getServerSession } from '@/lib/getSession';
+import { z } from "zod";
+import { prisma } from "@/lib/prisma";
+import { getServerSession } from "@/lib/getSession";
 
 export type State = {
   errors?: {
@@ -20,28 +20,31 @@ const createWorkoutDataForm = z.object({
   date: z.date(),
   created_at: z.date(),
   exercises: z.array(z.any()),
-  traineeId: z.string().optional().nullable(), 
+  traineeId: z.string().optional().nullable(),
 });
 
 const createWorkoutData = createWorkoutDataForm;
 
-export async function createWorkout(prevState: State, formData: FormData): Promise<State> {
-  const session = await getServerSession()
-  const userId = session?.user.id
+export async function createWorkout(
+  prevState: State,
+  formData: FormData,
+): Promise<State> {
+  const session = await getServerSession();
+  const userId = session?.user.id;
   const workoutFields = createWorkoutData.safeParse({
     userId: userId,
-    name: formData.get('workout-name'),
-    notes: formData.get('workout-notes'),
-    traineeId: formData.get('trainee-id') || null,
+    name: formData.get("workout-name"),
+    notes: formData.get("workout-notes"),
+    traineeId: formData.get("trainee-id") || null,
     created_at: new Date(),
-    date: new Date(formData.get('workout-date') as string),
-    exercises: JSON.parse(formData.get('exercises') as string),
+    date: new Date(formData.get("workout-date") as string),
+    exercises: JSON.parse(formData.get("exercises") as string),
   });
 
   if (!workoutFields.success) {
     return {
       errors: workoutFields.error.flatten().fieldErrors, // TODO: map Zod errors to State errors
-      message: 'Missing Fields. Failed to Create Workout.',
+      message: "Missing Fields. Failed to Create Workout.",
     };
   }
 
@@ -64,29 +67,31 @@ export async function createWorkout(prevState: State, formData: FormData): Promi
               workoutId: workout.id,
               exerciseId: ex.exerciseId,
             },
-          })
-        )
+          }),
+        ),
       );
 
       await tx.workoutSet.createMany({
         data: workoutExercises.flatMap((we, exIndex) =>
-          workoutFields.data.exercises[exIndex].sets.map((set: { reps: number; weight: number }, setIndex: number) => ({
-        workoutExerciseId: we.id,
-        set_number: setIndex + 1,
-        reps: set.reps,
-        weight: set.weight,
-        order_number: setIndex,
-          }))
+          workoutFields.data.exercises[exIndex].sets.map(
+            (set: { reps: number; weight: number }, setIndex: number) => ({
+              workoutExerciseId: we.id,
+              set_number: setIndex + 1,
+              reps: set.reps,
+              weight: set.weight,
+              order_number: setIndex,
+            }),
+          ),
         ),
       });
 
       if (workoutFields.data.traineeId) {
         await tx.userWorkout.create({
           data: {
-            userId: workoutFields.data.traineeId,   // the trainee
+            userId: workoutFields.data.traineeId, // the trainee
             workoutId: workout.id,
-            assignedBy: workoutFields.data.userId,  // the trainer
-            status: 'assigned',
+            assignedBy: workoutFields.data.userId, // the trainer
+            status: "assigned",
             startDate: workoutFields.data.date,
           },
         });
@@ -95,57 +100,67 @@ export async function createWorkout(prevState: State, formData: FormData): Promi
 
     return {
       errors: {},
-      message: 'Workout created successfully.',
-        success: true,
+      message: "Workout created successfully.",
+      success: true,
     };
   } catch (error) {
     console.error(error);
     return {
       errors: {},
-      message: 'Database Error: Failed to Create Workout.',
+      message: "Database Error: Failed to Create Workout.",
     };
   }
 }
 
 export async function updateWorkoutStatus(
   workoutId: string,
-  status: 'assigned' | 'in_progress' | 'completed'
+  status: "assigned" | "in_progress" | "completed",
 ): Promise<{ success: boolean; message: string }> {
   const session = await getServerSession();
   const userId = session?.user.id;
-  if (!userId) return { success: false, message: 'Not authenticated.' };
+  if (!userId) return { success: false, message: "Not authenticated." };
 
   const workout = await prisma.workout.findUnique({ where: { id: workoutId } });
-  if (!workout) return { success: false, message: 'Workout not found.' };
-  if (workout.userId !== userId) return { success: false, message: 'Not authorized.' };
+  if (!workout) return { success: false, message: "Workout not found." };
+  if (workout.userId !== userId)
+    return { success: false, message: "Not authorized." };
 
   await prisma.userWorkout.updateMany({
     where: { workoutId },
     data: { status },
   });
 
-  return { success: true, message: 'Status updated.' };
+  return { success: true, message: "Status updated." };
 }
 
-export async function updateWorkout(workoutId: string, prevState: State, formData: FormData): Promise<State> {
+export async function updateWorkout(
+  workoutId: string,
+  prevState: State,
+  formData: FormData,
+): Promise<State> {
   const session = await getServerSession();
   const userId = session?.user.id;
 
   const workout = await prisma.workout.findUnique({ where: { id: workoutId } });
-  if (!workout) return { errors: {}, message: 'Workout not found.' };
-  if (workout.userId !== userId) return { errors: {}, message: 'Not authorized.' };
+  if (!workout) return { errors: {}, message: "Workout not found." };
+  if (workout.userId !== userId)
+    return { errors: {}, message: "Not authorized." };
 
   const fields = createWorkoutData.safeParse({
     userId,
-    name: formData.get('workout-name'),
-    notes: formData.get('workout-notes'),
-    traineeId: formData.get('trainee-id') || null,
+    name: formData.get("workout-name"),
+    notes: formData.get("workout-notes"),
+    traineeId: formData.get("trainee-id") || null,
     created_at: new Date(),
-    date: new Date(formData.get('workout-date') as string),
-    exercises: JSON.parse(formData.get('exercises') as string),
+    date: new Date(formData.get("workout-date") as string),
+    exercises: JSON.parse(formData.get("exercises") as string),
   });
 
-  if (!fields.success) return { errors: fields.error.flatten().fieldErrors, message: 'Missing Fields.' };
+  if (!fields.success)
+    return {
+      errors: fields.error.flatten().fieldErrors,
+      message: "Missing Fields.",
+    };
 
   try {
     await prisma.$transaction(async (tx) => {
@@ -159,25 +174,33 @@ export async function updateWorkout(workoutId: string, prevState: State, formDat
       });
 
       // Replace exercises + sets
-      const existing = await tx.workoutExercise.findMany({ where: { workoutId } });
-      await tx.workoutSet.deleteMany({ where: { workoutExerciseId: { in: existing.map((e) => e.id) } } });
+      const existing = await tx.workoutExercise.findMany({
+        where: { workoutId },
+      });
+      await tx.workoutSet.deleteMany({
+        where: { workoutExerciseId: { in: existing.map((e) => e.id) } },
+      });
       await tx.workoutExercise.deleteMany({ where: { workoutId } });
 
       const workoutExercises = await Promise.all(
         fields.data.exercises.map((ex) =>
-          tx.workoutExercise.create({ data: { workoutId, exerciseId: ex.exerciseId } })
-        )
+          tx.workoutExercise.create({
+            data: { workoutId, exerciseId: ex.exerciseId },
+          }),
+        ),
       );
 
       await tx.workoutSet.createMany({
         data: workoutExercises.flatMap((we, i) =>
-          fields.data.exercises[i].sets.map((set: { reps: number; weight: number }, j: number) => ({
-            workoutExerciseId: we.id,
-            set_number: j + 1,
-            reps: set.reps,
-            weight: set.weight,
-            order_number: j,
-          }))
+          fields.data.exercises[i].sets.map(
+            (set: { reps: number; weight: number }, j: number) => ({
+              workoutExerciseId: we.id,
+              set_number: j + 1,
+              reps: set.reps,
+              weight: set.weight,
+              order_number: j,
+            }),
+          ),
         ),
       });
 
@@ -189,23 +212,27 @@ export async function updateWorkout(workoutId: string, prevState: State, formDat
             userId: fields.data.traineeId,
             workoutId,
             assignedBy: userId!,
-            status: 'assigned',
+            status: "assigned",
             startDate: fields.data.date,
           },
         });
       }
     });
 
-    return { errors: {}, message: 'Workout updated successfully.', success: true };
+    return {
+      errors: {},
+      message: "Workout updated successfully.",
+      success: true,
+    };
   } catch (error) {
     console.error(error);
-    return { errors: {}, message: 'Database Error: Failed to Update Workout.' };
+    return { errors: {}, message: "Database Error: Failed to Update Workout." };
   }
 }
 
 export async function fetchTrainingsByDate(day: string) {
-  const session = await getServerSession()
-  const userId = session?.user.id
+  const session = await getServerSession();
+  const userId = session?.user.id;
   const start = new Date(`${day}T00:00:00.000Z`);
   const end = new Date(start);
   end.setUTCDate(end.getUTCDate() + 1);
@@ -226,38 +253,63 @@ export async function getAllWorkouts() {
   const session = await getServerSession();
   const userId = session?.user.id;
 
-  return await prisma.workout.findMany({
-    where: {
-      userId: userId,
-    },
+  // Fetch workouts created by the user (as trainer)
+  const ownWorkouts = await prisma.workout.findMany({
+    where: { userId },
     include: {
       userWorkouts: {
         include: {
-          user: {  // the trainee
-            select: { id: true, name: true },
+          user: { select: { id: true, name: true } },
+        },
+      },
+    },
+    orderBy: { createdAt: "desc" },
+  });
+
+  // Fetch workouts assigned to the user (as trainee)
+  const assignedUserWorkouts = await prisma.userWorkout.findMany({
+    where: { userId },
+    include: {
+      workout: {
+        include: {
+          userWorkouts: {
+            include: {
+              user: { select: { id: true, name: true } },
+            },
           },
         },
       },
     },
-    orderBy: [
-      {
-        createdAt: "desc",
-      },
-  ],
+    orderBy: { startDate: "desc" },
   });
+
+  const assignedWorkouts = assignedUserWorkouts
+    .map((uw) => uw.workout)
+    .filter((w): w is NonNullable<typeof w> => w !== null);
+
+  // Merge and de-duplicate (a trainer's own workout could also be assigned to themselves)
+  const ownWorkoutIds = new Set(ownWorkouts.map((w) => w.id));
+  const uniqueAssigned = assignedWorkouts.filter(
+    (w) => !ownWorkoutIds.has(w.id),
+  );
+
+  return [...ownWorkouts, ...uniqueAssigned].sort(
+    (a, b) =>
+      new Date(b.createdAt ?? 0).getTime() -
+      new Date(a.createdAt ?? 0).getTime(),
+  );
 }
 
-export async function getTrainerWorkoutsByDate(trainerId: string, date: string) {
+
+export async function getWorkoutsByDate(userId: string, date: string) {
   const startOfDay = new Date(`${date}T00:00:00`);
   const endOfDay = new Date(`${date}T23:59:59.999`);
 
-  const userWorkouts = await prisma.userWorkout.findMany({
+  // Workouts assigned BY this user (trainer view)
+  const assignedByUser = await prisma.userWorkout.findMany({
     where: {
-      assignedBy: trainerId,
-      startDate: {
-        gte: startOfDay,
-        lte: endOfDay,
-      },
+      assignedBy: userId,
+      startDate: { gte: startOfDay, lte: endOfDay },
     },
     include: {
       user: true,
@@ -265,7 +317,27 @@ export async function getTrainerWorkoutsByDate(trainerId: string, date: string) 
     },
   });
 
-  return userWorkouts;
+  // Workouts assigned TO this user (trainee view)
+  const assignedToUser = await prisma.userWorkout.findMany({
+    where: {
+      userId,
+      startDate: { gte: startOfDay, lte: endOfDay },
+    },
+    include: {
+      user: true,
+      workout: true,
+    },
+  });
+
+  // De-duplicate in case the same UserWorkout appears in both
+  const seen = new Set<string>();
+  const merged = [...assignedByUser, ...assignedToUser].filter((uw) => {
+    if (seen.has(uw.id)) return false;
+    seen.add(uw.id);
+    return true;
+  });
+
+  return merged;
 }
 
 // Query Workout by ID
@@ -275,7 +347,8 @@ export async function getWorkoutById(workoutId: string) {
     include: {
       userWorkouts: {
         include: {
-          user: {  // the trainee
+          user: {
+            // the trainee
             select: { id: true, name: true },
           },
         },
@@ -306,7 +379,7 @@ export async function getWorkoutExercises(workoutId: string) {
           workoutExerciseId: we.id,
         },
         orderBy: {
-          set_number: 'asc',
+          set_number: "asc",
         },
       });
 
@@ -315,39 +388,49 @@ export async function getWorkoutExercises(workoutId: string) {
         exercise,
         sets,
       };
-    })
+    }),
   );
 }
 
-// Delete Workout 
+// Delete Workout
 
-export async function deleteWorkout(workoutId: string): Promise<{ success: boolean; message: string }> {
+export async function deleteWorkout(
+  workoutId: string,
+): Promise<{ success: boolean; message: string }> {
   const session = await getServerSession();
   const userId = session?.user.id;
- 
-  if (!userId) return { success: false, message: 'Not authenticated.' };
- 
+
+  if (!userId) return { success: false, message: "Not authenticated." };
+
   // Verify the workout belongs to the requesting trainer
   const workout = await prisma.workout.findUnique({ where: { id: workoutId } });
-  if (!workout) return { success: false, message: 'Workout not found.' };
-  if (workout.userId !== userId) return { success: false, message: 'Not authorized.' };
- 
+  if (!workout) return { success: false, message: "Workout not found." };
+  if (workout.userId !== userId)
+    return { success: false, message: "Not authorized." };
+
   try {
     await prisma.$transaction(async (tx) => {
       // Delete sets → exercises → assignments → workout (in dependency order)
-      const workoutExercises = await tx.workoutExercise.findMany({ where: { workoutId } });
+      const workoutExercises = await tx.workoutExercise.findMany({
+        where: { workoutId },
+      });
       await tx.workoutSet.deleteMany({
-        where: { workoutExerciseId: { in: workoutExercises.map((we) => we.id) } },
+        where: {
+          workoutExerciseId: { in: workoutExercises.map((we) => we.id) },
+        },
       });
       await tx.workoutExercise.deleteMany({ where: { workoutId } });
       await tx.userWorkout.deleteMany({ where: { workoutId } });
       await tx.workout.delete({ where: { id: workoutId } });
     });
- 
-    return { success: true, message: 'Workout deleted successfully.' };
+
+    return { success: true, message: "Workout deleted successfully." };
   } catch (error) {
     console.error(error);
-    return { success: false, message: 'Database error: failed to delete workout.' };
+    return {
+      success: false,
+      message: "Database error: failed to delete workout.",
+    };
   }
 }
 
@@ -356,7 +439,7 @@ export async function getDashboardStats() {
   const userId = session?.user.id;
   if (!userId) return { totalTrainees: 0, activeWorkouts: 0, workoutsToday: 0 };
 
-  const today = new Date().toISOString().split('T')[0];
+  const today = new Date().toISOString().split("T")[0];
   const startOfDay = new Date(`${today}T00:00:00.000Z`);
   const endOfDay = new Date(`${today}T23:59:59.999Z`);
 
@@ -369,7 +452,7 @@ export async function getDashboardStats() {
     prisma.userWorkout.count({
       where: {
         assignedBy: userId,
-        status: { in: ['assigned', 'in_progress'] },
+        status: { in: ["assigned", "in_progress"] },
       },
     }),
     // Workouts assigned by trainer scheduled for today
@@ -387,21 +470,22 @@ export async function getDashboardStats() {
 // Workout in progress
 export async function completeWorkout(
   workoutId: string,
-  userId: string
+  userId: string,
 ): Promise<{ success: boolean; message: string }> {
   const assignment = await prisma.userWorkout.findFirst({
     where: { workoutId, userId },
   });
 
-  if (!assignment) return { success: false, message: 'Workout assignment not found.' };
+  if (!assignment)
+    return { success: false, message: "Workout assignment not found." };
 
   await prisma.userWorkout.updateMany({
     where: { workoutId, userId },
     data: {
-      status: 'completed',
+      status: "completed",
       endDate: new Date(),
     },
   });
 
-  return { success: true, message: 'Workout completed.' };
+  return { success: true, message: "Workout completed." };
 }

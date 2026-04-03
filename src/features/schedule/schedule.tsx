@@ -1,6 +1,6 @@
 "use client";
 
-import { getTrainerWorkoutsByDate } from "@/lib/actions/workout";
+import { getWorkoutsByDate } from "@/lib/actions/workout";
 import { useState, useEffect, useRef } from "react";
 import { Calendar } from "@/components/ui/calendar";
 import Link from "next/link";
@@ -55,7 +55,7 @@ export default function Schedule() {
   useEffect(() => {
     if (!user?.id) return;
     setIsLoading(true);
-    getTrainerWorkoutsByDate(user.id, getLocalDayKey(selectedDate)).then(
+    getWorkoutsByDate(user.id, getLocalDayKey(selectedDate)).then(
       (result) => {
         setWorkouts(result);
         setIsLoading(false);
