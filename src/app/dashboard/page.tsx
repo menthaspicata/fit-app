@@ -32,7 +32,7 @@ export default async function Page() {
   return (
     <main>
       <div className="flex justify-between items-center  mb-3">
-        <h1 className="text-xl md:text-2xl justify-self-start dark:text-violet-200">
+        <h1 className="text-xl md:text-2xl justify-self-start text-gray-700 dark:text-violet-200">
           Welcome, {userData?.name} 👋
         </h1>
 

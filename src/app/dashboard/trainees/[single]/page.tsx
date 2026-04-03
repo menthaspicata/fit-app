@@ -36,7 +36,7 @@ async function TraineeDetail({ single }: { single: string }) {
             {trainee.image ? <img src={trainee.image} alt={trainee.name} className="w-full h-full object-cover rounded-2xl" /> : initials(trainee.name)}
           </div>
           <div className="flex-1">
-            <h2 className="text-xl font-bold dark:text-white">{trainee.name}</h2>
+            <h2 className="text-xl font-bold text-gray-700 dark:text-white">{trainee.name}</h2>
             <p className="text-slate-400 text-sm">{trainee.email}</p>
             <div className="flex items-center gap-2 mt-1">
               <span className={`text-xs px-2 py-0.5 rounded-full ${trainee.emailVerified ? "bg-emerald-500/20 text-emerald-600" : "bg-amber-500/20 text-amber-400"}`}>

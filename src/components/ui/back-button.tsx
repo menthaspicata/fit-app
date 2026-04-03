@@ -22,7 +22,7 @@ export function BackButton({ href }: BackButtonProps) {
   return (
     <button 
       onClick={handleClick}
-      className="w-9 h-9 mr-5 cursor-pointer dark:text-violet-50 bg-white dark:bg-slate-900 border border-gray-200 dark:border-gray-800 rounded-xl flex items-center justify-center hover:border-violet-300 dark:hover:border-gray-800 dark:hover:bg-indigo-900 shadow-sm transition-colors flex-shrink-0"
+      className="w-9 h-9 mr-5 cursor-pointer text-gray-800 dark:text-violet-50 bg-white dark:bg-slate-900 border border-gray-200 dark:border-gray-800 rounded-xl flex items-center justify-center hover:border-violet-300 dark:hover:border-gray-800 dark:hover:bg-indigo-900 shadow-sm transition-colors flex-shrink-0"
     >
       <FontAwesomeIcon icon={faAngleLeft} />
     </button>
